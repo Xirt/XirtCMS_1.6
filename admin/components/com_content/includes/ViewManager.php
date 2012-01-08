@@ -5,7 +5,7 @@
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class ViewManager {
@@ -17,8 +17,8 @@ class ViewManager {
       global $xCom, $xLang;
 
       $optionList = array(
-         $xCom->xLang->oHideItem,
-         $xCom->xLang->oShowItem
+         $xCom->xLang->options['hideItem'],
+         $xCom->xLang->options['showItem']
       );
 
       // Show template
@@ -28,6 +28,7 @@ class ViewManager {
       $tpl->assign('xConf', $xCom->xConf);
       $tpl->assign('optionList', $optionList);
       $tpl->display('main.tpl');
+
    }
 
 
@@ -58,5 +59,4 @@ class ViewManager {
    }
 
 }
-
 ?>

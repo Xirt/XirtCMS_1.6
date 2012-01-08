@@ -1,54 +1,54 @@
 <form action='index.php' method='post' class='xForm' id='xForm'>
 
-<h1>{$xLang->title}</h1>
+<h1>{$xLang->titles['component']}</h1>
 
 <fieldset class='box-form'>
 
-   <legend>{$xLang->editSettings}</legend>
+   <legend>{$xLang->headers['editSettings']}</legend>
 
    <hr />
 
-   <label for='item_css_name'>{$xLang->lCSSName}</label>
+   <label for='item_css_name'>{$xLang->labels['CSSName']}</label>
    <input type='text' name=item_css_name value='{$xConf->css_name}' maxlength='64' class='validate-simple' />
 
    <br />
 
-   <label for='item_show_title'>{$xLang->lShowTitle}</label>
+   <label for='item_show_title'>{$xLang->labels['showTitle']}</label>
    {html_options name=item_show_title id=item_show_title options=$optionList selected=$xConf->show_title}
 
    <br />
 
-   <label for='item_show_author'>{$xLang->lShowAuthor}</label>
+   <label for='item_show_author'>{$xLang->labels['showAuthor']}</label>
    {html_options name=item_show_author id=item_show_author options=$optionList selected=$xConf->show_author}
 
    <br />
 
-   <label for='item_show_created'>{$xLang->lShowCreated}</label>
+   <label for='item_show_created'>{$xLang->labels['showCreated']}</label>
    {html_options name=item_show_created id=item_show_created options=$optionList selected=$xConf->show_created}
 
    <br />
 
-   <label for='item_show_modified'>{$xLang->lShowModified}</label>
+   <label for='item_show_modified'>{$xLang->labels['showModified']}</label>
    {html_options name=item_show_modified id=item_show_modified options=$optionList selected=$xConf->show_modified}
 
    <br />
 
-   <label for='item_back_icon'>{$xLang->lBackIcon}</label>
+   <label for='item_back_icon'>{$xLang->labels['backIcon']}</label>
    {html_options name=item_back_icon id=item_back_icon options=$optionList selected=$xConf->back_icon}
 
    <br />
 
-   <label for='item_download_icon'>{$xLang->lDownloadIcon}</label>
+   <label for='item_download_icon'>{$xLang->labels['downloadIcon']}</label>
    {html_options name=item_download_icon id=item_download_icon options=$optionList selected=$xConf->download_icon}
 
    <br />
 
-   <label for='item_print_icon'>{$xLang->lPrintIcon}</label>
+   <label for='item_print_icon'>{$xLang->labels['printIcon']}</label>
    {html_options name=item_print_icon id=item_print_icon options=$optionList selected=$xConf->print_icon}
 
    <br />
 
-   <label for='item_mail_icon'>{$xLang->lMailIcon}</label>
+   <label for='item_mail_icon'>{$xLang->labels['mailIcon']}</label>
    {html_options name=item_mail_icon id=item_mail_icon options=$optionList selected=$xConf->mail_icon}
 
    <hr />
@@ -58,8 +58,8 @@
       <input type='hidden' name='content' value='com_content' />
       <input type='hidden' name='task' value='save' />
 
-      <button type='submit' class='save left green'>{$xLang->bSave}</button>
-      <button type='button' class='reset right red' id='xReset'>{$xLang->bReset}</button>
+      <button type='submit' class='save left green'>{$xLang->buttons['save']}</button>
+      <button type='button' class='reset right red' id='xReset'>{$xLang->buttons['reset']}</button>
 
    </div>
 
@@ -67,7 +67,7 @@
 
 <fieldset class='box-form preview'>
 
-   <legend>{$xLang->preview}</legend>
+   <legend>{$xLang->headers['preview']}</legend>
 
    <div class='box-preview'>
 
