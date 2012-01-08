@@ -1,0 +1,28 @@
+.cell-author {
+   width: 125px;
+   text-overflow: ellipsis;
+}
+
+.cell-content {
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.cell-created {
+   width: 150px;
+}
+
+.cell-status {
+   width: 65px;
+   text-align: center;
+}
+
+th.cell-options {
+   width: 44px;
+   text-align: center;
+}
+
+td.cell-options {
+   width: 28px;
+   text-align: center;
+}

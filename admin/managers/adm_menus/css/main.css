@@ -1,0 +1,38 @@
+.cell-id {
+   width: 55px;
+}
+
+.cell-title {
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.cell-ordering {
+   width: 100px;
+   text-align: center;
+}
+
+.cell-sitemap,
+.cell-mobile {
+   width: 50px;
+   text-align: center;
+}
+
+th.cell-options {
+   width: 100px;
+   text-align: center;
+}
+
+td.cell-options {
+   width: 84px;
+   text-align: center;
+}
+
+
+
+/*
+ * Lay-overs
+ */
+#dvLanguage .contentBox {
+   width: 600px;
+}

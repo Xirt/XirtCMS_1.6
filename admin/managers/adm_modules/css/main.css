@@ -1,0 +1,46 @@
+.cell-xid {
+   width: 55px;
+}
+
+.cell-title {
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.cell-type {
+   width: 150px;
+}
+
+.cell-mobile,
+.cell-published {
+   width: 65px;
+   text-align: center;
+}
+
+.cell-position {
+   width: 100px;
+}
+
+th.cell-options {
+   width: 128px;
+   text-align: center;
+}
+
+td.cell-options {
+   width: 112px;
+   text-align: center;
+}
+
+
+
+/*
+ * Lay-overs
+ */
+#pages {
+   height: auto;
+   width: 300px;
+}
+
+#dvConfig .box-affect {
+   text-align: center;
+}

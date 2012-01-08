@@ -1,0 +1,30 @@
+.cell-id {
+   width: 25px;
+}
+
+.cell-flag {
+   width: 35px;
+}
+
+.cell-iso {
+   width: 50px;
+   text-align: center;
+}
+
+.cell-preference {
+   width: 100px;
+   text-align: center;
+}
+
+.cell-status {
+   width: 50px;
+   text-align: center;
+}
+
+th.cell-options {
+   width: 17px;
+}
+
+td.cell-options {
+   width: 1px;
+}

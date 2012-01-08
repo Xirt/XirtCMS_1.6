@@ -1,0 +1,35 @@
+<?php
+define('_LOGFILE', 'admin.log');
+define('_ADMIN', true);
+define('_XDIR', '../');
+define('_XIRT', true);
+define('nl', "\n");
+
+/**
+ * Auto-Include required classes
+ *
+ * @param $class String containing the name of the class to load
+ */
+function xirt_autoload($class) {
+
+   if (class_exists($class)) {
+      return;
+   }
+
+   $file = 'classes/' . $class . '.inc.php';
+   if (is_file($file)) {
+      return require_once($file);
+   }
+
+   if (is_file(_XDIR . $file)) {
+      return require_once(_XDIR . $file);
+   }
+
+   trigger_error("Could not find class '{$class}'.", E_USER_ERROR);
+
+}
+spl_autoload_register('xirt_autoload');
+
+$xStart = XTools::getMicrotime();
+new XPage();
+?>

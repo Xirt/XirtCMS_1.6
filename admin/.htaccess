@@ -1,0 +1,11 @@
+# Writer      : A.G. Gideonse
+# Date        : 25/11/2011
+
+RewriteEngine On
+
+### FAVICON HOTFIX ###
+# The following line rewrites the location for the favicon, as IE currently
+# does not interpret the HTML-tag as it should. This line should remain
+# uncommented.
+RewriteRule ^images/favicon.ico$ ../images/favicon.ico [L]
+RewriteRule ^favicon.ico$ ../images/favicon.ico [L]
