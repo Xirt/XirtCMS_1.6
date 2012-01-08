@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /cache/
+Disallow: /classes/
+Disallow: /components/
+Disallow: /config/
+Disallow: /documents/
+Disallow: /images/
+Disallow: /js/
+Disallow: /languages/
+Disallow: /logs/
+Disallow: /modules/
+Disallow: /templates/
+Sitemap: /index.php?content=com_sitemap&task=use_xml

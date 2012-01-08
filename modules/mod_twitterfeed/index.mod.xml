@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xinstall type='module'>
+	<name>Twitterfeed</name>
+	<module>twitterfeed</module>
+	<version>1.0</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorEmail>info@xirtcms.com</authorEmail>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+	<description><![CDATA[ This module shows a twitterfeed. ]]></description>
+	<params>
+		<param name='css_name' type='text' default=''   label='CSS postfix'      description='A value that will be added to all default class / id values for module identification.' />
+		<param name='accounts' type='text' default=''   label='Twitter Accounts' description='Shown twitter accounts (seperated by commas).' ></param>
+		<param name='limit'    type='text' default='10' label='Number of tweets' description='The maximum number of tweets to show.' ></param>
+	</params>
+</xinstall>

@@ -1,0 +1,56 @@
+# Writer      : A.G. Gideonse
+# Date        : 29/06/2010
+
+RewriteEngine On
+
+# The RewriteBase directive explicitly sets the base URL for per-directory
+# rewrites. Uncomment and set this command if you are having trouble with
+# the RewriteEngine (internal errors on SEF links or JavaScript files).
+#RewriteBase /
+
+
+### JAVASCRIPT COMPRESSION ###
+# Combine is used for JavaScript compression when debug mode is off. This line
+# should remain uncomment unless you are always in debug mode (for example on
+# development platforms).
+RewriteRule ^xjs/(.*\.js) combine.php?files=$1
+
+
+### SEF LINKS ###
+# The following rules make SEF links work with XirtCMS. These lines should
+# remain uncomment unless you are not using SEF links (ever).
+RewriteCond %{REQUEST_URI} !^/(admin/.*)$
+RewriteCond %{REQUEST_URI} (/|\.htm|\.php|\.html|/[^.]*)$  [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.*) index.php
+
+
+### ERROR DOCUMENTS ###
+#ErrorDocument 404 /index.php?content=com_error
+
+
+### FAVICON HOTFIX ###
+# The following line rewrites the location for the favicon, as IE currently
+# does not interpret the HTML-tag as it should. This line should remain
+# uncommented.
+RewriteRule ^favicon.ico$ images/favicon.ico [L]
+
+### WEBSITE SPEED ###
+# The below can be used on live-environments to speed up your website. iIt adds
+# headers to your files that enable browsers to chache files that are not often
+# modified. In addition the removal of Etags can improve your website speed.
+FileETag None
+#
+<IfModule mod_expires.c>
+   ExpiresActive On
+   AddType image/vnd.microsoft.icon .ico
+   ExpiresByType image/vnd.microsoft.icon "access plus 1 years"
+   ExpiresByType text/html "access plus 1 seconds"
+   ExpiresByType image/gif "access plus 1 years"
+   ExpiresByType image/jpeg "access plus 1 years"
+   ExpiresByType image/png "access plus 1 years"
+   ExpiresByType text/css "access plus 1 months"
+   ExpiresByType text/javascript "access plus 1 years"
+   ExpiresByType application/x-javascript "access plus 1 months"
+</IfModule>
