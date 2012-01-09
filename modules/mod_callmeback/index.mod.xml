@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xinstall type="module">
+	<name>"Call Me Back"-layover</name>
+	<module>callmeback</module>
+	<version>1.0</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorEmail>info@xirtcms.com</authorEmail>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+	<description><![CDATA[ Call-Me-Back layover for your website (called using JavaScript). ]]></description>
+	<params>
+		<param name="css_name" type="text" default="" label="CSS postfix" description="A value that will be added to all default class / id values for module identification." />
+		<param name="email" type="text" default="you@domain.com" label="E-mail address" description="The e-mail address to sent requests to." />
+		<param name="subject" type="text" default="'Call-Me-Back'-Request" label="E-mail subject" description="The subject of the e-mail being send." />
+	</params>
+</xinstall>
