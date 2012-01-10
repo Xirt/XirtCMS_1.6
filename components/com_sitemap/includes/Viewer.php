@@ -37,7 +37,7 @@ class Viewer {
       // Gather all nodes in Array
       $nodes = array();
       foreach (self::getLinks() as $menu) {
-         $nodes = array_merge($nodeList, $menu->toArray());
+         $nodes = array_merge($nodes, $menu->toArray());
       }
 
       // Show template
