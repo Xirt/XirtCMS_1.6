@@ -1,0 +1,176 @@
+<?php
+
+/**
+ * List containing simple instances of Item
+ *
+ * @author     A.G. Gideonse
+ * @version    1.6
+ * @copyright  XirtCMS 2010 - 2011
+ * @package    XirtCMS
+ */
+class XContentList {
+
+   /**
+    * @var String with the name of the table containing the information
+    */
+   var $table = null;
+
+
+   /**
+    * @var Array containing all items
+    */
+   var $cList = array();
+
+
+   /**
+    * Loads list information from the database
+    *
+    * @return boolean True on succes, false on failure
+    */
+   public function load() {
+      return ($this->table ? !$this->_load() : false);
+   }
+
+
+   /**
+    * Loads all content items from the database and adds them to the list
+    *
+    * @access private
+    */
+   private function _load() {
+      global $xDb;
+
+      $query = "SELECT *
+                FROM {$this->table}
+                ORDER BY id";
+      $xDb->setQuery($query);
+
+      foreach ($xDb->loadObjectList() as $dbRow) {
+         $this->_add(new XItem($dbRow), false);
+      }
+
+   }
+
+
+
+   /***********/
+   /*  MODIFY */
+   /***********/
+
+   /**
+    * Adds a new item
+    *
+    * @param $item The item to add
+    * @return boolean True
+    */
+   public function add($item) {
+      return $this->_add($item);
+   }
+
+
+   /**
+    * Adds an item to the internal list
+    *
+    * @param $item The item to add
+    * @param $doSave Toggles saving to the preconfigured database (optional)
+    * @return boolean true
+    */
+   public function _add($item, $doSave = true) {
+      global $xDb;
+
+      if ($this->table && $doSave) {
+         $item = XTools::addslashes($item);
+         $xDb->insert($this->table, $item);
+      }
+
+      $this->cList[] = $item;
+
+      return true;
+   }
+
+
+
+   /*****************/
+   /* MISCELLANEOUS */
+   /*****************/
+
+   /**
+    * Returns the maximum value of the given attribute
+    *
+    * @param $attrib The attrib to get the maximum value of (default: xid)
+    * @return int Maximum value found or 0
+    */
+   public function getMaximum($attrib = 'xid') {
+      global $xDb;
+
+      $query = "SELECT MAX({$attrib})
+                FROM {$this->table}";
+      $xDb->setQuery($query);
+
+      return intval($xDb->loadResult());
+   }
+
+
+   /**
+    * Returns first occurence of an item by field
+    *
+    * @deprecated
+    * @param $attrib String containing the field name to search in
+    * @param $value String containing the string to search for
+    * @return mixed The found item or null on failure
+    */
+   public function getItemByField($attrib, $value) {
+      return $this->getItemByAttribute($attrib, $value);
+   }
+
+
+   /**
+    * Returns first occurence of an item by field
+    *
+    * @deprecated
+    * @param $attrib String containing the field name to search in
+    * @param $value String containing the string to search for
+    * @return mixed The found item or null on failure
+    */
+   public function getItemByAttribute($attrib, $value) {
+
+      foreach ($this->cList as $item) {
+         if ($item->$attrib == $value) {
+            return $item;
+         }
+      }
+
+      return null;
+   }
+
+
+   /**
+    * Returns the amount of items in the list
+    *
+    * @return Int The amount of items in the list
+    */
+   public function count() {
+      return count($this->cList);
+   }
+
+
+   /**
+    * Returns list as a JSON Object
+    */
+   public function encode() {
+      return json_encode($this->cList);
+   }
+
+
+   /**
+    * Shows list as JSON Object
+    */
+   public function show() {
+
+      header('Content-type: application/x-json');
+      die($this->encode());
+
+   }
+
+}
+?>

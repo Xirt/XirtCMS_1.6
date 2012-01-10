@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/repos/xirt_1.6/!svn/ver/61/admin/classes
+END
+XContent.inc.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repos/xirt_1.6/!svn/ver/76/admin/classes/XContent.inc.php
+END
+XTranslationList.inc.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repos/xirt_1.6/!svn/ver/55/admin/classes/XTranslationList.inc.php
+END
+XItem.inc.php
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/repos/xirt_1.6/!svn/ver/55/admin/classes/XItem.inc.php
+END
+XUtils.inc.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/xirt_1.6/!svn/ver/61/admin/classes/XUtils.inc.php
+END
+XAdminTemplate.inc.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/xirt_1.6/!svn/ver/61/admin/classes/XAdminTemplate.inc.php
+END
+XContentList.inc.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/xirt_1.6/!svn/ver/55/admin/classes/XContentList.inc.php
+END

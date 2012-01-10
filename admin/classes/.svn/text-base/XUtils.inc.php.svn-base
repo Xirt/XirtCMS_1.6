@@ -1,0 +1,248 @@
+<?php
+
+/**
+ * Utility class for Managers
+ *
+ * @author     A.G. Gideonse
+ * @version    1.6
+ * @copyright  XirtCMS 2010 - 2011
+ * @package    XirtCMS
+ */
+class XUtils {
+
+   /**
+    * Returns list with available languages
+    *
+    * @return Array containing the available languages
+    */
+   public static function getLanguageList() {
+
+      $list = array();
+      foreach (Xirt::getLanguages() as $iso => $languageInfo) {
+         $list[$iso] = $languageInfo->name;
+      }
+
+      return $list;
+   }
+
+
+   /**
+    * Returns a list of all available menus
+    *
+    * @return Array All available menus
+    */
+   public static function getMenuList() {
+      global $xDb;
+
+      $query = "SELECT
+                   xid, title
+                FROM (
+                   SELECT t1.*, t2.preference
+                   FROM #__menus AS t1
+                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
+                   ORDER BY t2.preference, t1.xid
+                ) AS t3
+                GROUP BY xid
+                ORDER BY ordering";
+      $xDb->setQuery($query);
+
+      $list = array();
+      foreach ($xDb->loadObjectList() as $item) {
+         $list[$item->xid] = $item->title;
+      }
+
+      return $list;
+   }
+
+
+   /**
+    * Returns list with available positions (on templates)
+    *
+    * @return Array containing the available positions
+    */
+   public static function getPositionList() {
+      global $xDb;
+
+      $query = "SELECT positions
+                FROM #__templates";
+      $xDb->setQuery($query);
+
+      $list = array();
+      foreach ($xDb->loadObjectList() as $template) {
+
+         foreach (explode('|', $template->positions) as $position) {
+
+            if (($position = trim($position)) && $position) {
+               $list[$position] = $position;
+            }
+
+         }
+
+      }
+
+      return $list;
+   }
+
+
+   /**
+    * Returns list with available modules
+    *
+    * @return Array containing the available modules
+    */
+   public static function getModuleList() {
+      global $xConf;
+
+      $list = array();
+      $path  = $xConf->baseDir . 'modules/';
+
+      if (!$handle = @opendir($path)) {
+
+         trigger_error("Could not open module directory.", E_USER_WARNING);
+         return $list;
+
+      }
+
+      while (($subdir = @readdir($handle)) !== false) {
+
+            if (!is_dir($path . $subdir)) {
+               continue;
+            }
+
+            $file = $subdir . '/index.mod.xml';
+            if (!is_readable($path . $file)) {
+               continue;
+            }
+
+            try { $moduleInfo = new SimpleXMLElement($path . $file, null, true); }
+            catch (Exception $e) {
+               trigger_error("Module XML invalid ({$subdir}).", E_USER_WARNING);
+            }
+
+            if (!isset($moduleInfo->name)) {
+               continue;
+            }
+
+            $list[$subdir] = $moduleInfo->name;
+      }
+
+      @closedir($handle);
+      return $list;
+   }
+
+
+   /**
+    * Returns list with all menuitems (pages)
+    *
+    * @return Array containing all menuitems
+    */
+   public static function getPagesList($addGlobal = 0, $addUnknown = 0) {
+
+      $list = array();
+
+      if ($addGlobal) {
+         $list['all'] = '--- All Pages ---';
+      }
+
+      if ($addUnknown) {
+         $list['undef'] = '--- Unassigned ---';
+      }
+
+      $menus = XUtils::getMenuList();
+      foreach($menus as $id => $menu) {
+
+         if ($id - 1 < count($menus)) {
+            $list['-' . $id] = '---';
+         }
+
+         $menu = new XMenu($id, null);
+         $menu->load();
+         foreach($menu->getList() as $node) {
+
+            $indent =  XUtils::createIndent($node->level);
+            $node->name = $indent . $node->name;
+            $list[$node->xid] = $node->name;
+
+         }
+
+      }
+
+      return $list;
+   }
+
+
+   /**
+    * Returns the default configuratin for the given module
+    *
+    * @param $module String with the name (type) of the requested model
+    * @return Object Default configuration for the given module
+    */
+   public static function getModuleConfiguration($module) {
+      global $xConf;
+
+      $path = $xConf->baseDir . "modules/";
+      $file = $module . "/index.mod.xml";
+
+      try {
+         $moduleInfo = new SimpleXMLElement($path . $file, null, true);
+      } catch (Exception $e) {
+         trigger_error("Module XML invalid ({$module}).", E_USER_WARNING);
+      }
+
+      $config = (Object)array();
+      if (!isset($moduleInfo->params->param)) {
+         return $config;
+      }
+
+      foreach ($moduleInfo->params->param as $param) {
+
+         if (!$type = strval($param->attributes()->type)) {
+            trigger_error("Incorrect configuration ({$mod})", E_USER_WARNING);
+         }
+
+         $field = (Object) array();
+
+         foreach ($param->attributes() as $attrib => $value) {
+            $field->$attrib = strval($value);
+         }
+
+         if ($type == 'select' || $type == 'radio') {
+
+            $options = (Object) array();
+
+            foreach ($param->option as $option) {
+
+               $name  = strval($option->attributes()->name);
+               $value = strval($option->attributes()->value);
+               $options->$name = $value;
+
+            }
+
+            $field->options = $options;
+
+         }
+
+         $config->{$field->name} = $field;
+
+      }
+
+      return $config;
+   }
+
+
+   /**
+    * Returns a String for indentation
+    *
+    * @param $indent The level of indentation
+    * @return The String for indentation
+    */
+   public static function createIndent($length) {
+
+      for ($i = 0; $i < $length * 3; $i++) {
+         $indent = (isset($indent) ? $indent : '') . '&nbsp;';
+      }
+
+      return $indent;
+   }
+
+}
+?>

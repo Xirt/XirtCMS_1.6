@@ -1,0 +1,412 @@
+<?php
+
+/**
+ * Page Generator: The core class that generates the whole page (admin variant)
+ *
+ * @author     A.G. Gideonse
+ * @version    1.6
+ * @copyright  XirtCMS 2010 - 2011
+ * @package    XirtCMS
+ */
+class XContent {
+
+   /**
+    * @var The cId of the current page
+    */
+   var $cId = null;
+
+
+   /**
+    * @var List holding all (sub)titles for the page (TITLE-tag)
+    */
+   var $titleList = array();
+
+
+   /**
+    * @var List holding all meta tags for the page
+    */
+   var $metaList = array();
+
+
+   /**
+    * @var List holding all css files for the page
+    */
+   var $cssList = array();
+
+
+   /**
+    * @var List holding all js files for the page
+    */
+   var $jsList = array();
+
+
+   /**
+    * @var Variables holding the page content for showing
+    */
+   var $pageCache = null;
+
+
+   /**
+    * @var boolean True if the main content (component) have been printed
+    */
+   var $sentComponent = false;
+
+
+	/**
+	 * @var boolean True if the headers (META-information) have been printed
+	 */
+   var $sentHeaders = false;
+
+
+   /**********************/
+   /* PRELOADING METHODS */
+   /**********************/
+
+   /**
+    * Preloads page content
+    *
+    * This method adds all important libraries to the page and makes sure that
+    * IE6 users are warned about their ancient browser. Note that the content
+    * is cached first so components can rely on all methods that must be
+    * executed before the headers are sent.
+    *
+    * @param $isNormal boolean that notifies the function of special requests
+    */
+   public function load($isNormal = true) {
+      global $xConf, $xLang;
+
+      if ($isNormal) {
+
+         $this->setTitle($xConf->title);
+
+         $this->addCSSTag('../templates/xcss/xirt.css', 0);
+         $this->addCSSTag('../templates/xcss/xlist.css', 0);
+
+         // IE Template
+         if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false) {
+            $this->addCSSTag('../templates/xcss/xie.css', 0);
+         }
+
+         $this->addMetaTag('robots',        'index, follow');
+         $this->addMetaTag('language',      $xConf->language);
+         $this->addMetaTag('generator',     $xLang->version);
+
+         $this->addScriptTag('languages/' . $xConf->language . '.js');
+         $this->addScriptTag('../js/mootools.lib.js');
+         $this->addScriptTag('../js/mootoolsmore.lib.js');
+         $this->addScriptTag('../js/mootoolscustom.lib.js');
+         $this->addScriptTag('../js/xvalidate.lib.js');
+         $this->addScriptTag('../js/xadmin.lib.js');
+         $this->addScriptTag('../js/xirt.lib.js');
+         $this->addScriptTag("template/menu.js");
+
+         // Notify IE6 users
+         $regEx = '/MSIE ([0-9]\.[0-9])/';
+         preg_match($regEx, $_SERVER['HTTP_USER_AGENT'], $reg);
+         if (isset($reg[1]) && floatval($reg[1]) < 7) {
+            $this->addScriptTag('../js/xie.js');
+         }
+
+      }
+
+      ob_start();
+      $this->_preloadContent();
+      $this->pageCache = ob_get_clean();
+
+   }
+
+
+   /**
+    * Preloads main component or manager
+    *
+    * @access private
+    */
+   private function _preloadContent() {
+      global $xConf, $xUser;
+
+      if (!$xUser->isAuth($xConf->adminLevel)) {
+
+         if ($component = $this->_loadManager('adm_login')) {
+
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+               return $component->showAjax();
+            }
+
+            return $component->showNormal();
+         }
+
+         return Xirt::notAuthorized();
+      }
+
+      $component = null;
+      switch (substr(XTools::getParam('content'), 0, 3)) {
+
+         case 'adm':
+            $component = $this->_loadManager(XTools::getParam('content'));
+            break;
+
+         case 'com':
+            $component = $this->_loadComponent(XTools::getParam('content'));
+            break;
+
+         default:
+            $component = $this->_loadManager('adm_portal');
+            break;
+
+      }
+
+      if ($component === null) {
+         return;
+      }
+
+      if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+         return $component->showAjax();
+      }
+
+      $component->showNormal();
+
+   }
+
+
+
+   /***************************/
+   /* EXTERNAL CONFIG METHODS */
+   /***************************/
+
+   /**
+    * Sets the title
+    *
+    * @param $str String containing the new title
+    */
+   public static function setTitle($str) {
+      global $xPage;
+
+      $xPage->titleList = array($str);
+
+   }
+
+
+   /**
+    * Extends the title
+    *
+    * @param $str String containing the new title extension
+    */
+   public static function extendTitle($str, $prepend = false) {
+      global $xPage;
+
+      if ($prepend && count($xPage->titleList)) {
+         return array_unshift($xPage->titleList, $str);
+      }
+
+      $xPage->titleList[] = $str;
+
+   }
+
+
+   /**
+    * Adds / overwrites META-tag
+    *
+    * @param $type String containing the property (type) of the META-tag
+    * @param $value String containing the value of the META-tag
+    */
+   public static function addMetaTag($type, $value) {
+      global $xPage;
+
+      if ($type && $value) {
+         $xPage->metaList[$type] = $value;
+      }
+
+   }
+
+
+   /**
+    * Adds a CSS-tag (with priority)
+    *
+    * @param $file String with path to filename
+    * @param $prio int for setting the priority of the file (defaults 1)
+    */
+   public static function addCSSTag($file, $prio = 1) {
+      global $xPage;
+
+      $xPage->cssList[$file] = $prio;
+   }
+
+
+   /**
+    * Adds a SCRIPT-tag (for JavaScript files)
+    *
+    * @param $file String with path to filename
+    */
+   public static function addScriptTag($file) {
+      global $xPage;
+
+      $xPage->jsList[] = $file;
+   }
+
+
+   /**
+    * Includes a plugin in the page (for JavaScript plugins)
+    *
+    * @param $plugin The plugin to load
+    */
+   public static function addLibrary($plugin) {
+      global $xPage;
+
+      $plugins = array(
+         'slimbox'  => 'slimbox/slimbox.js',
+         'calendar' => 'calendar/calendar.js'
+      );
+
+      if (!defined('PLUGIN.' . $plugin)) {
+
+         define('PLUGIN.' . $plugin, 1);
+
+         if (!$xPage->sentHeaders) {
+            return self::addScriptTag('js/plugins/' . $plugins[$plugin]);
+         }
+
+         print("<script type='text/javascript' src='js/plugins/{$plugins[$plugin]}'></script>");      // aanpassen!!!
+
+      }
+
+   }
+
+
+
+   /****************************/
+   /* EXTERNAL LOADING METHODS */
+   /****************************/
+
+   /**
+    * Shows the head of the page (title, meta, css, js)
+    */
+   public static function loadXHead() {
+      global $xConf, $xPage;
+
+      asort($xPage->cssList);
+      $xPage->cssList = array_keys($xPage->cssList);
+      $cTitle = implode(array_reverse($xPage->titleList), ' | ');
+
+      // Show template
+      $tpl = new XTemplate();
+      $tpl->assign('metaList', $xPage->metaList);
+      $tpl->assign('cssList', $xPage->cssList);
+      $tpl->assign('jsList', $xPage->jsList);
+      $tpl->assign('baseURL', $xConf->baseURL);
+      $tpl->assign('cTitle', $cTitle);
+      $tpl->display('templates/xtemplates/htmlHead.tpl');
+
+      $xPage->sentHeaders = true;
+
+   }
+
+
+   /**
+    * Shows the main content of the site (after preloading)
+    */
+   public static function loadXMainContent() {
+      global $xPage;
+
+      $xPage->sentComponent = true;
+      print($xPage->pageCache);
+
+   }
+
+
+   /**
+    * Shows parsing knowledge
+    */
+   public static function loadXStats() {
+      global $xConf, $xDb, $xStart;
+
+      if (!$xConf->debugMode) {
+         return false;
+      }
+
+      // Show template
+      $tpl = new XTemplate();
+      $tpl->assign('parseTime',  round(XTools::getMicrotime() - $xStart, 3));
+      $tpl->assign('queryTime',  round($xDb->timer, 3));
+      $tpl->assign('queryCount', count($xDb->cache));
+      $tpl->assign('memoryUse',  round(memory_get_peak_usage() / 1048576, 3));
+      $tpl->display('templates/xtemplates/htmlStats.tpl');
+
+   }
+
+
+
+   /************************/
+   /* MISC LOADING METHODS */
+   /************************/
+
+   /**
+    * Loads a manager
+    *
+    * @access private
+    * @param $name String containing the name of the manager to load
+    * @return mixed The new instance of the manager or null on failure
+    */
+   private function _loadManager($name) {
+      global $xConf, $xUser;
+
+      if (isset($xConf->$name) && !$xUser->isAuth($xConf->$name)) {
+
+         Xirt::notAuthorized();
+         return null;
+
+      }
+
+      if (is_readable("managers/" . $name . "/index.adm.php")) {
+
+         require_once("managers/" . $name . "/index.adm.php");
+         return new Manager($name, $component->config);
+
+      }
+
+      trigger_error("Manager unreadable ({$name})", E_USER_ERROR);
+      return null;
+
+   }
+
+
+   /**
+    * Loads a component
+    *
+    * @access private
+    * @param $name String containing the name of the component to load
+    * @return mixed The new instance of the component or null on failure
+    */
+   private function _loadComponent($name) {
+      global $xConf, $xUser;
+
+      $components = Xirt::getComponents();
+      if (!array_key_exists($name, $components)) {
+
+         trigger_error("Could not find component '{$name}'.", E_USER_WARNING);
+         Xirt::pageNotFound(false);
+         return null;
+
+      }
+
+      $component = $components[$name];
+      if (isset($xConf->$name) && !$xUser->isAuth($xConf->$name)) {
+
+         Xirt::notAuthorized();
+         return null;
+
+      }
+
+      if (is_readable("components/" . $name . "/index.com.php")) {
+
+         require_once("components/" . $name . "/index.com.php");
+         return new Component($name, $component->config);
+
+      }
+
+      trigger_error("Component unreadable ({$name})", E_USER_ERROR);
+      return null;
+
+   }
+
+}
+?>
