@@ -1,0 +1,333 @@
+body {
+   background: #dbe5f1;
+}
+
+fieldset {
+   padding: 4px;
+}
+
+legend {
+   font-size: 16px;
+   font-weight: bold;
+}
+
+a {
+   color: #0071a6;
+   text-decoration: none;
+}
+
+a:hover {
+   color: #9966bd;
+}
+
+a:visited {
+   color: #9966bd;
+}
+
+a.external {
+   background: url(../images/external.png) center right no-repeat;
+   padding-right: 13px;
+}
+
+a img {
+   border: 0px;
+}
+
+a.logo {
+   background-image: none;
+}
+
+h1, h2 {
+   font-weight: normal;
+   font-size: 23px;
+   padding: 0 0 10px 0;
+   margin: 0 0 10px 0;
+   border-bottom: 1px #c0c0c0 dashed;
+   color: #7EA4C5;
+}
+
+h2 {
+   font-size: 18px;
+   padding: 0 0 5px 0;
+   margin: 0 0 10px 0;
+}
+
+h3 {
+   font-size: 11pt;
+   color: #000000;
+   padding: 0px;
+   margin: 15px 0px 1px 0px;
+   overflow: hidden;
+}
+
+h4 {
+   font-weight: bold;
+   font-size: 15px;
+   color: #225588;
+}
+
+h5 {
+   font-size: 14px;
+   margin-top: 25px;
+   margin-bottom: 10px;
+}
+
+hr {
+   height: 0px;
+   margin: 15px 3px;
+   border: 0px;
+   border-bottom: 3px #808080 dotted;
+}
+
+ul {
+   list-style-type: square;
+   margin-left: 20px;
+}
+
+.xForm label {
+   float: left;
+   width: 165px;
+   font-weight: bold;
+}
+
+br {
+   clear: both;
+}
+
+/**************
+  MAIN STYLE
+**************/
+div.box-container {
+   position: relative;
+   margin: 25px 25px 0 25px;
+   padding: 25px;
+   background: #ffffff;
+   letter-spacing: 1pt;
+   overflow-y: auto;
+   overflow-x: hidden;
+   border-top-left-radius: 25px;
+   border-bottom-right-radius: 25px;
+   box-shadow: 0px 0px 7px #808080;
+}
+
+.xStatsBox {
+   position: fixed;
+   bottom: 0px;
+   width: 100%;
+   background-color: #85c3e8;
+}
+
+/*****************
+  MAIN NAV LINKS
+*****************/
+div.box-header {
+   position: relative;
+   height: 80px;
+   background: #fff;
+   box-shadow: 0 0 5px #808080;
+}
+
+a.logo {
+   position: absolute;
+   left: 10px;
+   top: 8px;
+   opacity: 0.80;
+}
+
+a.logo:hover {
+   opacity: 1;
+}
+
+.x-mod-menu a {
+   color: #808080;
+   margin: 0 25px 0 15px;
+}
+
+.x-mod-menu a#active_menu,
+.x-mod-menu a:hover {
+   color: #000;
+   text-decoration: none;
+}
+
+div.box-menu {
+   font-size: 16px;
+   position: absolute;
+   top: 30px;
+   left: 230px;
+   padding: 0 15px;
+}
+
+div.box-menu a.menu-item {
+   float: left;
+   display: block;
+   padding: 3px 30px 3px 10px;
+   margin: 0 5px;
+   border: 1px #DBE5F1 solid;
+   box-shadow: 0 0 3px #DBE5F1;
+   background: #fff url(../images/arrow_menu.png) no-repeat 95% center;
+   color: #97b2d4;
+   margin: 0 0 0 10px;
+}
+
+div.box-menu a.menu-item:hover,
+div.box-menu a.menu-item.active {
+   background-color: #DBE5F1;
+   color: #fff;
+}
+
+div.box-submenu {
+   position: absolute;
+   display: block;
+   background: #ffffff;
+   width: 490px;
+   padding: 5px;
+   border-radius: 0px 15px 15px 15px;
+   box-shadow: 2px 2px 7px #808080;
+   z-index: 250;
+}
+
+div.box-submenu div.submenu-item {
+   float: left;
+   margin: 5px;
+   padding: 1px 5px;
+   width: 225px;
+   height: 65px;
+   background: #dbe5f1;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+div.box-submenu div.submenu-item:hover {
+   background: #85c3e8;
+}
+
+div.box-submenu div.submenu-item img {
+   float: left;
+   margin-right: 10px;
+}
+
+div.box-submenu div.submenu-item h4 {
+   margin: 5px 0px 0px 0px;
+   padding: 0px;
+}
+
+
+/****************
+  SUB NAV LINKS
+****************/
+div.box-options {
+   position: absolute;
+   bottom: 5px;
+   right: 15px;
+   line-height: 24px;
+   letter-spacing: 2pt;
+   padding: 3px 10px;
+}
+
+div.box-options a {
+   color: #000;
+   opacity: 0.75;
+   margin-left: 20px;
+   background-repeat: no-repeat;
+   background-position:  5px center;
+}
+
+div.box-options a:hover {
+   opacity: 1;
+}
+
+.box-tools {
+   position: absolute;
+   top: 20px;
+   right: 25px;
+}
+
+.box-tools a {
+   min-height: 16px;
+   min-width: 16px;
+   margin: 0 0 0 20px;
+   padding: 5px 5px 5px 27px;
+   border: 1px #BCD0E7 solid;
+   border-radius: 3px;
+   color: #505050;
+   background-color: #dbe5f1;
+   background-repeat: no-repeat;
+   background-position:  5px center;
+}
+
+.box-tools a:hover {
+   background-color: #BCD0E7;
+}
+
+a.reply {
+   padding: 2px 0px;
+}
+
+a.home,
+a.support,
+a.logout {
+   padding: 5px 0px 5px 35px;
+}
+
+a.back {
+   left: 5px;
+   right: auto;
+   background-image: url(../images/darrow_left.png);
+}
+
+a.edit {
+   background-image: url(../images/edit.png);
+}
+
+a.reply {
+   background-image: url(../images/reply.png);
+}
+
+a.adduser {
+   background-image: url(../images/adduser.png);
+}
+
+a.home {
+   background-image: url(../images/home.png);
+}
+
+a.support {
+   background-image: url(../images/support.png);
+}
+
+a.new {
+   background-image: url(../images/new.png);
+}
+
+a.extensions {
+   background-image: url(../images/extensions.png);
+}
+
+a.logout {
+   background-image: url(../images/logout.png);
+}
+
+/************
+  EDIT FORM
+************/
+.box-form {
+   width: 330px;
+   padding-bottom: 0px;
+   margin: 15px 0px 10px 0px;
+   border-radius: 5px;
+   border: 1px #d3d3d3 solid;
+}
+
+.xirt-window .xForm .box-affect {
+   background: #fefefe;
+   border: 1px #d3d3d3 solid;
+   border-radius: 4px;
+   padding: 5px 5px;
+   margin: 5px 0px;
+}
+
+.xirt-window .xForm .box-affect input {
+   float: left;
+   margin: 0 7px 0 3px;
+   width: auto;
+}
