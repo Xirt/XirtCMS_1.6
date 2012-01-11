@@ -86,7 +86,7 @@ var XManager = new Class({
 
    // METHOD :: Shows result
    _finished: function() {
-      Xirt.showNotice(XLang.mSaved);
+      Xirt.showNotice(XLang.messages['saved']);
    }
 
 });

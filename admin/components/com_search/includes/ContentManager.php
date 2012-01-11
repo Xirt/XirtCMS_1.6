@@ -47,7 +47,7 @@ class ContentManager {
     * Removes item
     */
    public static function removeItem() {
-trigger_error(XTools::getParam('id', 0, _INT), E_USER_NOTICE);
+
       $link = new Term();
       $link->load(XTools::getParam('id', 0, _INT));
       $link->remove();

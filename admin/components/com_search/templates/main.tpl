@@ -1,6 +1,6 @@
 <h1>{$xLang->titles['component']}</h1>
 
-<div class='listBox'>
+<div class='box-list'>
 
    {XListBuilder::showLanguage($languageList)}
 
