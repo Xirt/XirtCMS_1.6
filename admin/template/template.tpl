@@ -28,28 +28,28 @@
    <div class='box-submenu submenu' id='sM_content' style='display: none;'>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_content');">
-         <img src='../images/cms/icons_large/static.png' alt="{$xLang->entries['Content']}" />
+         <img src='../images/cms/managers/content.png' alt="{$xLang->entries['Content']}" />
 
          <h4>{$xLang->entries['Content']}</h4>
          {$xLang->entries['ContentTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_categories');">
-         <img src='../images/cms/icons_large/categories.png' alt="{$xLang->entries['Categories']}" />
+         <img src='../images/cms/managers/categories.png' alt="{$xLang->entries['Categories']}" />
 
          <h4>{$xLang->entries['Categories']}</h4>
          {$xLang->entries['CategoriesTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_modules');">
-         <img src='../images/cms/icons_large/modules.png' alt="{$xLang->entries['Modules']}" />
+         <img src='../images/cms/managers/modules.png' alt="{$xLang->entries['Modules']}" />
 
          <h4>{$xLang->entries['Modules']}</h4>
          {$xLang->entries['ModulesTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_files');">
-         <img src='../images/cms/icons_large/files.png' alt="{$xLang->entries['Files']}" />
+         <img src='../images/cms/managers/files.png' alt="{$xLang->entries['Files']}" />
 
          <h4>{$xLang->entries['Files']}</h4>
          {$xLang->entries['FilesTxt']}
@@ -71,7 +71,7 @@
    {/foreach}
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_components');">
-         <img src='../images/cms/icons_large/extensions.png' alt="{$xLang->entries['Components']}" />
+         <img src='../images/cms/managers/extensions.png' alt="{$xLang->entries['Components']}" />
 
          <h4>{$xLang->entries['Components']}</h4>
          {$xLang->entries['ComponentsTxt']}
@@ -84,28 +84,28 @@
    <div class='box-submenu submenu' id='sM_config' style='display: none;'>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_config');">
-         <img src='../images/cms/icons_large/settings.png' alt="{$xLang->entries['Website']}" />
+         <img src='../images/cms/managers/settings.png' alt="{$xLang->entries['Website']}" />
 
          <h4>{$xLang->entries['Website']}</h4>
          {$xLang->entries['WebsiteTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_templates');">
-         <img src='../images/cms/icons_large/templates.png' alt="{$xLang->entries['Templates']}" />
+         <img src='../images/cms/managers/templates.png' alt="{$xLang->entries['Templates']}" />
 
          <h4>{$xLang->entries['Templates']}</h4>
          {$xLang->entries['TemplatesTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_languages');">
-         <img src='../images/cms/icons_large/languages.png' alt="{$xLang->entries['Languages']}" />
+         <img src='../images/cms/managers/languages.png' alt="{$xLang->entries['Languages']}" />
 
          <h4>{$xLang->entries['Languages']}</h4>
          {$xLang->entries['LanguagesTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_links');">
-         <img src='../images/cms/icons_large/links.png' alt="{$xLang->entries['Links']}" />
+         <img src='../images/cms/managers/links.png' alt="{$xLang->entries['Links']}" />
 
          <h4>{$xLang->entries['Links']}</h4>
          {$xLang->entries['LinksTxt']}
@@ -118,28 +118,28 @@
    <div class='box-submenu submenu' id='sM_manage' style='display: none;'>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_users');">
-         <img src='../images/cms/icons_large/users.png' alt="{$xLang->entries['Users']}" />
+         <img src='../images/cms/managers/users.png' alt="{$xLang->entries['Users']}" />
 
          <h4>{$xLang->entries['Users']}</h4>
          {$xLang->entries['UsersTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_usergroups');">
-         <img src='../images/cms/icons_large/usergroups.png' alt="{$xLang->entries['Usergroups']}" />
+         <img src='../images/cms/managers/usergroups.png' alt="{$xLang->entries['Usergroups']}" />
 
          <h4>{$xLang->entries['Usergroups']}</h4>
          {$xLang->entries['UsergroupsTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_menus');">
-         <img src='../images/cms/icons_large/menus.png' alt="{$xLang->entries['Menus']}" />
+         <img src='../images/cms/managers/menus.png' alt="{$xLang->entries['Menus']}" />
 
          <h4>{$xLang->entries['Menus']}</h4>
          {$xLang->entries['MenusTxt']}
       </div>
 
       <div class='submenu-item' onclick="document.location.assign('index.php?content=adm_extensions');" style='display: none;'>
-         <img src='../images/cms/icons_large/extensions.png' alt="{$xLang->entries['Extensions']}" />
+         <img src='../images/cms/managers/extensions.png' alt="{$xLang->entries['Extensions']}" />
 
          <h4>{$xLang->entries['Extensions']}</h4>
          {$xLang->entries['ExtensionsTxt']}
