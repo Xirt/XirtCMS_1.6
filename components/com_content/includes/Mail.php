@@ -13,7 +13,7 @@ class Mail {
    /**
     * Constructor
     *
-    * @param $item The ContenItem for the e-mail
+    * @param $item The Content for the e-mail
     */
    function __construct($item) {
       $this->item = $item;

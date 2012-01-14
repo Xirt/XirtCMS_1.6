@@ -116,7 +116,7 @@ class XTranslationList {
          $xDb->insert($this->table, $item);
       }
 
-      return true ($this->list[] = $item);
+      return ($this->list[] = $item);
    }
 
 

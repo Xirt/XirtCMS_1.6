@@ -35,7 +35,7 @@ class mod_callmeback extends XModule {
       $data->company = XTools::getParam('x_company');
       $data->phone   = XTools::getParam('x_phone');
 
-      if (strlen($data->name) && !XValidate::isPhone($data->phone)) {
+      if (strlen($data->name) && XValidate::isPhone($data->phone)) {
 
       	// Generate mail content
          $body = new XTemplate($this->_location());

@@ -59,7 +59,7 @@ class ContentList extends XTree {
     *
     * @param $node Node that needs to be added to the list
     */
-   public function add($node) {
+   public function add(&$node) {
       global $xDb;
 
       $node->set('children', null, true);

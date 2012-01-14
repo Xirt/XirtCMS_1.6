@@ -13,7 +13,7 @@ class Viewer {
    /**
     * Shows a 'no javascript' warning
     */
-   public static function showNoJavaScript($item) {
+   public static function showNoJavaScript() {
       global $xConf, $xCom;
 
       // Show template

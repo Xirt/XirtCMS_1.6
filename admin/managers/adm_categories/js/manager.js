@@ -73,7 +73,7 @@ var XManager = new Class({
 
       var status = this.retrieve('status');
       this.store('status', status ? 0 : 1);
-      this.setOpacity(status ? 0.5 : 1);
+      this.set('opacity', status ? 0.5 : 1);
 
       new Request({
          onFailure: Xirt.showError,

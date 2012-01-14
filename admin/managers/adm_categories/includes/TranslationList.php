@@ -132,7 +132,7 @@ class TranslationList extends XTranslationList {
     */
    public function setOrdering($position) {
 
-      foreach ($this->cList as $translation) {
+      foreach ($this->list as $translation) {
 
          $translation->set('ordering', $position);
          $translation->save();

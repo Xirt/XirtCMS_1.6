@@ -69,7 +69,7 @@ var ContentList = new Class({
             'src': '../images/cms/icons/visible.png',
             'class': 'url'
          }).addEvent('click', XManager.toggleSitemap)
-        .setOpacity(item.sitemap + 0.5)
+        .set('opacity', item.sitemap + 0.5)
         .store('status', item.sitemap)
         .store('id', item.id));
 
@@ -78,7 +78,7 @@ var ContentList = new Class({
             'src': '../images/cms/icons/visible.png',
             'class': 'url'
          }).addEvent('click', XManager.toggleMobile)
-        .setOpacity(item.mobile + 0.5)
+        .set('opacity', item.mobile + 0.5)
         .store('status', item.mobile)
         .store('id', item.id));
 

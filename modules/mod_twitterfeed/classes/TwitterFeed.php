@@ -140,7 +140,10 @@ class TwitterFeed {
     */
    private function _parseGUID($guid) {
 
-      return array_pop(explode('/', $guid));
+      // Save to array for E_STRICT
+      $array = explode('/', $guid);
+
+      return array_pop($array);
    }
 
 

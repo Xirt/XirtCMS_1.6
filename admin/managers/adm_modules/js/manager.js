@@ -129,14 +129,14 @@ var EditPanel = new Class({
       }).inject(container);
 
       var el = new Element('select', {
-         'name' : 'xvar_' + data.name,
+         'name' : 'xvar_' + data.name
       }).inject(container);
 
       Object.every(data.options, function(value, setting) {
 
          return new Element('option', {
             'text' : setting,
-            'value' : value,
+            'value' : value
          }).inject(el);
 
       }, this);

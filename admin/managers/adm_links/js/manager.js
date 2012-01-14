@@ -10,7 +10,7 @@ var XManager = new Class({
    // METHOD :: Removes item
    remove: function() {
 
-      if (confirm(XLang.confirmRemove)) {
+      if (confirm(XLang.confirmations['remove'])) {
 
          new Request({
             onFailure: Xirt.showError,

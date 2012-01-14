@@ -24,7 +24,7 @@ class User extends XItem {
 
    	if (!$this->loadFromDatabaseByName('#__users', $username, $email)) {
 
-         die($xCom->xLang->messages['NoAccountFail']);
+         die($xCom->xLang->messages['noAccountFail']);
 
       }
 

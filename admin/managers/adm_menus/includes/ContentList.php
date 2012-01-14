@@ -5,7 +5,7 @@
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class ContentList extends XContentList {
@@ -86,7 +86,7 @@ class ContentList extends XContentList {
       }
 
       // Search previous item
-      foreach (array_reverse($this->cList) as $previous) {
+      foreach (array_reverse($this->list) as $previous) {
 
          if ($previous->ordering < $item->ordering) {
             break;
@@ -117,7 +117,7 @@ class ContentList extends XContentList {
       }
 
       // Search next item
-      foreach ($this->cList as $next) {
+      foreach ($this->list as $next) {
 
          if ($next->ordering > $item->ordering) {
             break;

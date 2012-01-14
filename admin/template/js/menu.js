@@ -37,7 +37,7 @@ var XMenu = {
       if (el && !el.isVisible()) {
 
          this.addClass('active');
-         Xirt.fadeIn(el, 1);
+         XMenu.fadeIn(el);
 
       }
 
@@ -57,7 +57,7 @@ var XMenu = {
             if (submenu != current && submenu.isVisible()) {
 
                XMenu.menuList[key].removeClass('active');
-               Xirt.fadeAway(submenu);
+               XMenu.fadeOut(submenu);
 
             }
 
@@ -66,7 +66,7 @@ var XMenu = {
          if (!current.isVisible()) {
 
             this.addClass('active');
-            Xirt.fadeIn(current, 1);
+            XMenu.fadeIn(current);
 
          }
 
@@ -84,7 +84,7 @@ var XMenu = {
             if (submenu.isVisible()) {
 
                XMenu.menuList[key].removeClass('active');
-               Xirt.fadeAway(submenu);
+               XMenu.fadeOut(submenu);
 
             }
 
@@ -92,6 +92,20 @@ var XMenu = {
 
       }
 
+   },
+
+   // Fade an item out (deprecated)
+   fadeOut: function(cEl) {
+
+      return cEl.get('tween').start('opacity', 0).chain(function(){
+         this.subject.hide();
+      });
+
+   },
+
+   // Fade an item in (deprecated)
+   fadeIn: function(el) {
+      return el.fade('hide').show().fade();
    }
 
 }

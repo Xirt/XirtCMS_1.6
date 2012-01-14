@@ -89,7 +89,7 @@ var XManager = new Class({
    // METHOD :: Removes item
    remove: function() {
 
-      if (confirm(XLang.confirmRemove)) {
+      if (confirm(XLang.confirmations['remove'])) {
 
          new Request({
             onFailure: Xirt.showError,
@@ -108,7 +108,7 @@ var XManager = new Class({
    // METHOD :: Shows activation completion
    activeCompleted: function() {
 
-      Xirt.showNotice(XLang.mSuccess);
+      Xirt.showNotice(XLang.messages['success']);
       XManager.reload();
 
    },
@@ -120,7 +120,7 @@ var XManager = new Class({
          return Xirt.showNotice(transport);
       }
 
-      Xirt.showNotice(XLang.mRemoved);
+      Xirt.showNotice(XLang.messages['removed']);
       XManager.reload();
 
    }

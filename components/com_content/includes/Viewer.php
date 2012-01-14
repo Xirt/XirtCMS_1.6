@@ -8,12 +8,12 @@
  * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
-class ContentViewer {
+class Viewer {
 
    /**
     * Shows a content item in regular format (HTML)
     *
-    * @param $item The ContentItem to display
+    * @param $item The Content to display
     */
    public static function showContent($item) {
       global $xConf, $xCom, $xLang;
@@ -41,7 +41,7 @@ class ContentViewer {
    /**
     * Shows a content item in PDF format (using TCPDF)
     *
-    * @param $item The ContentItem to display
+    * @param $item The Content to display
     */
    public static function showPDFVersion($item) {
       global $xLang, $xCom, $xConf;
@@ -114,7 +114,7 @@ class ContentViewer {
    /**
     * Shows a content item in printable format (HTML)
     *
-    * @param $item The ContentItem to display
+    * @param $item The Content to display
     */
    public static function showPrintVersion($item) {
       global $xConf, $xCom;

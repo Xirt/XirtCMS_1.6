@@ -10,7 +10,7 @@ var XManager = new Class({
    // METHOD :: Resets password of user
    resetPassword: function() {
 
-      if (confirm(XLang.confirmReset)) {
+      if (confirm(XLang.confirmations['reset'])) {
 
          new Request({
             onFailure: Xirt.showError,
@@ -29,7 +29,7 @@ var XManager = new Class({
    // METHOD :: Removes item
    remove: function() {
 
-      if (confirm(XLang.confirmRemove)) {
+      if (confirm(XLang.confirmations['remove'])) {
 
          new Request({
             onFailure: Xirt.showError,

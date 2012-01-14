@@ -314,9 +314,13 @@ abstract class Smarty_Resource {
      */
     protected function fileExists(Smarty_Template_Source $source, $file)
     {
-        $source->timestamp = @filemtime($file);
-        return $source->exists = !!$source->timestamp;
 
+        // A.G. Gideonse (14/01/2012) modified:
+        if ($source->exists = file_exists($file)) {
+           return ($source->timestamp = @filemtime($file));
+        }
+
+        return ($source->timestamp = false);
     }
 
     /**
@@ -682,8 +686,11 @@ class Smarty_Template_Source {
 
         $compiled = new Smarty_Template_Compiled($this);
         $this->handler->populateCompiledFilepath($compiled, $_template);
-        $compiled->timestamp = @filemtime($compiled->filepath);
-        $compiled->exists = !!$compiled->timestamp;
+
+        // A.G. Gideonse (14/01/2012) modified:
+        if ($compiled->exists = file_exists($compiled->filepath)) {
+           $compiled->timestamp = @filemtime($compiled->filepath);
+        }
 
         // runtime cache
         Smarty_Resource::$compileds[$_cache_key] = $compiled;

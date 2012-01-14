@@ -1,9 +1,9 @@
 <?php
 
 require_once('includes/Mail.php');
+require_once('includes/Viewer.php');
+require_once('includes/Content.php');
 require_once('includes/Template.php');
-require_once('includes/ContentItem.php');
-require_once('includes/ContentViewer.php');
 
 /**
  * Default component to show content items
@@ -11,8 +11,8 @@ require_once('includes/ContentViewer.php');
  * @author     A.G. Gideonse
  * @version    1.6
  * @copyright  XirtCMS 2010 - 2012
- * @package	   XirtCMS
- * @see        ContentViewer
+ * @package    XirtCMS
+ * @see        Viewer
  */
 class Component extends XComponent {
 
@@ -28,15 +28,15 @@ class Component extends XComponent {
       switch (XTools::getParam('task')) {
 
          case 'show_print':
-            ContentViewer::showPrintVersion($item);
+            Viewer::showPrintVersion($item);
             break;
 
          case 'show_pdf':
-            ContentViewer::showPDFVersion($item);
+            Viewer::showPDFVersion($item);
             break;
 
          default:
-            ContentViewer::showContent($item);
+            Viewer::showContent($item);
             break;
 
       }

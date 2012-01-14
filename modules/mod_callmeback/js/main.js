@@ -44,14 +44,14 @@ var CallMeBack = new Class({
    // Executed on completion
    _onFinish: function() {
 
-      Xirt.showNotice(XLang.mSuccess);
+      Xirt.showNotice(XLang.messages['success']);
       this.hide();
 
    },
 
    // Executed on failure
    _onFailure: function() {
-      Xirt.showNotice(XLang.mFailure);
+      Xirt.showNotice(XLang.messages['failed']);
    },
    
    // Shows layover
@@ -69,8 +69,4 @@ var CallMeBack = new Class({
       this.window.hide();
    }   
 
-});
-
-window.addEvent('domready', function() {
-   new CallMeBack();
 });
