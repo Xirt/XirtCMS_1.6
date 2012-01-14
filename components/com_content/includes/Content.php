@@ -9,7 +9,7 @@
  * @package    XirtCMS
  * @see        ContentViewer
  */
-class ContentItem {
+class Content {
 
    /**
     * @var Defines whether the instance is a translation of the content or not

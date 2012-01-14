@@ -74,7 +74,7 @@ class Component extends XComponent {
     */
    private function _getContentItem() {
 
-      $item = new ContentItem();
+      $item = new Content();
 
       if (!$item->load(XTools::getParam('id', 0, _INT))) {
          return null;
