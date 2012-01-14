@@ -203,6 +203,16 @@ class XDir {
 
 
    /**
+    * Returns the modification time of the directory
+    *
+    * @return int The modification time as UNIX timestamp or 0 on failure
+    */
+   public function modified() {
+      return intval(@filemtime($this->path));
+   }
+
+
+   /**
     * Checks the existence of the directory in the filesystem
     *
     * @return boolean True on existence, false otherwhise

@@ -108,8 +108,27 @@ class XFile {
       global $xConf;
 
       $mode = $mode ? octdec($mode) : $xConf->chmod;
-
       return (is_file($this->file) && @chmod($this->file, $mode));
+   }
+
+
+   /**
+    * Returns the contents of the file
+    *
+    * @return String The contents of the file
+    */
+   public function read() {
+      return file_get_contents($this->file);
+   }
+
+
+   /**
+    * Returns the modification time of the file
+    *
+    * @return int The modification time as UNIX timestamp or 0 on failure
+    */
+   public function modified() {
+      return intval(@filemtime($this->file));
    }
 
 
