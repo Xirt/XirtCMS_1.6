@@ -1,5 +1,12 @@
 <?php
-define('_LOGFILE', 'admin.log');
+
+/*******************************************
+** @author     A.G. Gideonse              **
+** @version    1.6                        **
+** @copyright  XirtCMS 2010 - 2012        **
+** @package    XirtCMS                    **
+*******************************************/
+
 define('_ADMIN', true);
 define('_XDIR', '../');
 define('_XIRT', true);

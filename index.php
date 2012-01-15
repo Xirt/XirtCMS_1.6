@@ -3,11 +3,11 @@
 /*******************************************
 ** @author     A.G. Gideonse              **
 ** @version    1.6                        **
-** @copyright  XirtCMS 2010 - 2012        ** 
+** @copyright  XirtCMS 2010 - 2012        **
 ** @package    XirtCMS                    **
 *******************************************/
 
-define('_LOGFILE', 'live.log');
+define('_ADMIN', false);
 define('_XDIR', './');
 define('_XIRT', true);
 define('nl', "\n");
