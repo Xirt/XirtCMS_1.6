@@ -7,7 +7,6 @@
 ** @package    XirtCMS                    **
 *******************************************/
 
-define('_ADMIN', false);
 define('_XDIR', './');
 define('_XIRT', true);
 define('nl', "\n");

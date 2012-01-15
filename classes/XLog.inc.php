@@ -44,13 +44,13 @@ class XLog {
       $xDb->query();
 
       // Empty event file
-      if (file_exists($this->file) && !unlink($this->file)) {
+      if (file_exists($this->file) && !@unlink($this->file)) {
          trigger_error("Could not clear event log", E_USER_WARNING);
       }
 
       // Reset event notification
       $notification = $this->file . '.notified';
-      if (file_exists($notification) && !unlink($notification)) {
+      if (file_exists($notification) && !@unlink($notification)) {
          trigger_error("Could not reset notification", E_USER_WARNING);
       }
 
