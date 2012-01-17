@@ -9,8 +9,8 @@
 
    {elseif !is_null($xLang)}
 
-      <h1>{$xLang->errors['errorHead']}</h1>
-      <span class='message'>{$xLang->errors['errorBody']}</span>
+      <h1>{$xLang->headers['error']}</h1>
+      <span class='message'>{$xLang->bodies['error']}</span>
 
    {else}
 
