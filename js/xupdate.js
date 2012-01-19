@@ -4,7 +4,7 @@ var BrowserNotification = new Class({
 
       if (!Cookie.read('update')) {
 
-         Asset.javascript('templates/xcss/xupdate.css');
+         Asset.css('templates/xcss/xupdate.css');
          Cookie.write('update', '1');
 
          this._create();
@@ -88,8 +88,9 @@ var BrowserNotification = new Class({
    _position : function() {
 
       this.container.position({
+         edge: 'left',
          position: 'center',
-         offset: { x:0, y:-150 }
+         offset: { x:-290, y:-150 }
       });
 
    },
