@@ -22,6 +22,12 @@ var Xirt = new Class({
       this._statistics();
       this._notifications();
 
+      // Check for (old) browser version
+      if ((Browser.version < 6 && Browser.ie) || 
+          (Browser.firefox && Browser.version < 4)) {
+         Asset.javascript('js/xupdate.js');
+      }
+      
    },
 
    // Analyses elements
