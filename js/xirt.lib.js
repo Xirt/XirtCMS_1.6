@@ -33,10 +33,23 @@ var Xirt = new Class({
    // Analyses elements
    _analyse : function() {
 
-      $$('a[rel^=external]').each(function(el) {
+      // External links
+      $$('a[rel*=external]').each(function(el) {
 
          el.setProperty('target', '_blank');
          el.addClass('external');
+
+      });
+
+      // Links to PDF files
+      Array.combine($$('a[rel*=pdf]'), $$('a[href$=.pdf]')).each(function(el) {
+
+         el.addEvent('click', function(e) {
+
+            new PDF(this);
+            e.stop();
+           
+         });
 
       });
 
@@ -548,6 +561,109 @@ var Fog = new Class({
    // Hides the element
    hide : function(fast) {
       return this.element.fade(fast ? 'hide' : 'out');
+   }
+
+});
+
+
+
+/**
+ * Class to show a PDF notifications
+ */
+var PDF = new Class({
+
+   _reader : "http://get.adobe.com/reader/",
+   _path : null,
+
+   initialize : function(el) {
+
+      if (!Cookie.read('pdf')) {
+
+         this._path = el.get('href');
+         Cookie.write('pdf', '1');
+
+         this._create();
+         this.show();
+
+      }
+
+   },
+
+   // Creates the element
+   _create : function() {
+
+      this.container = new Element('div', {
+         'class' : 'xPDF'
+      });
+      
+         this.container.grab(new Element('h1', {
+            'text': XLang.reader['header']
+         }));
+
+         this.container.grab(new Element('p', {
+            'text': XLang.reader['introduction']
+         }));
+
+         var content = new Element('div', {
+            'class' : 'box-download'
+         });
+
+            content.grab(new Element('button', {
+               'type'    : 'button',
+               'text'    : XLang.reader['download'],
+               'class'   : 'xPDF'
+            }).addEvent('click', this._download.bind(this)));
+
+         this.container.grab(content);
+
+         this.container.grab(new Element('p', {
+            'text': XLang.reader['alternative']
+         }));
+
+         var buttons = new Element('div', {
+            'class' : 'box-buttons'
+         });
+   
+            buttons.grab(new Element('button', {
+               'type'    : 'button',
+               'text'    : XLang.reader['continue']
+            }).addEvent('click', this._continue.bind(this)));
+
+            buttons.grab(new Element('button', {
+               'type'    : 'button',
+               'text'    : XLang.reader['cancel'],
+               'class'   : 'close'     
+            }));
+
+         this.container.grab(buttons);
+
+      this.window = new Window(this.container, 500);
+
+   },
+
+   // Continues to requested file
+   _continue : function() {
+
+      window.open(this._path);
+      this.hide();
+
+   },
+
+   // Continues to PDF reader
+   _download: function() {
+
+     window.open(this._reader);
+
+   },
+
+   // Shows the element
+   show : function() {
+      this.window.show();
+   },
+
+   // Hides the element
+   hide : function() {
+      this.window.hide();
    }
 
 });
