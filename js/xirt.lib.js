@@ -46,8 +46,7 @@ var Xirt = new Class({
 
          el.addEvent('click', function(e) {
 
-            new PDF(this);
-            e.stop();
+            new PDF(e, this);
            
          });
 
@@ -575,12 +574,13 @@ var PDF = new Class({
    _reader : "http://get.adobe.com/reader/",
    _path : null,
 
-   initialize : function(el) {
+   initialize : function(e, el) {
 
       if (!Cookie.read('pdf')) {
 
          this._path = el.get('href');
          Cookie.write('pdf', '1');
+         e.stop();
 
          this._create();
          this.show();
