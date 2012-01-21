@@ -1,0 +1,427 @@
+form, body, div, table, td, tr, ul, li, p, legend, fieldset {
+   margin: 0px;
+   padding: 0px;
+   color: #000000;
+   vertical-align: top;
+   font-family: "Calibri", "Myriad Pro", helvetica, arial,sans-serif;
+   font-size: 12px;
+   text-align: left;
+   line-height: 16px;
+}
+
+
+
+/********************/
+/* XIRTCMS ELEMENTS */
+/********************/
+.xirt-overlay {
+   opacity: 0.1;
+   position: fixed;
+   left: 0;
+   top: 0;
+   background: #fff;
+   z-index: 1000;
+}
+
+.xStatsBox {
+   padding: 10px;
+   border-top: 2px #808080 solid;
+   border-bottom: 1px #808080 solid;
+   background: #dbe5f1 url(../ximages/gradient.png) repeat-x;
+   cursor: pointer;
+}
+
+.xProgressBox {
+   width: 400px;
+   background: #c0c0c0;
+   border: 1px #808080 solid;
+   border-radius: 3px;
+
+   /* Compatibility */
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+
+}
+
+.xProgressBar {
+   background: #e0dbe3 url(../ximages/loading.gif);
+   width: 0;
+   height: 15px;
+}
+
+
+
+/*******************/
+/* SYSTEM MESSAGES */
+/*******************/
+.xMessage {
+   margin: 10px 0;
+   padding: 10px;
+   border-top: 2px #808080 solid;
+   border-bottom: 1px #808080 solid;
+   background: #dbe5f1 url(../ximages/gradient.png) repeat-x;
+}
+
+.xMessage h2 {
+   margin: 0;
+   font-size: 15px;
+   font-weight: bold;
+}
+
+.xMessage.xJavaScript h2 {
+   color: #dc2a2a;
+}
+
+
+
+/*********/
+/* FORMS */
+/*********/
+.xForm fieldset,
+.xForm div.box-fieldset {
+   width: auto;
+   background: #dbe5f1 url(../ximages/bg_form.png) repeat-x;
+   box-shadow: 0 0 3px #c0c0c0;
+   padding: 4px 6px 4px 6px;
+   border: 0;
+}
+
+.xForm legend {
+   clear: both;
+   background: #ffffff;
+   margin-left: 10px;
+   margin-bottom: 2px;
+   padding: 3px 10px;
+   border: 1px #d3d3d3 solid;
+   border-top-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+   -moz-border-radius-topLeft: 10px;
+   -moz-border-radius-bottomRight: 10px;
+   -webkit-border-top-left-radius: 10px;
+   -webkit-border-bottom-right-radius: 10px;
+}
+
+.xForm label {
+   float: left;
+   width: 190px;
+   line-height: 18px;
+   padding: 5px 10px 5px 0px;
+   margin: 1px 5px 2px 0px;
+   background: #96BCE8;
+   background: -webkit-gradient(linear, left top, right top, from(#dbe5f1), to(50%, #96BCE8));
+   background: -webkit-linear-gradient(left, #dbe5f1, #96BCE8 50%);
+   background: -moz-linear-gradient(left, #dbe5f1, #96BCE8 40%);
+   background: -ms-linear-gradient(left, #dbe5f1, #96BCE8 50%);
+   background: -o-linear-gradient(left, #dbe5f1, #96BCE8 50%);
+   color: #fff;
+   font-weight: normal;
+   text-align: right;
+}
+
+.xForm input,
+.xForm select,
+.xForm textarea,
+.xForm ul.mselect_list {
+   border: 1px #c0c0c0 solid;
+   background: #fefefe;
+   margin: 2px 0px 4px 2px;
+   padding: 4px 5px 4px 5px;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   font-size: 12px;
+   height: 15px;
+   width: 170px;
+   font-family: "Calibri", "Myriad Pro", helvetica, arial, sans-serif;
+}
+
+.xForm textarea {
+   height: 100px;
+}
+
+.xForm select {
+   height: 25px;
+   padding: 3px 0px 0px 2px;
+}
+
+.xForm input:focus,
+.xForm select:focus {
+   background: #efefef;
+   border: 1px #000000 solid;
+}
+
+.xForm input[type=checkbox],
+.xForm input[type=radio] {
+   width: auto;
+   height: 25px;
+   margin: 10px 5px 5px 0;
+   vertical-align: bottom;
+}
+
+.xForm .label-radio {
+   margin-right: 10px;
+}
+
+.xForm option {
+   background: #fff;
+   padding: 5px;
+   cursor: pointer;
+}
+
+.xForm optgroup {
+   padding: 5px;
+   font-size: 14px;
+   background: #dbe5f1;
+}
+
+.xForm optgroup option {
+   padding: 4px;
+   font-size: 11px;
+   background: #fff;
+   border-bottom: 1px #c0c0c0 dotted;
+}
+
+.xForm ul.mselect_list {
+   float: left;
+   overflow: auto;
+}
+
+.xForm ul.mselect_list li {
+   padding-left: 25px;
+   cursor: pointer;
+}
+
+.xForm ul.mselect_list li:hover,
+.xForm ul.mselect_list li.selected:hover {
+   background-color: #efefef;
+}
+
+.xForm ul.mselect_list li.selected {
+   background: url(../../images/cms/icons/check.png) 4px center no-repeat;
+
+}
+
+.xForm .box-buttons {
+   clear: both;
+   padding: 10px 0;
+   text-align: center;
+}
+
+.xForm button {
+   background-repeat: no-repeat;
+   background-position: 8px 4px;
+   border: 0;
+   box-shadow: 0 0 3px #c0c0c0;
+   background-color: #fefefe;
+   padding: 3px 5px 3px 30px;
+   font-size: 13px;
+   cursor: pointer;
+}
+
+.xForm .box-buttons button {
+   margin-left: 10px;;
+}
+
+.xForm button.left {
+   border-radius: 6px 0 0 6px;
+   background-image: url(../../images/cms/icons/arrow_left.png);
+}
+
+.xForm button.right {
+   border-radius: 0 6px 6px 0;
+   background-image: url(../../images/cms/icons/arrow_right.png);
+}
+
+.xForm button.create {
+   background-image: url(../../images/cms/icons/new.png);
+}
+
+.xForm button.reset,
+.xForm button.cancel {
+   background-image: url(../../images/cms/icons/reset.png);
+}
+
+.xForm button.save,
+.xForm button.submit {
+   background-image: url(../../images/cms/icons/check.png);
+}
+
+.xForm button.close {
+   background-image: url(../../images/cms/icons/remove.png);
+}
+
+/*
+.xForm button.green {
+   box-shadow: 0 0 3px #D1EFC2;
+   background-color: #F4FFEF;
+}
+
+.xForm button.red {
+   box-shadow: 0 0 3px #EFC2C8;
+   background-color: #FFEFF1;
+}
+*/
+
+.xForm button.green:hover {
+   background-color: #D1EFC2;
+}
+
+.xForm button.red:hover {
+   background-color: #EFC2C8;
+}
+
+img.url {
+   cursor: pointer;
+}
+
+
+
+/**********
+ XIRT ALERT
+**********/
+.xirt-alert {
+   position: absolute;
+   max-width: 500px;
+   padding: 10px;
+   background: #FFF;
+   border-radius: 10px 0;
+   box-shadow: 2px 2px 7px #c0c0c0;
+   z-index: 1020;
+
+   /* Compatibility */
+   -webkit-box-shadow: 2px 2px 7px #c0c0c0;
+   -moz-box-shadow: 2px 2px 7px #c0c0c0;
+   -webkit-border-radius: 10px 0;
+   -moz-border-radius: 10px 0;
+
+}
+
+.xirt-alert .box-buttons {
+   margin-top: 10px;
+   text-align: center;
+}
+
+
+
+/**********************
+ XIRT TOOLTIP / NOTICE
+**********************/
+.xirt-tooltip {
+   background: url(../ximages/tooltip-pointer.png) left center no-repeat;
+   padding-left: 4px;
+   max-width: 296px;
+   z-index: 1040;
+}
+
+.xirt-tooltip p {
+   display: block;
+   padding: 6px 10px;
+   background: url(../ximages/tooltip-bg.png);
+   color: #ffffff;
+   border-radius: 5px;
+   box-shadow: 2px 2px 7px #808080;
+
+   /* Compatibility */
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-box-shadow: 2px 2px 7px #808080;
+   -moz-box-shadow: 2px 2px 7px #808080;
+
+}
+
+
+
+/************
+ XIRT POP-UP
+************/
+.xirt-window {
+   position: absolute;
+   z-index: 1001;
+   text-align: justify;
+   overflow-y: auto;
+   overflow-x: hidden;
+   background: #fff;
+   border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+   box-shadow: 0 0 10px #808080;
+
+   /* Compatibility */
+   -moz-border-radius-bottomLeft: 10px;
+   -moz-border-radius-bottomRight: 10px;
+   -webkit-border-bottom-left-radius: 10px;
+   -webkit-border-bottom-right-radius: 10px;
+   -webkit-box-shadow: 0 0 10px #808080;
+   -moz-box-shadow: 0 0 10px #808080;
+
+}
+
+.xirt-window .xirt-content,
+.xirt-window .box-buttons {
+   position: relative;
+   padding: 10px 10px;
+}
+
+
+
+/******************
+ XIRT NOTICE (ROAR)
+******************/
+.roar-body {
+   position: absolute;
+   text-align: left;
+   color: #fff;
+   z-index: 1100;
+   background: red;
+}
+
+.roar {
+   position: absolute;
+   width: 300px;
+   cursor: pointer;
+}
+
+.roar-bg {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   left: 0;
+   top: 0;
+   background-color: #000;
+   border-radius: 10px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+   z-index: 1125;
+
+   /* Compatibility */
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 10px;
+   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+}
+
+.roar-body-ugly .roar {
+   background-color: #333;
+}
+
+.roar-body-ugly .roar-bg {
+   display: none;
+}
+
+.roar h3 {
+   position: relative;
+   padding: 15px 10px 0;
+   margin: 0;
+   border: 0;
+   font-size: 13px;
+   color: #fff;
+   z-index: 1130;
+}
+
+.roar p {
+   position: relative;
+   padding: 10px 10px 15px;
+   margin: 0;
+   font-size: 12px;
+   color: #fff;
+   z-index: 1130;
+}
