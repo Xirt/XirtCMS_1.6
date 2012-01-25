@@ -37,54 +37,58 @@ class XAuthentication {
    public static function check() {
       global $xConf;
 
-      $cId   = isset($_COOKIE['id'])    ? $_COOKIE['id']    : null;
-      $cId   = isset($_SESSION['id'])   ? $_SESSION['id']   : $cId;
+      $ip = $_SERVER['REMOTE_ADDR'];
 
-      $cPass = isset($_COOKIE['pass'])  ? $_COOKIE['pass']  : null;
-      $cPass = isset($_SESSION['pass']) ? $_SESSION['pass'] : $cPass;
+      $uId = isset($_COOKIE['id'])  ? $_COOKIE['id']  : null;
+      $uId = isset($_SESSION['id']) ? $_SESSION['id'] : $uId;
 
-      $cHash = isset($_COOKIE['hash'])  ? $_COOKIE['hash']  : null;
-      $cHash = isset($_SESSION['hash']) ? $_SESSION['hash'] : $cHash;
+      $pass = isset($_COOKIE['pass'])  ? $_COOKIE['pass']  : null;
+      $pass = isset($_SESSION['pass']) ? $_SESSION['pass'] : $pass;
 
-      $authStr = $cId . $cPass . $xConf->secretKey;
-      $gHash = hash($xConf->hashAlgorithm, $authStr);
+      $hash = isset($_COOKIE['hash'])  ? $_COOKIE['hash']  : null;
+      $hash = isset($_SESSION['hash']) ? $_SESSION['hash'] : $hash;
 
-      return ($gHash == $cHash);
+      $authStr = $ip . $uId . $pass . $xConf->secretKey;
+      $candidate = hash($xConf->hashAlgorithm, $authStr);
+
+      return ($candidate == $hash);
    }
 
 
    /**
     * Attempts to authenticate the current visitor
     *
-    * @param $uName The username of the user to authenticate
-    * @param $uPass The password of the user to authenticate
+    * @param $username The username of the user to authenticate
+    * @param $password The password of the user to authenticate
     * @param $useCookies Toggles the use of cookies (defaults to false)
     * @return mixed Return true if visitor is authenticated, false otherwhise
     * @throws Exception
     */
-   public static function create($uName, $uPass, $useCookies = false) {
+   public static function create($username, $password, $cookies = false) {
       global $xDb, $xConf;
 
       XAuthentication::destroy();
+      session_regenerate_id();
 
-      if (!$uId = XAuthentication::_verify($uName, $uPass)) {
+      if (!$uId = XAuthentication::_verify($username, $password)) {
       	return self::_snail();
       }
 
-      $uPass   = hash($xConf->hashAlgorithm, $uPass);
-      $authStr = $uId . $uPass . $xConf->secretKey;
-      $hash    = hash($xConf->hashAlgorithm, $authStr);
+      $password = self::hash($password);
+      $ip       = $_SERVER['REMOTE_ADDR'];
+      $authStr  = $ip . $uId . $password . $xConf->secretKey;
+      $hash     = hash($xConf->hashAlgorithm, $authStr);
 
-      if ($useCookies) {
+      if ($cookies) {
 
          setcookie("id"   , $uId  , time() + 31536000);
-         setcookie("pass" , $uPass, time() + 31536000);
+         setcookie("pass" , $password, time() + 31536000);
          setcookie("hash" , $hash , time() + 31536000);
 
       }
 
       $_SESSION['id']   = $uId;
-      $_SESSION['pass'] = $uPass;
+      $_SESSION['pass'] = $password;
       $_SESSION['hash'] = $hash;
       self::_snail(true);
 
@@ -142,20 +146,20 @@ class XAuthentication {
    * Verifies a username / password combination
    *
    * @access protected
-   * @param $uName String containing the username
-   * @param $uPass String containing the password
+   * @param $username String containing the username
+   * @param $password String containing the password
    * @return boolean True on success, false on failure
    */
-   protected static function _verify($uName, $uPass) {
+   protected static function _verify($username, $password) {
       global $xConf, $xDb;
 
-      if (!XValidate::isSimpleChars($uName)) {
+      if (!XValidate::isSimpleChars($username)) {
          return false;
       }
 
-      $query = "SELECT id, yubikey, password
+      $query = "SELECT id, yubikey, password, salt
                 FROM #__users
-                WHERE username LIKE BINARY '{$uName}'";
+                WHERE username LIKE BINARY '{$username}'";
       $xDb->setQuery($query);
 
       if (!$auth = $xDb->loadRow()) {
@@ -164,8 +168,9 @@ class XAuthentication {
 
       // Password verification
       $factors = 0;
-      if (hash($xConf->hashAlgorithm, $uPass) == $auth->password) {
-      	$factors++;
+
+      if (self::hash($password, $auth->salt) == $auth->password) {
+      	 $factors++;
       }
 
       // Yubikey verification
@@ -179,7 +184,7 @@ class XAuthentication {
          }
 
          $yubikey = new Yubikey($xConf->yApi, $xConf->yKey);
-         if ($yubikey->verify($uPass)) {
+         if ($yubikey->verify($password)) {
             $factors++;
          }
 
@@ -191,6 +196,27 @@ class XAuthentication {
       }
 
       return $auth->id;
+   }
+
+
+   /**
+    * Generates a random hash based on the given password and salt
+    *
+    * @param $password The password to use for the hash
+    * @param $salt The salt to use for the hash (optional)
+    * @return String The generated hash
+    */
+   public static function hash($password, $salt = null) {
+
+      if (!CRYPT_BLOWFISH) {
+         trigger_error("Blowfish not available for crypt().", E_USER_ERROR);
+      }
+
+      if (is_null($salt)) {
+         $salt = substr(md5(uniqid(rand(), true)), 0, 21);
+      }
+
+      return crypt($password, '$2a$08$' . $salt . '$');
    }
 
 }
