@@ -5,7 +5,7 @@
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class User extends XItem {
@@ -19,13 +19,11 @@ class User extends XItem {
    public function loadByName($username, $email) {
       global $xCom;
 
-      $username = XTools::addslashes($username);
       $email    = XTools::addslashes($email);
+      $username = XTools::addslashes($username);
 
    	if (!$this->loadFromDatabaseByName('#__users', $username, $email)) {
-
          die($xCom->xLang->messages['noAccountFail']);
-
       }
 
    }
@@ -51,9 +49,7 @@ class User extends XItem {
       if ($dbRow = $xDb->loadRow()) {
 
          foreach ($dbRow as $attrib => $value) {
-
             $this->set($attrib, $value);
-
          }
 
          return true;
@@ -67,9 +63,7 @@ class User extends XItem {
     * Saves changes to the item to the database
     */
    public function save() {
-
       parent::saveToDatabase('#__users');
-
    }
 
 
@@ -77,9 +71,7 @@ class User extends XItem {
     * Removes item from the database
     */
    public function remove() {
-
       parent::removeFromDatabase('#__users');
-
    }
 
 }

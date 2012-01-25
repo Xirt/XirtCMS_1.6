@@ -1,6 +1,7 @@
 <?php
 
 require_once('includes/User.php');
+require_once('includes/LoginViewer.php');
 require_once('includes/LoginManager.php');
 
 /**
@@ -25,7 +26,7 @@ class Manager extends XComponent {
             break;
 
          default:
-            LoginManager::showLoginForm();
+            LoginViewer::showForm();
             break;
 
       }
@@ -40,16 +41,12 @@ class Manager extends XComponent {
 
       switch (XTools::getParam('task')) {
 
-         case 'forgot_password':
-            LoginManager::showPasswordForm();
+         case 'attempt_login':
+            LoginManager::login();
             break;
 
          case 'request_password':
             LoginManager::requestPassword();
-            break;
-
-         case 'attempt_login':
-            LoginManager::login();
             break;
 
       }

@@ -16,17 +16,19 @@ class ContentManager {
    public static function addItem() {
       global $xCom, $xConf, $xUser;
 
+      $salt     = self::_generateSalt();
       $password = XTools::generatePassword();
       $content  = (object) $xCom->xLang->mailCreate;
 
       $user = new User();
+      $user->set('salt',     $salt);
       $user->set('rank',     XTools::getParam('nx_rank', 0, _INT));
       $user->set('rank',     min($xUser->rank, $user->rank));
       $user->set('name',     XTools::getParam('nx_name'));
       $user->set('mail',     XTools::getParam('nx_mail'));
       $user->set('editor',   XTools::getParam('nx_editor', 0, _INT));
       $user->set('username', XTools::getParam('nx_username'));
-      $user->set('password', hash($xConf->hashAlgorithm, $password));
+      $user->set('password', XAuthentication::hash($password, $salt));
 
       $list = new UserList();
       $list->load();
@@ -99,7 +101,7 @@ class ContentManager {
       // Reset password
       $user  = new User();
       $user->load(XTools::getParam('id', 0, _INT));
-      $user->set('password', hash($xConf->hashAlgorithm, $password));
+      $user->set('password', XAuthentication::hash($password, $user->salt));
       $user->save();
 
       // Generate mail content
@@ -144,6 +146,17 @@ class ContentManager {
 
       $user->remove();
 
+   }
+
+
+   /**
+    * Returns a random string for salting
+    *
+    * @access protected
+    * @return String The generated random salt
+    */
+   protected static function _generateSalt() {
+      return substr(md5(uniqid(rand(), true)), 0, 21);
    }
 
 }

@@ -5,30 +5,10 @@
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class LoginManager {
-
-   /**
-    * Shows the login panel
-    */
-   public static function showLoginForm() {
-      global $xCom, $xConf, $xUser;
-
-      $xConf->hideTemplate();
-
-      if ($xUser->isAuth($xConf->adminLevel)) {
-      	return header('Location: index.php?content=adm_portal');
-      }
-
-      // Show template
-      $tpl = new XAdminTemplate('adm_login');
-      $tpl->assign('xLang', $xCom->xLang);
-      $tpl->display('main.tpl');
-
-   }
-
 
    /**
     * Attempts to authenticate the user
@@ -68,20 +48,20 @@ class LoginManager {
       $password = XTools::generatePassword();
       $email    = XTools::getParam('request_mail');
       $username = XTools::getParam('request_name');
-      $content  = (object) $xCom->xLang->mailReset;
+      $content  = (object) $xCom->xLang->mail;
 
       // Reset password
       $user = new User();
       $user->loadByName($username, $email);
-      $user->set('password', hash($xConf->hashAlgorithm, $password));
+      $user->set('password', XAuthentication::hash($password, $user->salt));
       $user->save();
 
       // Generate mail content
       $body = new XAdminTemplate('adm_login');
       $body->assign('xUser', $user);
       $body->assign('xConf', $xConf);
-      $body->assign('password', $password);
       $body->assign('xLang', $content);
+      $body->assign('password', $password);
       $body = $body->fetch('mails/mail-reset.tpl');
 
       // Sent mail
