@@ -43,7 +43,7 @@ class Viewer {
       // Show template
       $tpl = new Template();
       $tpl->assign('xConf', $xConf);
-      $tpl->assign('nodeList', $nodes);
+      $tpl->assign('nodes', self::_filter($nodes));
       $tpl->display('xml.tpl');
 
    }
@@ -105,6 +105,34 @@ class Viewer {
 
       }
 
+   }
+
+
+   /**
+    * Filters the given array (removes items with identical links)
+    *
+    * @access private
+    * @param $array The array to filter
+    * return Array The filtered array
+    */
+   private static function _filter($array) {
+
+      foreach ($array as $key => $item) {
+
+         foreach ($array as $key2 => $item2) {
+
+            if ($item->link == $item2->link && $key != $key2) {
+
+               unset($array[$key]);
+               break;
+
+            }
+
+         }
+
+      }
+
+      return $array;
    }
 
 }
