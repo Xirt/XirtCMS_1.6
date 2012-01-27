@@ -33,5 +33,5 @@ function xirt_autoload($class) {
 spl_autoload_register('xirt_autoload');
 
 $xStart = XTools::getMicrotime();
-new XPage();
+new XEngine();
 ?>
