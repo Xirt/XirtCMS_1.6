@@ -19,13 +19,13 @@ class Viewer {
       global $xConf, $xCom, $xLang;
 
       // Set META information
-      XContent::addMetaTag("keywords",    $item->meta_keywords);
-      XContent::addMetaTag("description", $item->meta_description);
-      XContent::addScriptTag('components/com_content/js/main.js');
+      XPage::addInformation("keywords",    $item->meta_keywords);
+      XPage::addInformation("description", $item->meta_description);
+      XPage::addScript('components/com_content/js/main.js');
 
-      XContent::extendTitle($item->title);
+      XPage::extendTitle($item->title);
       if (trim($item->meta_title)) {
-         XContent::setTitle($item->meta_title);
+         XPage::setTitle($item->meta_title);
       }
 
       // Show template
