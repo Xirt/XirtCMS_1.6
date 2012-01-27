@@ -26,6 +26,7 @@ class DefaultConfiguration {
       $this->maxFileSize         = "2M";
       $this->lockDelay           = 15;
       $this->debugMode           = true;
+      $this->combineScripts      = true;
 
       // Contact
       $this->adminMail           = "admin@domain.com";
