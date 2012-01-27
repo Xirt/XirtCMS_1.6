@@ -70,7 +70,7 @@ class XLanguage {
 
       }
 
-      XContent::addScriptTag($javascript);
+      XPage::addScript($javascript);
       foreach ($strings as $key => $value) {
          $this->$key = $value;
       }
