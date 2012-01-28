@@ -11,21 +11,47 @@
 class XCache {
 
    /**
-    * The time (in seconds) before the cache items expire
+    * The time (in seconds) before the cache items expire (for files)
     */
    static $DURATION = 1800;
-
-
-   /**
-    * The prefix for cached content
-    */
-   static $TXT_PREFIX = 'txt.';
 
 
    /**
     * The prefix for cached files
     */
    static $FILE_PREFIX = 'file.';
+
+
+   /**
+    * Saves a value in the cache
+    *
+    * @param $identifier The identifier to save / get the value from cache
+    * @param $value The value to save in the cache
+    */
+   function set($identifier, $value) {
+      $this->$identifier = $value;
+   }
+
+
+   /**
+    * Loads a value from the cache
+    *
+    * @param $identifier The identifier to save / get the value from cache
+    */
+   function get($identifier) {
+
+      return (isset($this->$identifier) ? $this->$identifier : null);
+   }
+
+
+   /**
+    * Removes a value from the cache
+    *
+    * @param $identifier The identifier to save / get the value from cache
+    */
+   function forget($identifier) {
+      unset($this->$identifier);
+   }
 
 
    /**
@@ -67,13 +93,12 @@ class XCache {
     *
     * @access private
     * @param $file The original name
-    * @param $isFile booleaan indicating whether the content is a file or text
     * @return String The name of the file in the cache
     */
-   function _getCacheName($name, $isFile = false) {
+   function _getCacheName($name) {
       global $xConf;
 
-      $file = ($isFile ? self::$FILE_PREFIX : self::$TXT_PREFIX) . md5($name);
+      $file = self::$FILE_PREFIX . md5($name);
 
       return sprintf('%scache/%s', $xConf->baseDir, $file);
    }

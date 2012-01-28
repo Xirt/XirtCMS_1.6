@@ -209,7 +209,7 @@ class XPage {
 
       // Attempt reload
       $xPage->cId = $home->xid;
-      $this->_preload();
+      $this->_load();
 
    }
 
