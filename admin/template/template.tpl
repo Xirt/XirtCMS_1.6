@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-{XContent::addScriptTag('template/js/menu.js')}
-{XContent::addCSSTag('template/css/main.css', 1)}
-{XContent::loadXHead()}
+{XPage::addScript('template/js/menu.js')}
+{XPage::addStylesheet('template/css/main.css', 1)}
+{XInclude::header()}
 </head>
 
 <body>
@@ -157,7 +157,7 @@
 </div>
 
 <div class='box-container'>
-{XContent::loadXMainContent()}
+{XInclude::component()}
 </div>
 
 </body>
