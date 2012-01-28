@@ -105,17 +105,17 @@ class XEngine {
       switch (true) {
 
          case !$xConf->showTemplate:
-            return $xPage->load(false);
+            return $xPage->preload(false);
 
          case XTools::isMobileRequest():
-            return $xPage->load(false);
+            return $xPage->preload(false);
 
          case array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER):
-            return $xPage->load(false);
+            return $xPage->preload(false);
 
       }
 
-      $xPage->load();
+      $xPage->preload();
 
    }
 

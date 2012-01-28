@@ -10,6 +10,17 @@
  */
 class XModule {
 
+   /**
+    * @var The path to modules
+    */
+   const PATH = "%smodules/%s/";
+
+
+   /**
+    * @var The path to the configuration file of modules
+    */
+   const PATH_XML = "%smodules/%s/index.mod.xml";
+
 
    /**
     * @var The name of the module instance
@@ -48,7 +59,7 @@ class XModule {
             return $this->showMobile();
 
       }
-      
+
       return $this->showNormal();
    }
 
@@ -120,63 +131,66 @@ class XModule {
    /**
     * Returns the default configuration for the given module
     *
-    * @param $module String with the name (type) of the requested model
+    * @param $type String with the name (type) of the requested model
     * @return Object Default configuration for the given module
     */
-   public static function getConfiguration($module) {
+   public static function getConfiguration($type) {
       global $xConf;
 
-      $path = $xConf->baseDir . "modules/";
-      $file = $module . "/index.mod.xml";
+      $configuration = new ArrayObject();
 
       try {
 
-         $moduleInfo = new SimpleXMLElement($path . $file, null, true);
-
-         $config = (Object)array();
-         if (!isset($moduleInfo->params->param)) {
-            return $config;
-         }
-
-         foreach ($moduleInfo->params->param as $param) {
-
-            if (!$type = strval($param->attributes()->type)) {
-               trigger_error("Incorrect configuration ({$mod})", E_USER_WARNING);
-            }
-
-            $field = (Object) array();
-
-            foreach ($param->attributes() as $attrib => $value) {
-               $field->$attrib = strval($value);
-            }
-
-            if ($type == 'select' || $type == 'radio') {
-
-               $options = (Object) array();
-
-               foreach ($param->option as $option) {
-
-                  $name  = strval($option->attributes()->name);
-                  $value = strval($option->attributes()->value);
-                  $options->$name = $value;
-
-               }
-
-               $field->options = $options;
-
-            }
-
-            $config->{$field->name} = $field;
-
-         }
+         $path = sprintf(XModule::PATH_XML, $xConf->baseDir, $type);
+         $module = @new SimpleXMLElement($path, null, true);
 
       } catch (Exception $e) {
 
-         trigger_error("Module XML invalid ({$module}).", E_USER_WARNING);
+         trigger_error("[XCore] Module invalid ({$type})", E_USER_WARNING);
+         return $configuration;
 
       }
 
-      return $config;
+      // No parameters
+      if (!isset($module->params->param)) {
+         return $configuration;
+      }
+
+      // Iterate over parameters
+      foreach ($module->params->param as $param) {
+
+         $parameter = new ArrayObject();
+         foreach ($param->attributes() as $attrib => $value) {
+            $parameter->$attrib = strval($value);
+         }
+
+         // Check parameter
+         if (!isset($parameter->type, $parameter->name, $parameter->default)) {
+
+            trigger_error("[XCore] Module invalid ({$type})", E_USER_WARNING);
+            continue;
+
+         }
+
+         // Special parameter types (with options)
+         if (in_array($parameter->type, array('select', 'radio'))) {
+
+            $parameter->options = new ArrayObject();
+            foreach ($param->option as $option) {
+
+               $name  = strval($option->attributes()->name);
+               $value = strval($option->attributes()->value);
+               $parameter->options->$name = $value;
+
+            }
+
+         }
+
+         $configuration->{$parameter->name} = $parameter;
+
+      }
+
+      return $configuration;
    }
 
 
@@ -187,7 +201,9 @@ class XModule {
     * @return String The relative location of the module
     */
    protected function _location() {
-      return sprintf('modules/%s/', $this->type);
+      global $xConf;
+
+      return sprintf(self::PATH, $xConf->baseDir, $this->type);
    }
 
 }
