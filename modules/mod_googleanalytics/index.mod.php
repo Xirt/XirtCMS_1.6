@@ -25,7 +25,6 @@ class mod_googleanalytics extends XModule {
             $this->_showLegacyTrackingCode();
             break;
 
-         case 3:
          default:
             $this->_showAsyncTrackingCode();
             break;

@@ -26,9 +26,7 @@ class TweetList {
     * Constructor
     */
    function __construct($accounts) {
-
       $this->_accounts = $accounts;
-
    }
 
 
@@ -36,7 +34,6 @@ class TweetList {
     * Initializes the list
     */
    private function _getQuery() {
-
       return implode("' OR account='", $this->_accounts);
    }
 
