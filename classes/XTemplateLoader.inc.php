@@ -46,12 +46,12 @@ class XTemplateLoader {
 
       // AJAX Call
       if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-         return XContent::loadXMainContent();
+         return XInclude::component();
       }
 
       // No template
       if (!$xConf->showTemplate) {
-         return XContent::loadXMainContent();
+         return XInclude::component();
       }
 
       // Admin Call
@@ -71,7 +71,7 @@ class XTemplateLoader {
     * @access private
     */
    private function _administration() {
-      global $xDb, $xLang;
+      global $xConf, $xDb, $xLang;
 
       // Loads components
       $query = "SELECT *
