@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-{XContent::addScriptTag('managers/adm_login/js/main.js')}
-{XContent::addCSSTag('managers/adm_login/css/main.css', 1)}
-{XContent::loadXHead()}
+{XPage::addScript('managers/adm_login/js/main.js')}
+{XPage::addStylesheet('managers/adm_login/css/main.css', 1)}
+{XInclude::header()}
 </head>
 
 <body>
