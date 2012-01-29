@@ -10,7 +10,7 @@ require_once('includes/ContentManager.php');
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package	   XirtCMS
  */
 class Manager extends XComponent {
@@ -20,9 +20,9 @@ class Manager extends XComponent {
    */
    function showNormal() {
 
-      XContent::addCSSTag('managers/adm_templates/css/main.css');
-      XContent::addScriptTag('managers/adm_templates/js/manager.js');
-      XContent::addScriptTag('managers/adm_templates/js/viewer.js');
+      XPage::addStylesheet('managers/adm_templates/css/main.css');
+      XPage::addScript('managers/adm_templates/js/manager.js');
+      XPage::addScript('managers/adm_templates/js/viewer.js');
 
       ContentViewer::showTemplate();
 

@@ -21,9 +21,9 @@ class Manager extends XComponent {
     */
    function showNormal() {
 
-      XContent::addCSSTag('managers/adm_categories/css/main.css');
-      XContent::addScriptTag('managers/adm_categories/js/viewer.js');
-      XContent::addScriptTag('managers/adm_categories/js/manager.js');
+      XPage::addStylesheet('managers/adm_categories/css/main.css');
+      XPage::addScript('managers/adm_categories/js/viewer.js');
+      XPage::addScript('managers/adm_categories/js/manager.js');
 
       ContentViewer::showTemplate();
 

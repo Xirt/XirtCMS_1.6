@@ -13,7 +13,7 @@ require_once('includes/ContentManager.php');
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Component extends XComponent {
@@ -23,9 +23,9 @@ class Component extends XComponent {
     */
    function showNormal() {
 
-      XContent::addCSSTag('components/com_search/css/main.css');
-      XContent::addScriptTag('components/com_search/js/manager.js');
-      XContent::addScriptTag('components/com_search/js/viewer.js');
+      XPage::addStylesheet('components/com_search/css/main.css');
+      XPage::addScript('components/com_search/js/manager.js');
+      XPage::addScript('components/com_search/js/viewer.js');
 
       ContentViewer::showTemplate();
 

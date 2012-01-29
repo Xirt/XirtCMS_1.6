@@ -46,7 +46,7 @@ class ContentManager {
    /**
     * Adds translation
     */
-   public static function addTranslation() {                                    // Controleren (ongeveer zelfde als andere managers?)
+   public static function addTranslation() {
       global $xCom, $xDb, $xUser;
 
       $list = new TranslationList();

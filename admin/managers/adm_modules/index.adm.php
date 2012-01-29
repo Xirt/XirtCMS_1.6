@@ -11,7 +11,7 @@ require_once('includes/ContentManager.php');
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Manager extends XComponent {
@@ -21,9 +21,9 @@ class Manager extends XComponent {
     */
    function showNormal() {
 
-      XContent::addCSSTag('managers/adm_modules/css/main.css');
-      XContent::addScriptTag('managers/adm_modules/js/viewer.js');
-      XContent::addScriptTag('managers/adm_modules/js/manager.js');
+      XPage::addStylesheet('managers/adm_modules/css/main.css');
+      XPage::addScript('managers/adm_modules/js/viewer.js');
+      XPage::addScript('managers/adm_modules/js/manager.js');
 
       ContentViewer::showTemplate();
 

@@ -96,7 +96,7 @@ class CKEditor
 	function __construct($basePath = null) {
 
 		// Added for XirtCMS usage (11/01/2012)
-		XContent::addScriptTag(_XDIR . 'js/ckeditor/ckeditor.js');
+		XPage::addScript(_XDIR . 'js/ckeditor/ckeditor.js');
 
 		if (!empty($basePath)) {
 			$this->basePath = $basePath;

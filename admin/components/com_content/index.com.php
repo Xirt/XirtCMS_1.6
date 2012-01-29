@@ -8,7 +8,7 @@ require_once('includes/Template.php');
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Component extends XComponent {
@@ -18,8 +18,8 @@ class Component extends XComponent {
     */
    function showNormal() {
 
-      XContent::addCSSTag('components/com_content/css/main.css');
-      XContent::addScriptTag('components/com_content/js/main.js');
+      XPage::addStylesheet('components/com_content/css/main.css');
+      XPage::addScript('components/com_content/js/main.js');
 
       ViewManager::showTemplate();
 

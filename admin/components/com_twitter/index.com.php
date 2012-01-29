@@ -21,9 +21,9 @@ class Component extends XComponent {
     */
    function showNormal() {
 
-      XContent::addCSSTag('components/com_twitter/css/main.css');
-      XContent::addScriptTag('components/com_twitter/js/viewer.js');
-      XContent::addScriptTag('components/com_twitter/js/manager.js');
+      XPage::addStylesheet('components/com_twitter/css/main.css');
+      XPage::addScript('components/com_twitter/js/viewer.js');
+      XPage::addScript('components/com_twitter/js/manager.js');
 
       ContentViewer::showTemplate();
 

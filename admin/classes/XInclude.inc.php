@@ -86,7 +86,7 @@ class XInclude {
     * @param $type The plugin to load
     */
    public static function plugin($type) {
-      global $xPage;
+      global $xConf, $xPage;
 
       if (!defined('PLUGIN.' . $type)) {
 

@@ -51,7 +51,7 @@ class Translation extends XItem {
     *
     * @param $type The module type of this translation
     */
-   public function setConfiguration($type = null) {                                 // Herschrijven!
+   public function setConfiguration($type = null) {
 
       $type = $type ? $type : $this->type;
 
