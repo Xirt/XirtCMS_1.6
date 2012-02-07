@@ -16,9 +16,9 @@ class XMakeCompatible {
    public static function noCache() {
 
       session_cache_limiter('nocache');
-      header("Cache-Control: no-store, no-cache, must-revalidate");
-      header("Expires: Sun, 15 Jun 1986 00:00:00 GMT");
-      header("Pragma: no-cache");
+      header('Cache-Control: no-store, no-cache, must-revalidate');
+      header('Expires: Sun, 15 Jun 1986 00:00:00 GMT');
+      header('Pragma: no-cache');
 
    }
 
@@ -34,7 +34,7 @@ class XMakeCompatible {
       }
 
       if (!$path = parse_url($xConf->baseURL, PHP_URL_PATH)) {
-         trigger_error("Malformed 'baseURL' found in config.", E_USER_ERROR);
+         trigger_error('[XCore] Malformed baseURL.', E_USER_ERROR);
       }
 
       // Retrieve original URL
@@ -109,12 +109,12 @@ class XMakeCompatible {
          register_shutdown_function('session_write_close');
 
          session_set_save_handler(
-            array("XSession", "open"),
-            array("XSession", "close"),
-            array("XSession", "read"),
-            array("XSession", "write"),
-            array("XSession", "destroy"),
-            array("XSession", "clean")
+            array('XSession', 'open'),
+            array('XSession', 'close'),
+            array('XSession', 'read'),
+            array('XSession', 'write'),
+            array('XSession', 'destroy'),
+            array('XSession', 'clean')
          );
 
       }

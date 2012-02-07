@@ -26,13 +26,13 @@ class XTree extends XNode {
    /**
     * @var Holds the tree as an array (used as cache)
     */
-   var $treeList = false;
+   private $_tree = false;
 
 
    /**
-    * @var Holds true when variable treeList is not up-to-date
+    * @var Holds true when variable _tree is not up-to-date
     */
-   var $isChanged = false;
+   private $_isChanged = false;
 
 
    /**
@@ -48,8 +48,7 @@ class XTree extends XNode {
     * @return Object The tree as an Object
     */
    public function getTree() {
-
-      return $this;
+      return $this->_tree;
    }
 
 
@@ -60,25 +59,14 @@ class XTree extends XNode {
    */
    public function toArray() {
 
-      if ($this->treeList && !$this->isChanged) {
-         return $this->treeList;
+      if ($this->_tree && !$this->_isChanged) {
+         return $this->_tree;
       }
 
-      $this->treeList = $this->_toArray($this);
-      $this->isChanged = false;
+      $this->_tree = $this->_toArray($this);
+      $this->_isChanged = false;
 
-      return $this->treeList;
-   }
-
-
-   /**
-    * Returns tree as an Array
-    *
-    * @deprecated
-    * @return Array The tree as an Array
-    */
-   public function getList() {
-      return $this->toArray();
+      return $this->_tree;
    }
 
 
@@ -114,14 +102,14 @@ class XTree extends XNode {
     * @param node XNode to add tree
     * @return boolean Returns true on success, false on failure
     */
-   public function add(XNode &$node) {
+   public function add(&$node) {
 
       // Add new 'branch' to root
       if (!$node->parent_id) {
 
          $this->_add($node);
          $this->sort(null, false);
-         $this->isChanged = true;
+         $this->_isChanged = true;
 
          return true;
       }
@@ -131,7 +119,7 @@ class XTree extends XNode {
 
          $parentNode->_add($node);
          $parentNode->sort(null, false);
-         $this->isChanged = true;
+         $this->_isChanged = true;
 
          return true;
       }
@@ -148,8 +136,7 @@ class XTree extends XNode {
     * Returns item as a JSON Object
     */
    public function encode() {
-
-      return json_encode($this->treeList);
+      return json_encode($this->_tree);
    }
 
 

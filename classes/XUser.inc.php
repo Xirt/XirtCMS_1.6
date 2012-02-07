@@ -39,12 +39,18 @@ class XUser {
    public function load($id) {
       global $xDb;
 
-      $query = "SELECT *
-                FROM #__users
-                WHERE id = {$id}";
-      $xDb->setQuery($query);
+      // Database query
+      $query = 'SELECT *      ' .
+               'FROM #__users ' .
+               'WHERE id = :id';
 
-      if ($dbRow = $xDb->loadRow()) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      // Populate instance
+      if ($dbRow = $stmt->fetchObject()) {
 
          foreach ($dbRow as $attrib => $value) {
             $this->$attrib = $value;
@@ -65,7 +71,6 @@ class XUser {
     * @return boolean Returns true when the user is authenticated
     */
    public function isAuth($min = 0, $max = 100) {
-
       return ($this->rank >= $min && $this->rank <= $max);
    }
 

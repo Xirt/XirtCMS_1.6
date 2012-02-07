@@ -32,7 +32,7 @@ class XComponent {
     * Initializes object with optional language file and settings
     *
     * @param $name String with the name of the component
-    * @param $config JSON String containing the instance configuration (optional)
+    * @param $config String with JSON instance configuration (optional)
     */
    function __construct($name, &$config = null) {
       global $xCom;

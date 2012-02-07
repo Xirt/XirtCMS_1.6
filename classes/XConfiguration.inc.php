@@ -164,16 +164,16 @@ class XConfiguration extends DefaultConfiguration {
     */
    private function _getBaseURL() {
 
-      $protocol = isset($_SERVER["HTTPS"]) ? 'https://' : 'http://';
-      $script = dirname($_SERVER["SCRIPT_NAME"]);
+      $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+      $script = dirname($_SERVER['SCRIPT_NAME']);
 
-      if (!$server = $_SERVER["HTTP_HOST"]) {
-         $server = $_SERVER["SERVER_NAME"];
+      if (!$server = $_SERVER['HTTP_HOST']) {
+         $server = $_SERVER['SERVER_NAME'];
       }
 
-      $server = $_SERVER["SERVER_NAME"];
-      if ($_SERVER["SERVER_PORT"] != "80") {
-         $server = $server . ':' .$_SERVER["SERVER_PORT"];
+      $server = $_SERVER['SERVER_NAME'];
+      if ($_SERVER['SERVER_PORT'] != '80') {
+         $server = $server . ':' .$_SERVER['SERVER_PORT'];
       }
 
       return $protocol . $server . str_replace('//', '/', $script . '/');
@@ -203,7 +203,6 @@ class XConfiguration extends DefaultConfiguration {
     * @return String The installation directory
     */
    private function _getBaseDir() {
-
       return realpath(dirname($_SERVER['SCRIPT_FILENAME']) . '/' . _XDIR) . '/';
    }
 
@@ -216,7 +215,6 @@ class XConfiguration extends DefaultConfiguration {
 
     */
    private function _getLogDir() {
-
       return realpath($this->baseDir . 'logs/') . '/';
    }
 

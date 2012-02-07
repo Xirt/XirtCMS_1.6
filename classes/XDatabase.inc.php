@@ -23,12 +23,6 @@ class XDatabase extends PDO {
 
 
    /**
-    * @var PDOStatement Current prepared query
-    */
-   var $pdo = null;
-
-
-   /**
     * CONSTRUCTOR
     *
     * @param $dsn The DSN String to connect to the database (optional)
@@ -39,11 +33,16 @@ class XDatabase extends PDO {
    function __construct($dsn = false, $user = false, $password = false) {
       global $xConf;
 
+      // Connections values for this instance
       $dsn      = $dsn  ? $dsn  : $xConf->dbDSN;
       $user     = $user ? $user : $xConf->dbUser;
       $password = $password ? $password : $xConf->dbPass;
 
+      // Initialize connection
       parent::__construct($dsn, $user, $password);
+
+      // Default connections values
+      $this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array('XQuery'));
       $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $this->setCharset('utf8');
 
@@ -58,8 +57,9 @@ class XDatabase extends PDO {
     */
    public function setCharset($charset = 'utf8') {
 
-      $this->setQuery('SET CHARACTER SET ' . $charset);
-      $this->query();
+      $stmt = $this->prepare("SET CHARACTER SET :charset");
+      $stmt->bindParam(":charset", $charset);
+      $stmt->execute();
 
    }
 
@@ -67,11 +67,31 @@ class XDatabase extends PDO {
    /**
     * Sets the current query to be executed
     *
+    * @param $query A valid SQL statement
+    * @param $query attribute values for the returned PDOStatement
+    * @throws XException
+    */
+   public function prepare($query, $driver_options = array()) {
+      global $xConf;
+
+      $query = str_replace('#_', $xConf->dbPrefix, $query);
+
+      return parent::prepare($query, $driver_options);
+   }
+
+
+   /**
+    * Sets the current query to be executed
+    *
+    * @deprecated
     * @param $query The new query to set for execution
     * @throws XException
     */
    public function setQuery($query) {
       global $xConf;
+
+      print_r("Deprecated use of XDatabase::setQuery()");
+      print_r($query);
 
       $query = str_replace('#_', $xConf->dbPrefix, $query);
       $this->pdo = $this->prepare($query);
@@ -83,10 +103,12 @@ class XDatabase extends PDO {
    /**
     * Returns the current query
     *
+    * @deprecated
     * @return String The current query
     * @throws XException
     */
    public function getQuery() {
+      print_r("Deprecated use of XDatabase::getQuery()");
       return $this->cache[count($this->cache) - 1];
    }
 
@@ -94,14 +116,17 @@ class XDatabase extends PDO {
    /**
     * Executes current query (SELECT) and returns result
     *
+    * @deprecated
     * @return PDOStatement Object containing the results
     * @throws XException
     */
    public function query() {
 
-      $this->_startTimer();
+      print_r("Deprecated use of XDatabase::query()");
+
+      $this->startTimer();
       $this->pdo->execute();
-      $this->_stopTimer();
+      $this->stopTimer();
 
       return $this->pdo;
    }
@@ -110,10 +135,13 @@ class XDatabase extends PDO {
    /**
     * Executes current query (UPDATE, DELETE, INSERT) and returns affected rows
     *
+    * @deprecated
     * @return int The amount of affected rows
     * @throws XException
     */
    public function execute() {
+
+      print_r("Deprecated use of XDatabase::execute()");
 
       $this->_startTimer();
       $this->pdo->execute();
@@ -132,6 +160,7 @@ class XDatabase extends PDO {
    public function insert($table, $data) {
 
       $data = is_object($data) ? (array) $data : $data;
+      $data = XTools::addSlashes($data);
 
       if (!is_array($data)) {
          trigger_error("Invalid input type for SQL insertion.", E_USER_ERROR);
@@ -230,7 +259,7 @@ class XDatabase extends PDO {
     *
     * @access private
     */
-   private function _startTimer() {
+   public function startTimer() {
       $this->start = microtime();
    }
 
@@ -240,11 +269,12 @@ class XDatabase extends PDO {
     *
     * @access private
     */
-   private function _stopTimer() {
+   public function stopTimer() {
 
+      if (isset($this->start)) {
       $this->timer = microtime() - $this->start;
       unset($this->start);
-
+      }
    }
 
 }

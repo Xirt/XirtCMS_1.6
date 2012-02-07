@@ -44,14 +44,18 @@ class mod_tagcloud extends XModule {
    private function _getTerms($count) {
       global $xConf, $xDb;
 
-      $query = "SELECT *
-                FROM #__search
-                WHERE language = '{$xConf->language}'
-                ORDER BY impressions DESC
-                LIMIT 0, ";
-      $xDb->setQuery($query);
+      // Database query
+      $query = "SELECT *                  " .
+               "FROM #__search            " .
+               "WHERE language = :iso     " .
+               "ORDER BY impressions DESC ";
 
-      return $xDb->loadObjectList();
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->bindValue(':iso', $xConf->language);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
    }
 
 

@@ -83,7 +83,6 @@ class XFile {
     * Unlinks the file
     */
    public function delete() {
-
       return (is_file($this->file) && @unlink($this->file));
    }
 
@@ -92,7 +91,6 @@ class XFile {
     * Alternative call for unlinking files
     */
    public function unlink() {
-
       return $this->delete();
    }
 
@@ -138,7 +136,6 @@ class XFile {
     * @return boolean True on existence, false otherwhise
     */
    public function exists() {
-
       return is_file($this->file);
    }
 
@@ -149,7 +146,6 @@ class XFile {
     * @return boolean True if existing and writable, false otherwhise
     */
    public function writable() {
-
       return is_writable($this->file);
    }
 
@@ -160,7 +156,6 @@ class XFile {
     * @return boolean True if existing and readable, false otherwhise
     */
    public function readable() {
-
       return is_readable($this->file);
    }
 
@@ -172,7 +167,6 @@ class XFile {
     * @return String The path with slashes and trailing slash
     */
    private function _parse(&$path) {
-
       return str_replace('//', '/', str_replace('\\', '/', $path) . '/');
    }
 

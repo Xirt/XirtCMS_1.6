@@ -44,22 +44,22 @@ class XNode {
    function __construct($data) {
 
       if (!isset($data->xid)) {
-         throw new Exception("XNode: No node ID (xId) found");
+         throw new Exception("[XNode] No node ID (xId) found.");
       }
 
       if (!isset($data->parent_id)) {
-         throw new Exception("XNode: No parent ID found");
+         throw new Exception("[XNode] No parent ID found.");
       }
 
       if (!isset($data->ordering)) {
-         throw new Exception("XNode: No ordering found");
+         throw new Exception("[XNode] No ordering found.");
       }
 
       foreach ($data as $attrib => $value) {
 
          if (is_object($value)) {
 
-            trigger_error("XNode: Unexpected Object ignored", E_USER_WARNING);
+            trigger_error("[XNode] Unexpected Object ignored.", E_USER_WARNING);
             continue;
 
          }
@@ -76,7 +76,6 @@ class XNode {
     * @return int The amount of children found
     */
    public function countChildren() {
-
       return count($this->children);
    }
 
@@ -148,7 +147,7 @@ class XNode {
             continue;
          }
 
-         trigger_error("XNode: Duplicate found: " . $node->id, E_USER_WARNING);
+         trigger_error("[XNode] Duplicate: {$node->id}.", E_USER_WARNING);
 
       }
 

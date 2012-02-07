@@ -47,16 +47,23 @@ class TweetList {
    public function load($id = 0, $limit = 10) {
       global $xDb;
 
-      $query  = "SELECT *
-                 FROM #__twitter
-                 WHERE published != 0
-      				  AND (account='{$this->_getQuery()}')
-                    AND id > {$id}
-                 ORDER BY id DESC
-                 LIMIT 0, {$limit}";
-      $xDb->setQuery($query);
+      // Database query
+      $query  = 'SELECT *               '.
+                'FROM #__twitter        '.
+                'WHERE published != 0   '.
+                '  AND (account=\'%s\') '.
+                '  AND id > :id         '.
+                'ORDER BY id DESC       '.
+                'LIMIT 0, %s            ';
+      $query = sprintf($query, $this->_getQuery(), $limit);
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+		$stmt->bindValue(':id', '10', PDO::PARAM_STR);
+		$stmt->execute();
+
+		// Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
 
          $this->_list[] = new Tweet(
             $dbRow->id,

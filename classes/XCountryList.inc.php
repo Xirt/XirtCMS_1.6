@@ -19,7 +19,7 @@ class XCountryList {
    /**
 	 * @var The list with data
     */
-   var $_list = array();
+   private $_list = array();
 
 
    /**

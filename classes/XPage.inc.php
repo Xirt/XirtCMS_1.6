@@ -175,20 +175,26 @@ class XPage {
    private function _loadFrontpage() {
       global $xDb, $xPage;
 
-      $query = "SELECT xid, link, link_type
-                FROM #__menunodes
-                WHERE home = 1";
-      $xDb->setQuery($query);
+      // Database query
+      $query = 'SELECT xid, link, link_type ' .
+               'FROM #__menunodes           ' .
+               'WHERE home = 1              ';
 
-      if (!($home = $xDb->loadRow()) || $home->link == 'index.php') {
+      // Retrieve data
+      $stmt =  $xDb->prepare($query);
+      $stmt->execute();
+
+      // Checks validity of link
+      if (!($home = $stmt->fetchObject()) || $home->link == 'index.php') {
          trigger_error("[XCore] Homepage unknown", E_USER_ERROR);
       }
 
+      // Checks type of link (must be internal link)
       if (!in_array($home->link_type, array(0, 1, 2))) {
          trigger_error("[XCore] Invalid Homepage link", E_USER_ERROR);
       }
 
-      // Redirect to homepage (old method)
+      // Redirect to homepage (old method, always redirect)
       //$seperator = strpos($home->link, '?') ? '&' : '?';
       //$location = sprintf("%s%scid=%d", $home->link, $seperator, $home->xid);
       //die(header('Location: ' . $location));

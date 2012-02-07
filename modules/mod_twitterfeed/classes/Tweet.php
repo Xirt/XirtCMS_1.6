@@ -74,19 +74,26 @@ class Tweet {
    public function save() {
       global $xDb;
 
-      foreach (get_object_vars($this) as $key => $value) {
-         $this->$key = XTools::addslashes($value);
-      }
+      $created = $this->created->format('Y-m-d H:i:s');
 
+      // Database query
       $query = "INSERT IGNORE INTO #__twitter
-                SET id      = '{$this->id}',
-                    account = '{$this->account}',
-                    author  = '{$this->author}',
-                    avatar  = '{$this->avatar}',
-                    content = '{$this->content}',
-                    created = '{$this->created->format('Y-m-d H:i:s')}'";
-      $xDb->setQuery($query);
-      $xDb->query();
+                SET id      = :id,
+                    account = :account,
+                    author  = :author,
+                    avatar  = :avatar,
+                    content = :content,
+                    created = :created";
+
+      // Save data
+      $stmt = $xDb->prepare($query);
+      $stmt->bindValue(':account', $this->account, PDO::PARAM_STR);
+      $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+      $stmt->bindValue(':author', $this->author, PDO::PARAM_STR);
+      $stmt->bindValue(':avatar', $this->avatar, PDO::PARAM_STR);
+      $stmt->bindValue(':created', $created, PDO::PARAM_STR);
+      $stmt->bindValue(':id', $this->id, PDO::PARAM_STR);
+      $stmt->execute();
 
    }
 

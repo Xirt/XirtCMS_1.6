@@ -20,34 +20,41 @@ class XCategoryList {
     * Constructor (empty)
     */
    function __construct() {
-
       $this->_list = new XTree();
-
    }
 
 
    /**
     * Loads all categories from the database
+    *
+    * @param $iso The language to load (optional)
     */
-   public function load() {
+   public function load($iso = null) {
       global $xConf, $xDb;
 
       $languageList = Xirt::getLanguages();
       $iso = array_key_exists($iso, $languageList) ? $iso : $xConf->language;
       $iso = intval($languageList[$iso]->preference);
 
-      $query = "SELECT id, xid, parent_id, name, ordering, language
-			       FROM (
-                   SELECT t1.*, t2.preference
-                   FROM #__content_categories AS t1
-                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                   ORDER BY replace(t2.preference, {$iso}, 0)
-				    ) AS t3
-					 GROUP BY xid
-					 ORDER BY level ASC, ordering DESC";
-      $xDb->setQuery($query);
+      // Query (selection)
+      $query = 'SELECT id, xid, parent_id, name, ordering, language   ' .
+                'FROM (%s) AS subset                                  ' .
+                'GROUP BY xid                                         ' .
+                'ORDER BY level ASC, ordering DESC                    ';
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Subquery (translations)
+      $trans = 'SELECT t1.*                                           ' .
+               'FROM #__content_categories AS t1                      ' .
+               'INNER JOIN #__languages AS t2 ON t1.language = t2.iso ' .
+               'ORDER BY replace(t2.preference, :iso, 0)              ';
+
+      // Retrieve data
+      $stmt = $xDb->prepare(sprintf($query, $trans));
+      $stmt->bindParam(':iso', $iso, PDO::PARAM_STR);
+      $stmt->execute();
+
+      // Populate object
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_list->add(new XNode($dbRow));
       }
 

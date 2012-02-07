@@ -77,16 +77,18 @@ class XLink {
    private function _get() {
       global $xDb;
 
-      if ($this->uri_ori && $this->iso) {
-         return false;
-      }
+      // Database query
+      $query = 'SELECT cid, iso, uri_ori ' .
+               'FROM #__links            ' .
+               'WHERE uri_sef = :link    ';
 
-      $query = "SELECT cid, iso, uri_ori
-                FROM #__links
-                WHERE uri_sef = '{$this->uri_sef}'";
-      $xDb->setQuery($query);
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':link', $this->uri_sef, PDO::PARAM_STR);
+      $stmt->execute();
 
-      if ($dbRow = $xDb->loadRow()) {
+      // Populate instance
+      if ($dbRow = $stmt->fetchObject()) {
 
          $this->iso     = $dbRow->iso;
          $this->cid     = $dbRow->cid;

@@ -79,7 +79,6 @@ class XDir {
     * Unlinks the directory and contents
     */
    public function delete() {
-
       return (is_dir($this->path) && @$this->_delete($this->path));
    }
 
@@ -107,7 +106,6 @@ class XDir {
     * Alternative call for unlinking files
     */
    public function unlink() {
-
       return $this->delete();
    }
 
@@ -120,7 +118,6 @@ class XDir {
     * @return Array containing all found files / directories
     */
    public function summarize($showFiles = true, $doDeepScan = false) {
-
       return $this->_summarize($this->path, $showFiles, $doDeepScan);
    }
 
@@ -218,7 +215,6 @@ class XDir {
     * @return boolean True on existence, false otherwhise
     */
    public function exists() {
-
       return is_dir($this->path);
    }
 
@@ -229,7 +225,6 @@ class XDir {
     * @return boolean True if existing and writable, false otherwhise
     */
    public function writable() {
-
       return is_writable($this->path);
    }
 
@@ -240,7 +235,6 @@ class XDir {
     * @return boolean True if existing and readable, false otherwhise
     */
    public function readable() {
-
       return is_readable($this->path);
    }
 
@@ -252,7 +246,6 @@ class XDir {
     * @return String The path with slashes and trailing slash
     */
    private function _parse(&$path) {
-
       return str_replace('//', '/', str_replace('\\', '/', $path) . '/');
    }
 

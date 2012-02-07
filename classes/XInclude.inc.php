@@ -14,19 +14,19 @@ class XInclude {
    /**
     * @var The default location of plugins (JS)
     */
-   const PATH_PLUGINS = "js/plugins/%s/plugin.js";
+   const PATH_PLUGINS = 'js/plugins/%s/plugin.js';
 
 
    /**
     * @var The default location of modules
     */
-   const PATH_MODULES = "%s/modules/%s/index.mod.php";
+   const PATH_MODULES = '%s/modules/%s/index.mod.php';
 
 
    /**
     * @var The default location of components
     */
-   const PATH_COMPONENTS = "%s/components/%s/index.com.php";
+   const PATH_COMPONENTS = '%s/components/%s/index.com.php';
 
 
 

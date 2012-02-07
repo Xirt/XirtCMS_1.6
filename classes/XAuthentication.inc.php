@@ -60,7 +60,7 @@ class XAuthentication {
     *
     * @param $username The username of the user to authenticate
     * @param $password The password of the user to authenticate
-    * @param $useCookies Toggles the use of cookies (defaults to false)
+    * @param $cookies Toggles the use of cookies (defaults to false)
     * @return mixed Return true if visitor is authenticated, false otherwhise
     * @throws Exception
     */
@@ -157,12 +157,17 @@ class XAuthentication {
          return false;
       }
 
-      $query = "SELECT id, yubikey, password, salt
-                FROM #__users
-                WHERE username LIKE BINARY '{$username}'";
-      $xDb->setQuery($query);
+      // Database query
+      $query = 'SELECT id, yubikey, password, salt  ' .
+               'FROM #__users                       ' .
+               'WHERE username LIKE BINARY :username';
 
-      if (!$auth = $xDb->loadRow()) {
+      // Data retrieval
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+      $stmt->execute();
+
+      if (!$auth = $stmt->fetch(PDO::FETCH_OBJ)) {
          return false;
       }
 
@@ -209,7 +214,7 @@ class XAuthentication {
    public static function hash($password, $salt = null) {
 
       if (!CRYPT_BLOWFISH) {
-         trigger_error("Blowfish not available for crypt().", E_USER_ERROR);
+         trigger_error('[Core] Blowfish unavailable in crypt().', E_USER_ERROR);
       }
 
       if (is_null($salt)) {

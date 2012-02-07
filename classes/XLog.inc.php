@@ -17,7 +17,7 @@ class XLog {
 
 
    /**
-    * CONSTRUCTOR
+    * Creates a log with the given or default log file
     *
     * @param $file The file to use as log file (optional)
     */
@@ -39,9 +39,8 @@ class XLog {
       global $xDb;
 
       // Empty database
-      $query = "TRUNCATE TABLE #__log";
-      $xDb->setQuery($query);
-      $xDb->query();
+      $stmt = $xDb->prepare("TRUNCATE TABLE #__log");
+      $stmt->execuse();
 
       // Empty event file
       if (file_exists($this->file) && !@unlink($this->file)) {

@@ -13,7 +13,7 @@ class XModuleList {
    /**
     * @var The list of modules
     */
-   var $_list = array();
+   private $_list = array();
 
 
    /**

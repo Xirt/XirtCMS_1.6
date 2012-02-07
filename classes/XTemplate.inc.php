@@ -15,13 +15,13 @@ class XTemplate extends Smarty {
    /**
     * @var The default location for components
     */
-   const COMPONENTS = "%s/components/%s/templates/";
+   const COMPONENTS = '%s/components/%s/templates/';
 
 
    /**
-   * @var The default location for modules
-   */
-   const MODULES = "%s/modules/%s/templates/";
+    * @var The default location for modules
+    */
+   const MODULES = '%s/modules/%s/templates/';
 
 
    /**

@@ -52,7 +52,6 @@ class mod_twitterfeed extends XModule {
 	 * @return String The query for the Twitter feed
     */
    private function _getQuery() {
-
       return '+from:' . implode('+OR+from:', $this->_getAccounts());
    }
 
@@ -64,7 +63,6 @@ class mod_twitterfeed extends XModule {
    * @return Array List of the accounts
    */
    private function _getAccounts() {
-
       return explode(',', $this->xConf->accounts);
    }
 

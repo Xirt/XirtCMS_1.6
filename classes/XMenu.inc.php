@@ -63,26 +63,35 @@ class XMenu extends XTree {
    private function _getNodes() {
       global $xConf, $xDb, $xUser;
 
-      $langObj = Xirt::getLanguages();
-      $language = $langObj[$xConf->language]->preference;
+      $languages = Xirt::getLanguages();
       $published = defined('_XADMIN') ? '?' : '1';
+      $iso = $languages[$xConf->language]->preference;
 
-      $query = "SELECT *
-                FROM (
-                   SELECT t1.*, t2.preference
-                   FROM #__menunodes AS t1
-                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                   ORDER BY replace(t2.preference, {$language}, 0)
-                ) AS t3
-                WHERE menu_id = {$this->id}
-                  AND published = '{$published}'
-                  AND t3.access_min <= {$xUser->rank}
-                  AND t3.access_max >= {$xUser->rank}
-                GROUP BY t3.xid
-                ORDER BY t3.parent_id ASC, t3.xid ASC";
-      $xDb->setQuery($query);
+      // Query (selection)
+      $query = 'SELECT *                                              ' .
+                'FROM (%s) AS subset                                  ' .
+                'WHERE menu_id = :id                                  ' .
+                '  AND published = :published                         ' .
+                '  AND access_min <= :rank                            ' .
+                '  AND access_max >= :rank                            ' .
+                'GROUP BY xid                                         ' .
+                'ORDER BY parent_id ASC, xid ASC                      ';
 
-      return $xDb->loadObjectList();
+      // Subquery (translations)
+      $trans = 'SELECT t1.*, t2.preference                            ' .
+               'FROM #__menunodes AS t1                               ' .
+               'INNER JOIN #__languages AS t2 ON t1.language = t2.iso ' .
+               'ORDER BY replace(t2.preference, :iso, 0)              ';
+
+      // Retrieve data
+      $stmt = $xDb->prepare(sprintf($query, $trans));
+      $stmt->bindParam(':published', $published, PDO::PARAM_INT);
+      $stmt->bindParam(':rank', $xUser->rank, PDO::PARAM_INT);
+      $stmt->bindParam(':iso', $iso, PDO::PARAM_STR);
+      $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
    }
 
 
@@ -101,7 +110,7 @@ class XMenu extends XTree {
          return $node->setActive();
       }
 
-      $this->setActiveByLink("index.php?" . $_SERVER["QUERY_STRING"]);
+      $this->setActiveByLink('index.php?' . $_SERVER['QUERY_STRING']);
 
    }
 
@@ -112,7 +121,6 @@ class XMenu extends XTree {
     * @return boolean true
     */
    public function setActive() {
-
       return true;
    }
 

@@ -32,12 +32,16 @@ class XLinkList {
    function _load() {
       global $xDb;
 
-      $query = "SELECT cid, iso, uri_ori, uri_sef
-                FROM #__links";
-      $xDb->setQuery($query);
-      $dbObj = $xDb->loadObjectList();
+      // Database query
+      $query = 'SELECT cid, iso, uri_ori, uri_sef ' .
+               'FROM #__links                     ';
 
-      foreach ($dbObj ? $dbObj : array() as $dbRow) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->execute();
+
+      // Populate instance
+      while  ($dbRow = $stmt->fetchObject()) {
 
          $this->_list[] = new XLink(
             $dbRow->cid,
@@ -68,8 +72,8 @@ class XLinkList {
       }
 
       // Create term (decode and remove special characters)
-      $name = strtolower(htmlentities($name, ENT_COMPAT, "UTF-8"));
-      $name = html_entity_decode($name, ENT_COMPAT, "UTF-8");
+      $name = strtolower(htmlentities($name, ENT_COMPAT, 'UTF-8'));
+      $name = html_entity_decode($name, ENT_COMPAT, 'UTF-8');
       $name = strtr($name, XSEF::$conversions);
       $name = preg_replace('/[^\w\d-]/si', '', $name);
 

@@ -13,13 +13,13 @@ class XModule {
    /**
     * @var The path to modules
     */
-   const PATH = "%smodules/%s/";
+   const PATH = '%smodules/%s/';
 
 
    /**
     * @var The path to the configuration file of modules
     */
-   const PATH_XML = "%smodules/%s/index.mod.xml";
+   const PATH_XML = '%smodules/%s/index.mod.xml';
 
 
    /**
@@ -130,6 +130,8 @@ class XModule {
 
    /**
     * Returns the default configuration for the given module
+    * NOTE: Do not use ArrayObject. Support for json_encode() is lacking up to
+    * at least version 5.3.x
     *
     * @param $type String with the name (type) of the requested model
     * @return Object Default configuration for the given module
@@ -137,7 +139,7 @@ class XModule {
    public static function getConfiguration($type) {
       global $xConf;
 
-      $configuration = new ArrayObject();
+      $configuration = array();
 
       try {
 
@@ -159,7 +161,7 @@ class XModule {
       // Iterate over parameters
       foreach ($module->params->param as $param) {
 
-         $parameter = new ArrayObject();
+         $parameter = (object)array();
          foreach ($param->attributes() as $attrib => $value) {
             $parameter->$attrib = strval($value);
          }
@@ -175,18 +177,18 @@ class XModule {
          // Special parameter types (with options)
          if (in_array($parameter->type, array('select', 'radio'))) {
 
-            $parameter->options = new ArrayObject();
+            $parameter->options = array();
             foreach ($param->option as $option) {
 
                $name  = strval($option->attributes()->name);
                $value = strval($option->attributes()->value);
-               $parameter->options->$name = $value;
+               $parameter->options[$name] = $value;
 
             }
 
          }
 
-         $configuration->{$parameter->name} = $parameter;
+         $configuration[$parameter->name] = $parameter;
 
       }
 

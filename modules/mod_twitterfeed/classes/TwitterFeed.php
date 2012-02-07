@@ -155,7 +155,6 @@ class TwitterFeed {
     * @return String The account as a String value
     */
    private function _parseAccount($author) {
-
       return substr($author, 0, strpos($author, '@'));
    }
 
@@ -168,7 +167,6 @@ class TwitterFeed {
     * @return String The author as a String value
     */
    private function _parseAuthor($author) {
-
       return substr($author, strpos($author, '(') + 1, -1);
    }
 

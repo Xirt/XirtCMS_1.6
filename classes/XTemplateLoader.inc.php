@@ -13,19 +13,19 @@ class XTemplateLoader {
    /**
     * @var The location of templates
     */
-   const LOCATION = "%s/templates/%s/";
+   const LOCATION = '%s/templates/%s/';
 
 
    /**
     * @var The name of the default (normal) template
     */
-   const TPL_NORMAL = "template.tpl";
+   const TPL_NORMAL = 'template.tpl';
 
 
    /**
     * @var The name of the mobile template
     */
-   const TPL_MOBILE = "mobile.tpl";
+   const TPL_MOBILE = 'mobile.tpl';
 
 
    /**
@@ -73,18 +73,20 @@ class XTemplateLoader {
    private function _administration() {
       global $xConf, $xDb, $xLang;
 
-      // Loads components
-      $query = "SELECT *
-                FROM #__components
-                WHERE menu = 1";
-      $xDb->setQuery($query);
-      $components = $xDb->loadObjectList();
+      // Database query (components)
+      $stmt = 'SELECT *           ' .
+              'FROM #__components ' .
+              'WHERE menu = 1     ';
+
+      // Retrieve data
+      $stmt = $xDb->prepare($stmt);
+      $stmt->execute();
 
       // Show template
       $tpl = new XTemplate();
       $tpl->assign('xConf', $xConf);
       $tpl->assign('xLang', $xLang);
-      $tpl->assign('componentsList', $components);
+      $tpl->assign('components', $stmt->fetchAll(PDO::FETCH_OBJ));
       $tpl->display('template/template.tpl');
 
    }
@@ -120,9 +122,10 @@ class XTemplateLoader {
          return true;
       }
 
-      trigger_error('Template file is not readable.', E_USER_ERROR);
+      trigger_error('[Core] Template not found.', E_USER_ERROR);
 
    }
+
 
    /**
     * Sets the current template (according to page details)

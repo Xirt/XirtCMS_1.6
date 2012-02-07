@@ -36,40 +36,48 @@ class Xirt {
    public static function getLanguages($currentOnTop = false) {
       global $xCache, $xConf, $xDb;
 
-      if (!$languages = $xCache->get('languages')) {
+      if (!$list = $xCache->get('languages')) {
 
+         // Database query
          if (defined('_ADMIN')) {
 
-            $query = "SELECT *
-                      FROM #__languages
-                      ORDER BY preference ASC";
-            $xDb->setQuery($query);
+            $query = 'SELECT *               ' .
+                     'FROM #__languages      ' .
+                     'ORDER BY preference ASC';
 
          } else {
 
-            $query = "SELECT *
-                      FROM #__languages
-                      WHERE published = 1
-                      ORDER BY preference ASC";
-            $xDb->setQuery($query);
+            $query = 'SELECT *               ' .
+                     'FROM #__languages      ' .
+                     'WHERE published = 1    ' .
+                     'ORDER BY preference ASC';
 
          }
 
-         $languages = $xDb->loadObjectList('iso');
-         $xCache->set('languages', $languages);
+         // Retrieve data
+         $stmt = $xDb->prepare($query);
+         $stmt->execute();
+
+         // Create list
+         $list = array();
+         while ($dbRow = $stmt->fetchObject()) {
+            $list[$dbRow->iso] = $dbRow;
+         }
+
+         $xCache->set('languages', $list);
 
       }
 
       // Optionally sort list
-      if ($currentOnTop && array_key_exists($xConf->language, $languages)) {
+      if ($currentOnTop && array_key_exists($xConf->language, $list)) {
 
-         $current = $languages[$xConf->language];
+         $current = $list[$xConf->language];
          $current = array($current->iso => $current);
-         $languages = $current + $languages;
+         $list = $current + $list;
 
       }
 
-      return $languages;
+      return $list;
    }
 
 
@@ -83,29 +91,37 @@ class Xirt {
 
       if (!$templates = $xCache->get('templates')) {
 
+         // Database query
          if (defined('_ADMIN')) {
 
-            $query = "SELECT *
-                      FROM #__templates
-                      ORDER BY active DESC, published DESC";
-            $xDb->setQuery($query);
+            $query = 'SELECT *                            ' .
+                     'FROM #__templates                   ' .
+                     'ORDER BY active DESC, published DESC';
 
          } else {
 
-            $query = "SELECT *
-                      FROM #__templates
-                      WHERE published = 1
-                      ORDER BY active DESC";
-            $xDb->setQuery($query);
+            $query = 'SELECT *                            ' .
+                     'FROM #__templates                   ' .
+                     'WHERE published = 1                 ' .
+                     'ORDER BY active DESC                ';
 
          }
 
-         $templates = $xDb->loadObjectList('folder');
-         $xCache->set('templates', $templates);
+         // Retrieve data
+         $stmt = $xDb->prepare($query);
+         $stmt->execute();
+
+         // Create list
+         $list = array();
+         while ($dbRow = $stmt->fetchObject()) {
+            $list[$dbRow->folder] = $dbRow;
+         }
+
+         $xCache->set('templates', $list);
 
       }
 
-      return $templates;
+      return $list;
    }
 
 
@@ -117,25 +133,35 @@ class Xirt {
    public static function getRanks() {
       global $xCache, $xDb;
 
-      if (!$ranks = $xCache->get('ranks')) {
+      if (!$list = $xCache->get('ranks')) {
 
-         $query = "SELECT rank, name
-                   FROM (
-                      SELECT t1.*, t2.preference
-                      FROM #__usergroups AS t1
-                      INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                      ORDER BY t2.preference, t1.rank
-                   ) AS t3
-                   GROUP BY rank
-                   ORDER BY rank";
-         $xDb->setQuery($query);
+         // Query (selection)
+         $query = 'SELECT name, rank                                     ' .
+                  'FROM (%s) AS subset                                   ' .
+                  'GROUP BY rank                                         ' .
+                  'ORDER BY rank                                         ';
 
-         $ranks = $xDb->loadObjectList('rank');
-         $xCache->set('ranks', $ranks);
+         // Subquery (translations)
+         $trans = 'SELECT t1.*                                           ' .
+                  'FROM #__usergroups AS t1                              ' .
+                  'INNER JOIN #__languages AS t2 ON t1.language = t2.iso ' .
+                  'ORDER BY t2.preference, t1.rank                       ';
+
+         // Retrieve data
+         $stmt = $xDb->prepare(sprintf($query, $trans));
+         $stmt->execute();
+
+         // Create list
+         $list = array();
+         while ($dbRow = $stmt->fetchObject()) {
+            $list[$dbRow->rank] = $dbRow;
+         }
+
+         $xCache->set('ranks', $list);
 
       }
 
-      return $ranks;
+      return $list;
    }
 
 
@@ -147,23 +173,31 @@ class Xirt {
    public static function getMenus() {
       global $xCache, $xDb;
 
-      if (!$menus = $xCache->get('menus')) {
+      if (!$list = $xCache->get('menus')) {
 
-         $query = "SELECT *
-                   FROM (SELECT t1.*, t2.preference
-                         FROM #__menus AS t1
-                           INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                         ORDER BY t2.preference, t1.ordering) AS t3
-                   GROUP BY xid
-                   ORDER BY ordering ASC";
-         $xDb->setQuery($query);
+         // Query (selection)
+         $query = 'SELECT *                                              ' .
+                  'FROM (%s) AS subset                                   ' .
+                  'GROUP BY xid                                          ' .
+                  'ORDER BY ordering ASC                                 ';
 
-         $menus = $xDb->loadObjectList();
-         $xCache->set('menus', $menus);
+         // Subquery (translations)
+         $trans = 'SELECT t1.*                                           ' .
+                  'FROM #__menus AS t1                                   ' .
+                  'INNER JOIN #__languages AS t2 ON t1.language = t2.iso ' .
+                  'ORDER BY t2.preference, t1.ordering                   ';
+
+         // Retrieve data
+         $stmt = $xDb->prepare(sprintf($query, $trans));
+         $stmt->execute();
+
+         // Create list
+         $list = $stmt->fetchAll(PDO::FETCH_OBJ);
+         $xCache->set('menus', $list);
 
       }
 
-      return $menus;
+      return $list;
    }
 
 
@@ -175,18 +209,27 @@ class Xirt {
    public static function getComponents() {
       global $xCache, $xDb;
 
-      if (!$components = $xCache->get('components')) {
+      if (!$list = $xCache->get('components')) {
 
-         $query = "SELECT *
-                   FROM #__components";
-         $xDb->setQuery($query);
+         // Database query
+         $query = 'SELECT *          ' .
+                  'FROM #__components';
 
-         $components = $xDb->loadObjectList('com_name');
-         $xCache->set('components', $components);
+         // Data retrieval
+         $stmt = $xDb->prepare($query);
+         $stmt->execute();
+
+         // Create list
+         $list = array();
+         while ($dbRow = $stmt->fetchObject()) {
+            $list[$dbRow->com_name] = $dbRow;
+         }
+
+         $xCache->set('components', $list);
 
       }
 
-      return $components;
+      return $list;
    }
 
 
@@ -198,33 +241,43 @@ class Xirt {
    public static function getModules() {
       global $xCache, $xDb, $xUser;
 
-      if (!$modules = $xCache->get('modules')) {
+      if (!$list = $xCache->get('modules')) {
 
          if (defined('_ADMIN')) {
 
-            $query = "SELECT *
-                      FROM #__modules
-                      ORDER BY published DESC, ordering";
-            $xDb->setQuery($query);
+            // Database query
+            $query = 'SELECT *                         ' .
+                     'FROM #__modules                  ' .
+                     'ORDER BY published DESC, ordering';
+
+            // Data retrieval
+            $stmt = $xDb->prepare($query);
+            $stmt->execute();
 
          } else {
 
-            $query = "SELECT *
-                      FROM #__modules
-                      WHERE published = 1
-                      AND access_min <= {$xUser->rank}
-                      AND access_max >= {$xUser->rank}
-                      ORDER BY published DESC, ordering";
-            $xDb->setQuery($query);
+            // Database query
+            $query = 'SELECT *                         ' .
+                     'FROM #__modules                  ' .
+                     'WHERE published = 1              ' .
+                     '  AND access_min <= :rank        ' .
+                     '  AND access_max >= :rank        ' .
+                     'ORDER BY published DESC, ordering';
+
+            // Data retrieval
+            $stmt = $xDb->prepare($query);
+            $stmt->bindParam(':rank', $xUser->rank, PDO::PARAM_INT);
+            $stmt->execute();
 
          }
 
-         $modules = $xDb->loadObjectList();
-         $xCache->set('modules', $modules);
+         // Create list
+         $list = $stmt->fetchAll(PDO::FETCH_OBJ);
+         $xCache->set('modules', $list);
 
       }
 
-      return $modules;
+      return $list;
    }
 
 

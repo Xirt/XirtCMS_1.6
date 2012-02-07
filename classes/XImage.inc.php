@@ -37,7 +37,7 @@ class XImage {
 
       }
 
-      trigger_error("XImage reports: GD2 not available!", E_USER_WARNING);
+      trigger_error("[XImage] GD2 not available.", E_USER_WARNING);
 
    }
 
@@ -87,7 +87,7 @@ class XImage {
    public function load($src) {
 
       if (!$this->img = imagecreatefromstring(file_get_contents($src))) {
-         trigger_error("Could not create image from '{$src}'", E_USER_NOTICE);
+         trigger_error("[XImage] Loading failed.", E_USER_NOTICE);
          return false;
       }
 
@@ -177,7 +177,7 @@ class XImage {
             break;
 
          default:
-            trigger_error("XImage reports: unknown IMAGETYPE", E_USER_NOTICE);
+            trigger_error("[XImage] Unknown image type.", E_USER_NOTICE);
             return false;
             break;
       }

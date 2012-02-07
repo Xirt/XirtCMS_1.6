@@ -33,12 +33,16 @@ Class XSession {
    public static function write($id, $data) {
       global $xDb;
 
-      $now = time();
+      // Database query
+      $query = 'REPLACE INTO #__sessions' .
+               'VALUES (:id, :now, :data)';
 
-      $query = "REPLACE INTO #__sessions
-                VALUES ('{$id}', '{$now}', '{$data}')";
-      $xDb->setQuery($query);
-      $xDb->execute();
+      // Query execution
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':data', $data, PDO::PARAM_STR);
+      $stmt->bindParam(':now', time(), PDO::PARAM_INT);
+      $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+      $stmt->execute();
 
    }
 
@@ -52,12 +56,16 @@ Class XSession {
    public static function read($id) {
       global $xDb;
 
-      $query = "SELECT data
-                FROM #__sessions
-                WHERE id = '{$id}'";
-      $xDb->setQuery($query);
+      // Database query
+      $query = 'SELECT data                    ' .
+               'FROM #__sessions WHERE id = :id';
 
-      return $xDb->loadResult();
+      // Data retrieval
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+      $stmt->execute();
+
+      return $stmt->fetchColumn();
    }
 
 
@@ -69,11 +77,14 @@ Class XSession {
    public static function destroy($id) {
       global $xDb;
 
-      $query = "DELETE
-                FROM #__sessions
-                WHERE id = '{$id}'";
-      $xDb->setQuery($query);
-      $xDb->execute();
+      // Database query
+      $query = 'DELETE FROM #__sessions' .
+               'WHERE id = :id         ';
+
+      // Query execution
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+      $stmt->execute();
 
    }
 
@@ -86,13 +97,14 @@ Class XSession {
    public static function clean($time) {
       global $xDb;
 
-      $time = time() - $time;
+      // Database query
+      $query = 'DELETE FROM #__sessions' .
+               'WHERE modified < :time ';
 
-      $query = "DELETE
-                FROM #__sessions
-                WHERE modified < '{$time}'";
-      $xDb->setQuery($query);
-      $xDb->execute();
+      // Query execution
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':time', time() - $time, PDO::PARAM_INT);
+      $stmt->execute();
 
    }
 

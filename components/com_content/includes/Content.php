@@ -20,35 +20,38 @@ class Content {
    /**
     * Load the item from the database
     *
-    * @param $id int that holds the xId of the item to load
+    * @param $id The xId of the item to load
     * @return boolean Return true on success, false on failure
     */
    public function load($id) {
       global $xConf, $xDb;
 
-      $query = "SELECT *
-                FROM (
-                   SELECT t1.*, t2.preference
-                   FROM #__staticcontent AS t1
-                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                   ORDER BY t2.preference, t1.xid
-                ) AS t3
-                WHERE t3.published = 1
-                   AND xid = {$id}";
-      $xDb->setQuery($query);
+      $languages = Xirt::getLanguages(true);
+      $iso = current($languages)->preference;
 
-      if ($dbObj = $xDb->loadObjectList('language')) {
+      // Query (selection)
+      $query = 'SELECT *                                   ' .
+               'FROM (%s) AS subset                        ' .
+               'LIMIT 2                                    ';
 
-         if (array_key_exists($xConf->language, $dbObj)) {
+      // Subquery (translations)
+      $trans = 'SELECT t1.*, preference                    ' .
+               'FROM #__staticcontent AS t1                ' .
+               'INNER JOIN #__languages AS t2              ' .
+               'ON t1.language = t2.iso                    ' .
+               'WHERE t1.published = 1                     ' .
+               '  AND xid = :id                            ' .
+               'ORDER BY replace(t2.preference, :iso, 0)   ';
 
-            $this->_init($dbObj[$xConf->language]);
-            return true;
+      // Retrieve data
+      $stmt = $xDb->prepare(sprintf($query, $trans));
+      $stmt->bindParam(':iso', $iso, PDO::PARAM_STR);
+      $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+      $stmt->execute();
 
-         }
-
-         $this->_init(current($dbObj));
-         return true;
-
+      // Populate instance
+      if ($item = $stmt->fetchObject()) {
+         return $this->_init($item);
       }
 
       return false;
@@ -60,6 +63,7 @@ class Content {
     *
     * @access private
     * @param $data Object containing data to initialize instance
+    * @return boolean Always true
     */
    private function _init($data) {
       global $xConf;
@@ -92,6 +96,7 @@ class Content {
 
       }
 
+      return true;
    }
 
 
