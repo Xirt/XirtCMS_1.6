@@ -156,23 +156,89 @@ class XDatabase extends PDO {
     *
     * @param $table String with the table for insertion
     * @param $data Object or Array containing the data to add (keys / values)
+    * @return int The inserted ID or 0
     */
    public function insert($table, $data) {
 
-      $data = is_object($data) ? (array) $data : $data;
-      $data = XTools::addSlashes($data);
-
-      if (!is_array($data)) {
-         trigger_error("Invalid input type for SQL insertion.", E_USER_ERROR);
+      if (!count($data) || !$data = (array)$data) {
+         return 0;
       }
 
-      $keys = implode(',', array_keys($data));
-      $values = implode("','", $data);
+      // Gather updates
+      $values = array();
+      foreach (array_keys($data) as $i => $field) {
+         $values[] = ':db_holder_' . $i;
+      }
 
-      $query = "INSERT INTO %s (%s) VALUES ('%s')";
-      $this->setQuery(sprintf($query, $table, $keys, $values));
-      $this->query();
+      $fields = implode(',', array_keys($data));
+      $values = implode(',', $values);
 
+      // Database query
+      $query = 'INSERT INTO %s (%s) VALUES (%s)';
+      $query = sprintf($query, $table, $fields, $values);
+
+      // Query execution
+      $stmt = $this->prepare($query);
+      foreach (array_values($data) as $i => $data) {
+         $stmt->bindValue(':db_holder_' . $i, $data);
+      }
+
+      return $stmt->execute() ? $this->lastInsertId() : 0;
+   }
+
+
+   /**
+    * Updates a (specific) record with the given data
+    *
+    * @param $table String with the table for update
+    * @param $data Object or Array containing the data to update (keys / values)
+    * @param $conditions The WHERE-conditions to specify specific records
+    * @return int The amount of affected rows or 0
+    */
+   public function update($table, $data, $conditions = '1') {
+
+      if (!count($data) || !$data = (array)$data) {
+         return 0;
+      }
+
+      // Gather updates
+      $updates = array();
+      foreach (array_keys($data) as $i => $field) {
+         $updates[] = $field . '= :db_holder_' . $i;
+      }
+
+      $updates = implode(', ', $updates);
+
+      // Database query
+      $query = 'UPDATE %s SET %s WHERE %s';
+      $query = sprintf($query, $table, $updates, $conditions);
+
+      // Query execution
+      $stmt = $this->prepare($query);
+      foreach (array_values($data) as $i => $data) {
+         $stmt->bindValue(':db_holder_' . $i, $data);
+      }
+
+      return $stmt->execute() ? $stmt->rowCount() : 0;
+   }
+
+
+   /**
+    * Removes a (specific) record with the given data
+    *
+    * @param $table String with the table for deletion
+    * @param $conditions The WHERE-conditions to specify specific records
+    * @return int The amount of affected rows or 0
+    */
+   public function delete($table, $conditions = '1') {
+
+      // Database query
+      $query = 'DELETE FROM %s WHERE %s';
+      $query = sprintf($query, $table, $conditions);
+
+      // Query execution
+      $stmt = $this->prepare($query);
+      return $stmt->execute() ? $stmt->rowCount() : 0;
    }
 
 
