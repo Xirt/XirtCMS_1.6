@@ -1,6 +1,7 @@
 <?php
 
-require_once('includes/ViewManager.php');
+require_once('includes/Viewer.php');
+require_once('includes/Manager.php');
 require_once('includes/Template.php');
 
 /**
@@ -21,7 +22,7 @@ class Component extends XComponent {
       XPage::addStylesheet('components/com_content/css/main.css');
       XPage::addScript('components/com_content/js/main.js');
 
-      ViewManager::showTemplate();
+      Viewer::showTemplate();
 
    }
 
@@ -30,7 +31,7 @@ class Component extends XComponent {
     * Handles any AJAX requests
     */
    function showAjax() {
-      ViewManager::save();
+      Manager::save();
    }
 
 }

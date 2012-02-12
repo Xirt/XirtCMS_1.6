@@ -7,7 +7,7 @@ var ContentList = new Class({
       this.parent(component, {
          sortable: true,
          sortables: ['author', 'content', 'created', 'status'],
-         column: 'created',
+         column: 'created'
       });
 
    },

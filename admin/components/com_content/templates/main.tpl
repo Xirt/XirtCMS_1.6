@@ -14,42 +14,42 @@
    <br />
 
    <label for='item_show_title'>{$xLang->labels['showTitle']}</label>
-   {html_options name=item_show_title id=item_show_title options=$optionList selected=$xConf->show_title}
+   {html_options name=item_show_title id=item_show_title options=$options selected=$xConf->show_title}
 
    <br />
 
    <label for='item_show_author'>{$xLang->labels['showAuthor']}</label>
-   {html_options name=item_show_author id=item_show_author options=$optionList selected=$xConf->show_author}
+   {html_options name=item_show_author id=item_show_author options=$options selected=$xConf->show_author}
 
    <br />
 
    <label for='item_show_created'>{$xLang->labels['showCreated']}</label>
-   {html_options name=item_show_created id=item_show_created options=$optionList selected=$xConf->show_created}
+   {html_options name=item_show_created id=item_show_created options=$options selected=$xConf->show_created}
 
    <br />
 
    <label for='item_show_modified'>{$xLang->labels['showModified']}</label>
-   {html_options name=item_show_modified id=item_show_modified options=$optionList selected=$xConf->show_modified}
+   {html_options name=item_show_modified id=item_show_modified options=$options selected=$xConf->show_modified}
 
    <br />
 
    <label for='item_back_icon'>{$xLang->labels['backIcon']}</label>
-   {html_options name=item_back_icon id=item_back_icon options=$optionList selected=$xConf->back_icon}
+   {html_options name=item_back_icon id=item_back_icon options=$options selected=$xConf->back_icon}
 
    <br />
 
    <label for='item_download_icon'>{$xLang->labels['downloadIcon']}</label>
-   {html_options name=item_download_icon id=item_download_icon options=$optionList selected=$xConf->download_icon}
+   {html_options name=item_download_icon id=item_download_icon options=$options selected=$xConf->download_icon}
 
    <br />
 
    <label for='item_print_icon'>{$xLang->labels['printIcon']}</label>
-   {html_options name=item_print_icon id=item_print_icon options=$optionList selected=$xConf->print_icon}
+   {html_options name=item_print_icon id=item_print_icon options=$options selected=$xConf->print_icon}
 
    <br />
 
    <label for='item_mail_icon'>{$xLang->labels['mailIcon']}</label>
-   {html_options name=item_mail_icon id=item_mail_icon options=$optionList selected=$xConf->mail_icon}
+   {html_options name=item_mail_icon id=item_mail_icon options=$options selected=$xConf->mail_icon}
 
    <hr />
 
@@ -93,12 +93,6 @@
       xxxxxxxxx x xx xx x xxxxxxx x xxxxx xxx xx x xxxxx xxxx xxxx x xxxx
       xxxxxx x x x xx x xxxx x xxxx xxxxxx x x xx x xxx xxx xxxx xxxxxx
       xxxxxxxxxxx xx x x x xxxx x xxx x x x x xx x xxx xxx x x x x xx xx
-      x xxxx xx xx xxxxxx xxxx xxx xxx xxxxxxx xx xx x xxxx xxxxxxx
-      xxxxxx x xxxxxxxxxxx x xxx xxx xxxxxxxx xxxxxxxxxxxx xxxxx xxxxx
-      x xxxx xxxxxxx xxxxxx x xxxxx xxx xx x xxxxx xxxxxxxxx x xxxxxxx
-      x xxx x xxxxxxxx xx x x xxx x xxxx xx xx x xxxxx x xx xxxxx xx x
-      x x x x x x xxxxxxx xxxxx x xx x xx xxxx xxx xxx xx xxxx x x x
-      xxxxxxxxxxxx x xxxxx xxx
 
       <div id='show_modified'><i>XXXX XXXXX XX XXXX XXXXXXXX XXX XX</i></div>
 

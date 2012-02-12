@@ -14,9 +14,7 @@ class Tweet extends XItem {
     * Loads item information from the database
     */
    public function load($id) {
-
       parent::loadFromDatabase('#__twitter', $id);
-
    }
 
 
@@ -24,9 +22,7 @@ class Tweet extends XItem {
     * Saves changes to the item to the database
     */
    public function save() {
-
       parent::saveToDatabase('#__twitter');
-
    }
 
 
@@ -34,9 +30,7 @@ class Tweet extends XItem {
     * Removes item from the database
     */
    public function remove() {
-
       parent::removeFromDatabase('#__twitter');
-
    }
 
 

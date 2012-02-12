@@ -1,12 +1,11 @@
 <?php
 
-require_once('includes/Template.php');
-
 require_once('includes/Term.php');
+require_once('includes/Viewer.php');
+require_once('includes/Manager.php');
+require_once('includes/Template.php');
 require_once('includes/TermList.php');
 
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
 
 /**
  * Manager for XirtCMS links
@@ -27,7 +26,7 @@ class Component extends XComponent {
       XPage::addScript('components/com_search/js/manager.js');
       XPage::addScript('components/com_search/js/viewer.js');
 
-      ContentViewer::showTemplate();
+      Viewer::showTemplate();
 
    }
 
@@ -43,27 +42,27 @@ class Component extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showList();
+            Viewer::showList();
             return;
 
          case 'show_item':
-            ContentViewer::showItem();
+            Viewer::showItem();
             return;
 
 
-         /*
-          * Modify methods
-          */
+            /*
+             * Modify methods
+             */
          case 'add_item':
-            ContentManager::addItem();
+            Manager::addItem();
             return;
 
          case 'edit_item':
-            ContentManager::editItem();
+            Manager::editItem();
             return;
 
          case 'remove_item':
-            ContentManager::removeItem();
+            Manager::removeItem();
             return;
 
       }

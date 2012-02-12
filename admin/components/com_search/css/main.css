@@ -1,29 +1,29 @@
 .cell-id {
-   width: 35px;
+	width: 35px;
 }
 
 .cell-term {
-   width: 200px;
-   overflow: hidden;
-   text-overflow: ellipsis;
+	width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .cell-uri {
-   overflow: hidden;
-   text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .cell-impressions {
-   width: 75px;
-   text-align: center;
+	width: 75px;
+	text-align: center;
 }
 
 th.cell-options {
-   width: 72px;
-   text-align: center;
+	width: 72px;
+	text-align: center;
 }
 
 td.cell-options {
-   width: 56px;
-   text-align: center;
+	width: 56px;
+	text-align: center;
 }

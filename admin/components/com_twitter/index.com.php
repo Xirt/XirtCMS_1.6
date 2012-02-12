@@ -1,10 +1,10 @@
 <?php
 
 require_once('includes/Tweet.php');
+require_once('includes/Viewer.php');
+require_once('includes/Manager.php');
 require_once('includes/Template.php');
 require_once('includes/TweetList.php');
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
 
 /**
  * Component to manage saved Twitter tweets
@@ -25,7 +25,7 @@ class Component extends XComponent {
       XPage::addScript('components/com_twitter/js/viewer.js');
       XPage::addScript('components/com_twitter/js/manager.js');
 
-      ContentViewer::showTemplate();
+      Viewer::showTemplate();
 
    }
 
@@ -41,22 +41,22 @@ class Component extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showList();
+            Viewer::showList();
             return;
 
          case 'show_item':
-            ContentViewer::showItem();
+            Viewer::showItem();
             return;
 
          /*
           * Modify methods
           */
          case 'toggle_status':
-            ContentManager::toggleStatus();
+            Manager::toggleStatus();
             return;
 
          case 'remove_item':
-            ContentManager::removeItem();
+            Manager::removeItem();
             return;
 
       }

@@ -1,16 +1,18 @@
 var XManager = new Class({
 
    // All elements
-   items: new Array('item_show_title', 'item_show_author',
-      'item_show_created', 'item_show_modified'
+   items: new Array(
+      'item_show_title', 'item_show_author', 'item_show_created',
+      'item_show_modified'
    ),
 
    // All icons
-   icons: new Array('item_back_icon', 'item_download_icon',
-      'item_print_icon', 'item_mail_icon'
+   icons: new Array(
+      'item_back_icon', 'item_download_icon', 'item_print_icon',
+      'item_mail_icon'
    ),
 
-   // METHOD :: Initializes manager
+   // Initializes manager
    initialize: function() {
 
       this.form = $('xForm');
@@ -31,7 +33,7 @@ var XManager = new Class({
 
    },
 
-   // METHOD :: Toggles elements
+   // Toggles elements
    toggleView: function() {
 
       var id = this.id;
@@ -42,7 +44,7 @@ var XManager = new Class({
 
    },
 
-   // METHOD :: Toggles icons
+   // Toggles icons
    toggleIcon: function() {
 
       var id = this.id;
@@ -53,7 +55,7 @@ var XManager = new Class({
 
    },
 
-   // METHOD :: Resets form
+   // Resets form
    _reset: function() {
 
       this.form.reset();
@@ -68,7 +70,7 @@ var XManager = new Class({
 
    },
 
-   // METHOD :: Submits form
+   // Submits form
    _save: function(validateOutput, el, event) {
 
       event.stop();
@@ -84,12 +86,13 @@ var XManager = new Class({
 
    },
 
-   // METHOD :: Shows result
+   // Shows result
    _finished: function() {
       Xirt.showNotice(XLang.messages['saved']);
    }
 
 });
+
 window.addEvent('domready', function() {
    XManager = new XManager();
 });

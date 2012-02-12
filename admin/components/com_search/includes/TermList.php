@@ -51,13 +51,17 @@ class TermList extends XContentList {
       $languageList = Xirt::getLanguages();
       $iso = array_key_exists($iso, $languageList) ? $iso : $xConf->language;
 
-      $query = "SELECT *
-                FROM {$this->table}
-                WHERE language = '{$iso}'
-                ORDER BY {$this->column} {$this->order}";
-      $xDb->setQuery($query);
+      // Database query
+      $query = "SELECT * FROM %s WHERE language = :iso ORDER BY %s %s";
+      $query = sprintf($query, $this->table, $this->column, $this->order);
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':iso', $iso);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_add(new XItem($dbRow), false);
       }
 

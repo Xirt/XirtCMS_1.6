@@ -1,76 +1,76 @@
 .xForm {
-   width: 730px;
-   margin: auto;
-   padding: 10px;
-   background: #f9f9f9;
-   border: 1px #c0c0c0 dotted;
-   -moz-border-radius: 5px;
+	width: 730px;
+	margin: auto;
+	padding: 10px;
+	background: #f9f9f9;
+	border: 1px #c0c0c0 dotted;
+	-moz-border-radius: 5px;
 }
 
 h1 {
-   margin: 5px 10px;
+	margin: 5px 10px;
 }
 
 fieldset.box-form {
-   float: left;
-   margin: 15px 20px 5px 10px;
-   width: 365px;
+	float: left;
+	margin: 15px 20px 5px 10px;
+	width: 365px;
 }
 
 fieldset.box-form.preview {
-   float: none;
-   margin: 20px 10px 5px 10px;
-   width: auto;
+	float: none;
+	margin: 20px 10px 5px 10px;
+	width: auto;
 }
 
 .box-preview {
-   width: 255px;
-   height: 350px;
-   padding: 10px;
-   margin: 10px;
-   border: 1px #000000 solid;
-   background: #ffffff;
-   font-size: 9px;
-   line-height: 9px;
-   text-align: justify;
+	width: 255px;
+	height: 350px;
+	padding: 10px;
+	margin: 10px;
+	border: 1px #000000 solid;
+	background: #ffffff;
+	font-size: 9px;
+	line-height: 9px;
+	text-align: justify;
 }
 
 .box-preview h5 {
-   font-size: 12px;
-   font-weight: bold;
-   margin: 0px 0px 7px 0px;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0px 0px 7px 0px;
 }
 
 .box-preview div {
-   margin: 5px 0px;
-   font-size: 8px;
+	margin: 5px 0px;
+	font-size: 8px;
 }
 
 .box-preview .box-icons {
-   text-align: center;
+	text-align: center;
 }
 
 .box-preview .box-icons .icon {
-   display: inline-block;
-   width: 20px;
-   height: 20px;
-   margin: 0px 3px;
-   background: #DBE5F1;
-   border: 1px #000000 solid;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin: 0px 3px;
+	background: #DBE5F1;
+	border: 1px #000000 solid;
 }
 
 .icon#back_icon {
-   background: #DBE5F1 url(../images/icon_back.png) no-repeat center center;
+	background: #DBE5F1 url(../images/icon_back.png) no-repeat center center;
 }
 
 .icon#mail_icon {
-   background: #DBE5F1 url(../images/icon_mail.png) no-repeat center center;
+	background: #DBE5F1 url(../images/icon_mail.png) no-repeat center center;
 }
 
 .icon#download_icon {
-   background: #DBE5F1 url(../images/icon_download.png) no-repeat center center;
+	background: #DBE5F1 url(../images/icon_download.png) no-repeat center center;
 }
 
 .icon#print_icon {
-   background: #DBE5F1 url(../images/icon_print.png) no-repeat center center;
+	background: #DBE5F1 url(../images/icon_print.png) no-repeat center center;
 }

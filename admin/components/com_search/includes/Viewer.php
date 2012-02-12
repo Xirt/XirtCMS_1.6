@@ -8,7 +8,7 @@
  * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
-class ContentViewer {
+class Viewer {
 
    /**
     * Shows the main screen
