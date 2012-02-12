@@ -16,9 +16,7 @@ class Translation extends XItem {
     * @param $id The ID of the item in the database
     */
    public function load($id) {
-
-      parent::loadFromDatabase("#__menus", $id);
-
+      parent::loadFromDatabase('#__menus', $id);
    }
 
 
@@ -48,9 +46,7 @@ class Translation extends XItem {
     * Saves changes to the item to the database
     */
    public function save() {
-
-      parent::saveToDatabase("#__menus");
-
+      parent::saveToDatabase('#__menus');
    }
 
 
@@ -58,9 +54,7 @@ class Translation extends XItem {
     * Removes item from the database
     */
    public function remove() {
-
-      parent::removeFromDatabase("#__menus");
-
+      parent::removeFromDatabase('#__menus');
    }
 
 }

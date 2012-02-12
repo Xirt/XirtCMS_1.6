@@ -14,9 +14,7 @@ class User extends XItem {
     * Loads item information from the database
     */
    public function load($id) {
-
       parent::loadFromDatabase('#__users', $id);
-
    }
 
 
@@ -24,9 +22,7 @@ class User extends XItem {
     * Saves changes to the item to the database
     */
    public function save() {
-
       parent::saveToDatabase('#__users');
-
    }
 
 
@@ -34,9 +30,7 @@ class User extends XItem {
     * Removes item from the database
     */
    public function remove() {
-
       parent::removeFromDatabase('#__users');
-
    }
 
 }

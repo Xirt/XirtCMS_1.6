@@ -1,71 +1,69 @@
 .cell-id {
-   width: 15px;
+	width: 15px;
 }
 
 .cell-name {
-   overflow: hidden;
-   text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .cell-folder {
-   width: 250px;
-   overflow: hidden;
-   text-align: left;
+	width: 250px;
+	overflow: hidden;
+	text-align: left;
 }
 
 .cell-published {
-   width: 50px;
-   text-align: center;
+	width: 50px;
+	text-align: center;
 }
 
 .cell-default {
-   width: 50px;
-   text-align: center;
+	width: 50px;
+	text-align: center;
 }
 
 th.cell-options {
-   width: 100px;
-   text-align: center;
+	width: 100px;
+	text-align: center;
 }
 
 td.cell-options {
-   width: 84px;
-   text-align: center;
+	width: 84px;
+	text-align: center;
 }
-
-
 
 /*
  * Lay-overs
  */
 #dvItem #pages {
-   height: auto;
-   width: 300px;
+	height: auto;
+	width: 300px;
 }
 
 #dvConfig input {
-   width: 120px;
+	width: 120px;
 }
 
 #dvConfig #positions {
-   height: auto;
-   width: 250px;
+	height: auto;
+	width: 250px;
 }
 
 td {
-   vertical-align: middle;
+	vertical-align: middle;
 }
 
 td.mid-column {
-   width: 125px;
-   text-align: center;
+	width: 125px;
+	text-align: center;
 }
 
 td.mid-column button {
-   margin: 10px 15px;
+	margin: 10px 15px;
 }
 
 td.mid-column button.right {
-   padding: 3px 25px 3px 3px;
-   background-position: 95% 4px;
+	padding: 3px 25px 3px 3px;
+	background-position: 95% 4px;
 }

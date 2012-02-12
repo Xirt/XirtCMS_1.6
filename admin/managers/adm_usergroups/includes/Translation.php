@@ -22,9 +22,7 @@ class Translation extends XItem {
     * @param $id The ID of the item in the database
     */
    public function load($id) {
-
       parent::loadFromDatabase('#__usergroups', $id);
-
    }
 
 
@@ -32,9 +30,7 @@ class Translation extends XItem {
     * Saves changes to the item to the database
     */
    public function save() {
-
       parent::saveToDatabase('#__usergroups');
-
    }
 
 

@@ -24,7 +24,7 @@
    <p>{$xLang->salution|sprintf:$xUser->name}</p>
 
    <p>{$xLang->intro|sprintf:$xConf->siteURL:$xConf->siteURL}</p>
-   
+
    <table>
    <tr>
       <td width="150"><font size="2"><b>{$xLang->username}</b></font></td>
@@ -35,9 +35,9 @@
       <td><font size="2">{$password}</font></td>
    </tr>
    </table>
-   
+
    <p>{$xLang->outro}</p>
- 
+
    <hr />
 
    </font>

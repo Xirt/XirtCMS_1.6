@@ -13,7 +13,7 @@ class TranslationList extends XTranslationList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = "#__modules";
+   var $table = '#__modules';
 
 
    /**
@@ -24,7 +24,6 @@ class TranslationList extends XTranslationList {
     * @return boolean True on succes, false on failure
     */
    public function load($xId) {
-
       return ($this->table ? !$this->_load($xId) : false);
    }
 
@@ -38,19 +37,27 @@ class TranslationList extends XTranslationList {
    private function _load($xId) {
       global $xDb;
 
-      $query = "SELECT
-                   id, xid, type, config, access_min, access_max
-                FROM (
-                   SELECT t1.*, t2.preference
-                   FROM %s AS t1
-                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                   ORDER BY t2.preference, t1.xid
-                ) AS t3
-                WHERE xid = %d
-                ORDER BY preference";
-      $xDb->setQuery(sprintf($query, $this->table, $xId));
+      // Query (selection)
+      $query = 'SELECT id, xid, type, config, access_min, access_max ' .
+               'FROM (%s) AS subset                                  ' .
+      		   'WHERE xid = :xid                                     ' .
+               'ORDER BY preference                                  ';
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Subquery (translations)
+      $trans = 'SELECT t1.*, t2.preference                           ' .
+               'FROM %s AS t1                                        ' .
+               'INNER JOIN #__languages AS t2                        ' .
+               'ON t1.language = t2.iso                              ' .
+               'ORDER BY t2.preference, t1.xid                       ';
+      $trans = sprintf($trans, $this->table);
+
+      // Retrieve data
+      $stmt = $xDb->prepare(sprintf($query, $trans));
+      $stmt->bindParam(':xid', $xId, PDO::PARAM_INT);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_add(new Translation($dbRow), false);
       }
 

@@ -48,9 +48,9 @@ class Manager extends XComponent {
             return;
 
 
-         /*
-          * Modify methods
-          */
+            /*
+             * Modify methods
+             */
          case 'add_item':
             ContentManager::addItem();
             return;

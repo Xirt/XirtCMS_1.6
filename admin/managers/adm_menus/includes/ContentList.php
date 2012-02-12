@@ -13,7 +13,7 @@ class ContentList extends XContentList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = "#__menus";
+   var $table = '#__menus';
 
 
    /**
@@ -23,7 +23,6 @@ class ContentList extends XContentList {
     * @return boolean True on succes, false on failure
     */
    public function load($iso = null) {
-
       return ($this->table ? !$this->_load($iso) : false);
    }
 
@@ -41,18 +40,28 @@ class ContentList extends XContentList {
       $iso = array_key_exists($iso, $languageList) ? $iso : $xConf->language;
       $iso = intval($languageList[$iso]->preference);
 
-      $query = "SELECT *
-                FROM (
-                   SELECT t1.*, t2.preference
-                   FROM {$this->table} AS t1
-                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                   ORDER BY replace(t2.preference, {$iso}, 0)
-                ) AS t3
-                GROUP BY xid
-                ORDER BY ordering";
-      $xDb->setQuery($query);
+      // Query (selection)
+      $query = 'SELECT *                                ' .
+               'FROM (%%s) AS subset                    ' .
+               'GROUP BY xid                            ' .
+               'ORDER BY ordering                       ';
+      $query = sprintf($query, $this->column, $this->order);
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Subquery (translations)
+      $trans = 'SELECT t1.*, t2.preference              ' .
+               'FROM %s AS t1                           ' .
+               'INNER JOIN #__languages AS t2           ' .
+               'ON t1.language = t2.iso                 ' .
+               'ORDER BY replace(t2.preference, :iso, 0)';
+      $trans = sprintf($trans, $this->table);
+
+      // Retrieve data
+      $stmt = $xDb->prepare(sprintf($query, $trans));
+      $stmt->bindParam(':iso', $iso, PDO::PARAM_STR);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_add(new Translation($dbRow), false);
       }
 

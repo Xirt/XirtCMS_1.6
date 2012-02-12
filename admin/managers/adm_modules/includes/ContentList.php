@@ -13,7 +13,7 @@ class ContentList extends XContentList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = "#__modules";
+   var $table = '#__modules';
 
 
    /**
@@ -26,8 +26,8 @@ class ContentList extends XContentList {
     * @var Array The list of columns used for every item
     */
    var $columns = array(
-       'xid', 'name', 'type', 'position', 'published', 'mobile'
-   );
+      'xid', 'name', 'type', 'position', 'published', 'mobile'
+      );
 
 
    /**
@@ -54,19 +54,29 @@ class ContentList extends XContentList {
       $iso = array_key_exists($iso, $languageList) ? $iso : $xConf->language;
       $iso = intval($languageList[$iso]->preference);
 
-      $query = "SELECT
-                  id, xid, name, position, type, published, mobile, language
-                FROM (
-                   SELECT t1.*, t2.preference
-                   FROM %s AS t1
-                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                   ORDER BY replace(t2.preference, %s, 0)
-                ) AS t3
-                GROUP BY xid
-                ORDER BY {$this->column} {$this->order}";
-      $xDb->setQuery(sprintf($query, $this->table, $iso));
+      // Query (selection)
+      $query = 'SELECT id, xid, name, position, type, published, ' .
+               'mobile, language                                 ' .
+               'FROM (%%s) AS subset                             ' .
+               'GROUP BY xid                                     ' .
+               'ORDER BY %s %s                                   ';
+      $query = sprintf($query, $this->column, $this->order);
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Subquery (translations)
+      $trans = 'SELECT t1.*, t2.preference                       ' .
+               'FROM %s AS t1                                    ' .
+               'INNER JOIN #__languages AS t2                    ' .
+               'ON t1.language = t2.iso                          ' .
+               'ORDER BY replace(t2.preference, :iso, 0)         ';
+      $trans = sprintf($trans, $this->table);
+
+      // Retrieve data
+      $stmt = $xDb->prepare(sprintf($query, $trans));
+      $stmt->bindParam(':iso', $iso, PDO::PARAM_STR);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_add(new XItem($dbRow), false);
       }
 

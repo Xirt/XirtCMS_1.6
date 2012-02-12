@@ -13,7 +13,7 @@ class TranslationList extends XTranslationList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = "#__usergroups";
+   var $table = '#__usergroups';
 
 
    /**
@@ -24,9 +24,7 @@ class TranslationList extends XTranslationList {
     * @return boolean True on succes, false on failure
     */
    public function load($xId) {
-
       return ($this->table ? !$this->_load($xId) : false);
-
    }
 
 
@@ -39,17 +37,26 @@ class TranslationList extends XTranslationList {
    private function _load($rank) {
       global $xDb;
 
-      $query = "SELECT *
-                FROM (
-                   SELECT t1.*
-                   FROM %s AS t1
-                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                   ORDER BY t2.preference, t1.rank
-                ) AS t3
-                WHERE rank = %d";
-      $xDb->setQuery(sprintf($query, $this->table, $rank));
+      // Query (selection)
+      $query = 'SELECT *                       ' .
+               'FROM (%s) AS subset            ' .
+               'WHERE rank = :rank             ';
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Subquery (translations)
+      $trans = 'SELECT t1.*                    ' .
+               'FROM %s AS t1                  ' .
+               'INNER JOIN #__languages AS t2  ' .
+               'ON t1.language = t2.iso        ' .
+               'ORDER BY t2.preference, t1.rank';
+      $subset = sprintf($trans, $this->table);
+
+      // Retrieve data
+      $stmt = $xDb->prepare(sprintf($query, $subset));
+      $stmt->bindParam(':rank', $rank, PDO::PARAM_INT);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_add(new Translation($dbRow), false);
       }
 

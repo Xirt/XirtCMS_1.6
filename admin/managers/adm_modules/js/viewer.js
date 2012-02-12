@@ -70,7 +70,7 @@ var ContentList = new Class({
             'src': '../images/cms/icons/visible.png',
             'class': 'url'
          }).addEvent('click', XManager.toggleMobile)
-        .set('opacity', item.mobile + 0.5)
+        .setStyle('opacity', item.mobile + 0.5)
         .store('status', item.mobile)
         .store('id', item.id));
 

@@ -1,7 +1,7 @@
 <?php
 
 require_once('includes/User.php');
-require_once('includes/LoginViewer.php');
+require_once('includes/Viewer.php');
 require_once('includes/LoginManager.php');
 
 /**
@@ -26,7 +26,7 @@ class Manager extends XComponent {
             break;
 
          default:
-            LoginViewer::showForm();
+            Viewer::showForm();
             break;
 
       }

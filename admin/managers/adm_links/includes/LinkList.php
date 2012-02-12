@@ -35,9 +35,7 @@ class LinkList extends XContentList {
     * @return boolean True on succes, false on failure
     */
    public function load($iso = null) {
-
       return ($this->table ? !$this->_load($iso) : false);
-
    }
 
 
@@ -53,12 +51,18 @@ class LinkList extends XContentList {
       $languageList = Xirt::getLanguages();
       $iso = array_key_exists($iso, $languageList) ? $iso : null;
 
-      $query = "SELECT *
-                FROM {$this->table}
-                ORDER BY {$this->column} {$this->order}";
-      $xDb->setQuery($query);
+      // Database query
+      $query = 'SELECT *      ' .
+               'FROM %s       ' .
+               'ORDER BY %s %s';
+      $query = sprintf($query, $this->table, $this->column, $this->order);
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
 
          if (is_null($iso) || $iso == $dbRow->iso) {
             $this->_add(new XItem($dbRow), false);

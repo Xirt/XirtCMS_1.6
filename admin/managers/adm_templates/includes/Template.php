@@ -10,7 +10,7 @@
  */
 class Template extends XItem {
 
-   const LOCATION = "%stemplates/%s/";
+   const LOCATION = '%stemplates/%s/';
 
 
    /**
@@ -89,9 +89,7 @@ class Template extends XItem {
     * Loads item information from the database
     */
    public function load($id) {
-
       parent::loadFromDatabase('#__templates', $id);
-
    }
 
 
@@ -99,9 +97,7 @@ class Template extends XItem {
     * Saves changes to the item to the database
     */
    public function save() {
-
       parent::saveToDatabase('#__templates');
-
    }
 
 
@@ -146,20 +142,28 @@ class Template extends XItem {
    public function toggleActive() {
       global $xDb;
 
-      $query = "UPDATE #__templates
-                SET published = 1,
-                    active = 1
-                WHERE id = {$this->id}";
-      $xDb->setQuery($query);
-      $xDb->query();
+      // Database query (new active)
+      $query = 'UPDATE #__templates ' .
+               'SET published = 1,  ' .
+               '    active = 1      ' .
+               'WHERE id = :id      ';
 
-      if ($xDb->rowCount()) {
+      // Execute query
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+      $stmt->execute();
 
-         $query = "UPDATE #__templates
-                   SET active = 0
-                   WHERE id != {$this->id}";
-         $xDb->setQuery($query);
-         $xDb->query();
+      if ($stmt->rowCount()) {
+
+         // Database query (remove old)
+         $query = 'UPDATE #__templates ' .
+                  'SET active = 0      ' .
+                  'WHERE id != :id     ';
+
+         // Query execution
+         $stmt = $xDb->prepare($query);
+         $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+         $stmt->execute();
 
       }
 

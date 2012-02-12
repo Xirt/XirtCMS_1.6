@@ -3,7 +3,7 @@
 <div class='listBox'>
 
    <div class='box-tools' style='display: none;'>
-      <a href='index.php?content=adm_extensions' title='{$xLang->manageExtensions}' class='extensions'>{$xLang->headers['manageExtensions']}</a>
+      <a href='index.php?content=adm_extensions' title="{$xLang->headers['manageExtensions']}" class='extensions'>{$xLang->headers['manageExtensions']}</a>
    </div>
 
    {XListBuilder::showTable(array('id', 'name', 'options'))}

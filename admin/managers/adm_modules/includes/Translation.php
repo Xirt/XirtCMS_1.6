@@ -11,7 +11,7 @@
 class Translation extends XItem {
 
    /**
-    * CONSTRUCTOR
+    * Creates a module (optionally populated with given attributes)
     *
     * @param $attribs Property/value combinations for initialization (optional)
     */
@@ -138,9 +138,7 @@ class Translation extends XItem {
     * Removes item from the database
     */
    public function remove() {
-
       parent::removeFromDatabase('#__modules');
-
    }
 
 }

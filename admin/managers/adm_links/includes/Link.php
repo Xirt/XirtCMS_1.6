@@ -14,9 +14,7 @@ class Link extends XItem {
     * Loads item information from the database
     */
    public function load($id) {
-
       parent::loadFromDatabase('#__links', $id);
-
    }
 
 
@@ -24,9 +22,7 @@ class Link extends XItem {
     * Saves changes to the item to the database
     */
    public function save() {
-
       parent::saveToDatabase('#__links');
-
    }
 
 
@@ -34,9 +30,7 @@ class Link extends XItem {
     * Removes item from the database
     */
    public function remove() {
-
       parent::removeFromDatabase('#__links');
-
    }
 
 }

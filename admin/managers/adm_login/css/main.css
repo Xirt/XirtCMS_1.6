@@ -1,109 +1,108 @@
 body {
-   background: #dbe5f1;
+	background: #dbe5f1;
 }
 
 div.mainBar {
-   position: relative;
-   height: 200px;
-   margin: 100px 0px 0px 0px;
-   border: 2px #749bbe solid;
-   border-width: 2px 0px;
-   background: #85c3e8;
+	position: relative;
+	height: 200px;
+	margin: 100px 0px 0px 0px;
+	border: 2px #749bbe solid;
+	border-width: 2px 0px;
+	background: #85c3e8;
 }
-
 
 /********
 LOGIN BOX
 *********/
 div.loginBox {
-   position: absolute;
-   left: 50%;
-   top: -50px;
-   width: 420px;
-   margin-left: -220px;
-   padding: 70px 10px 10px 10px;
-   background: #fff url(../../../../images/cms/logo.png) center 10px no-repeat;
-   box-shadow: 0 0 10px #808080;
-   border-radius: 15px;
+	position: absolute;
+	left: 50%;
+	top: -50px;
+	width: 420px;
+	margin-left: -220px;
+	padding: 70px 10px 10px 10px;
+	background: #fff url(../../../../images/cms/logo.png) center 10px
+		no-repeat;
+	box-shadow: 0 0 10px #808080;
+	border-radius: 15px;
 }
 
 div.loginBox div.contentBox {
-   position: relative;
-   margin: 10px;
-   padding: 10px 0;
-   z-index: 200;
-   text-align: justify;
-   border: 1px #c0c0c0 solid;
-   border-width: 1px 0;
+	position: relative;
+	margin: 10px;
+	padding: 10px 0;
+	z-index: 200;
+	text-align: justify;
+	border: 1px #c0c0c0 solid;
+	border-width: 1px 0;
 }
 
 div.loginBox div.contentBox label {
-   clear: both;
-   float: left;
-   background: none;
-   color: #000;
-   font-weight: bold;
-   width: auto;
-   margin: 10px 0 3px 15px;
-   padding: 0;
-   text-align: left;
+	clear: both;
+	float: left;
+	background: none;
+	color: #000;
+	font-weight: bold;
+	width: auto;
+	margin: 10px 0 3px 15px;
+	padding: 0;
+	text-align: left;
 }
 
 div.loginBox div.contentBox input {
-   width: 270px;
-   margin: 0 15px;
-   text-align: left;
-   float: left;
-   clear: left;
+	width: 270px;
+	margin: 0 15px;
+	text-align: left;
+	float: left;
+	clear: left;
 }
 
 div.loginBox fieldset {
-   width: 300px;
-   padding: 0 0 15px 0;
-   margin: 15px auto;
-   background: #dbe5f1;
-   box-shadow: 0 0 1px #808080;
-   border-radius: 4px;
+	width: 300px;
+	padding: 0 0 15px 0;
+	margin: 15px auto;
+	background: #dbe5f1;
+	box-shadow: 0 0 1px #808080;
+	border-radius: 4px;
 }
 
 div.loginBox div.contentBox .password {
-   font-size: 10px;
+	font-size: 10px;
 }
 
 div.loginBox div.contentBox a {
-   color: #144c75;
-   font-weight: normal;
-   text-decoration: none;
+	color: #144c75;
+	font-weight: normal;
+	text-decoration: none;
 }
 
 div.loginBox div.box-buttons {
-   padding: 0 0 10px 0;
+	padding: 0 0 10px 0;
 }
 
 div.loginBox div.box-buttons button {
-   border: 1px #c0c0c0 solid;
-   background: #eaeaea;
-   padding-left: 5px;
-   width: 150px;
+	border: 1px #c0c0c0 solid;
+	background: #eaeaea;
+	padding-left: 5px;
+	width: 150px;
 }
-
 
 /***********
 PASSWORD BOX
 ***********/
 #dvRequestPassword {
-   width: 420px;
-   padding: 0 10px;
+	width: 420px;
+	padding: 0 10px;
 }
 
 #dvRequestPassword fieldset {
-   background: none;
-   border-width: 2px 0;
-   margin: 10px 0px;
-   padding: 10px 0px;
+	background: none;
+	border-width: 2px 0;
+	margin: 10px 0px;
+	padding: 10px 0px;
 }
 
 #dvRequestPassword input {
-   float: right;
-   width: 200px;
+	float: right;
+	width: 200px;
 }

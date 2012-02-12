@@ -44,9 +44,9 @@ class Manager extends XComponent {
             return;
 
 
-         /*
-          * Modify methods
-          */
+            /*
+             * Modify methods
+             */
          case 'move_down':
             ContentManager::moveDown();
             return;

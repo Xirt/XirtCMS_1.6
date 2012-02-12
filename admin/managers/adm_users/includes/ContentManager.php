@@ -35,18 +35,18 @@ class ContentManager {
 
       if ($list->add($user)) {
 
-      	// Generate mail content
-	      $body = new XAdminTemplate('adm_users');
-	      $body->assign('xUser', $user);
-	      $body->assign('xConf', $xConf);
-	      $body->assign('password', $password);
-	      $body->assign('xLang', $content);
-	      $body = $body->fetch('mails/mail-create.tpl');
+         // Generate mail content
+         $body = new XAdminTemplate('adm_users');
+         $body->assign('xUser', $user);
+         $body->assign('xConf', $xConf);
+         $body->assign('password', $password);
+         $body->assign('xLang', $content);
+         $body = $body->fetch('mails/mail-create.tpl');
 
-	      // Sent mail
-	      $mail = new XMail($user->mail, $content->subject, $body);
-	      $mail->setType('html');
-	      $mail->send();
+         // Sent mail
+         $mail = new XMail($user->mail, $content->subject, $body);
+         $mail->setType('html');
+         $mail->send();
 
       }
 

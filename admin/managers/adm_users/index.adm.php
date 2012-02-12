@@ -48,9 +48,9 @@ class Manager extends XComponent {
             ContentViewer::showItem();
             return;
 
-         /*
-          * Modify methods
-          */
+            /*
+             * Modify methods
+             */
          case 'add_item':
             ContentManager::AddItem();
             return;

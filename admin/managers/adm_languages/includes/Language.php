@@ -14,9 +14,7 @@ class Language extends XItem {
     * Loads item information from the database
     */
    public function load($id) {
-
       parent::loadFromDatabase('#__languages', $id);
-
    }
 
 
@@ -24,9 +22,7 @@ class Language extends XItem {
     * Saves changes to the item to the database
     */
    public function save() {
-
       parent::saveToDatabase('#__languages');
-
    }
 
 
@@ -75,9 +71,7 @@ class Language extends XItem {
     * Removes item from the database
     */
    public function remove() {
-
       parent::removeFromDatabase('#__languages');
-
    }
 
 }

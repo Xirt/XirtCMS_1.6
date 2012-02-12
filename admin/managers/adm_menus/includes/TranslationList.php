@@ -13,7 +13,7 @@ class TranslationList extends XTranslationList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = "#__menus";
+   var $table = '#__menus';
 
 
    /**
@@ -22,9 +22,7 @@ class TranslationList extends XTranslationList {
     * @param $position Integer with new position (ordering)
     */
    public function moveTo($position) {
-
       $this->set('ordering', $position);
-
    }
 
 }

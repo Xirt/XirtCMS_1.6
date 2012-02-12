@@ -1,18 +1,18 @@
 .cell-id {
-   width: 55px;
+	width: 55px;
 }
 
 .cell-name {
-   overflow: hidden;
-   text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 th.cell-options {
-   width: 44px;
-   text-align: center;
+	width: 44px;
+	text-align: center;
 }
 
 td.cell-options {
-   width: 28px;
-   text-align: center;
+	width: 28px;
+	text-align: center;
 }

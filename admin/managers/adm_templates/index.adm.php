@@ -16,8 +16,8 @@ require_once('includes/ContentManager.php');
 class Manager extends XComponent {
 
    /**
-   * Handles any normal requests
-   */
+    * Handles any normal requests
+    */
    function showNormal() {
 
       XPage::addStylesheet('managers/adm_templates/css/main.css');
@@ -29,8 +29,8 @@ class Manager extends XComponent {
    }
 
    /**
-   * Handles any AJAX requests
-   */
+    * Handles any AJAX requests
+    */
    function showAjax() {
 
       switch (XTools::getParam("task")) {
@@ -46,9 +46,9 @@ class Manager extends XComponent {
             ContentViewer::showItem();
             return;
 
-         /*
-          * Modify methods
-          */
+            /*
+             * Modify methods
+             */
          case "add_item":
             ContentManager::addItem();
             return;

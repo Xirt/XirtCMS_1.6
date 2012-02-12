@@ -34,12 +34,18 @@ class LanguageList extends XContentList {
    private function _load() {
       global $xDb;
 
-      $query = "SELECT *
-                FROM {$this->table}
-                ORDER BY preference ASC";
-      $xDb->setQuery($query);
+      // Database query
+      $query = 'SELECT *               ' .
+               'FROM %s                ' .
+               'ORDER BY preference ASC';
+      $query = sprintf($query, $this->table);
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_add(new Language($dbRow), false);
       }
 

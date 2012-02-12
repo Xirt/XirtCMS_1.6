@@ -22,7 +22,7 @@ class User extends XItem {
       $email    = XTools::addslashes($email);
       $username = XTools::addslashes($username);
 
-   	if (!$this->loadFromDatabaseByName('#__users', $username, $email)) {
+      if (!$this->loadFromDatabaseByName($username, $email)) {
          die($xCom->xLang->messages['noAccountFail']);
       }
 
@@ -37,16 +37,23 @@ class User extends XItem {
     * @param $email The e-mail address of the item in the database
     * @return boolean True on success, false on failure
     */
-   public function loadFromDatabaseByName($table, $username, $email) {
+   public function loadFromDatabaseByName($username, $email) {
       global $xDb;
 
-      $query = "SELECT *
-                FROM {$table}
-                WHERE username = '{$username}'
-                   AND mail = '{$email}'";
-      $xDb->setQuery($query);
+      // Query
+      $query = 'SELECT *                  ' .
+               'FROM #__users             ' .
+               'WHERE username = :username' .
+               '  AND mail = :email       ';
 
-      if ($dbRow = $xDb->loadRow()) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+      $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+      $stmt->execute();
+
+      // Populate instance
+      if ($dbRow = $stmt->fetchObject()) {
 
          foreach ($dbRow as $attrib => $value) {
             $this->set($attrib, $value);

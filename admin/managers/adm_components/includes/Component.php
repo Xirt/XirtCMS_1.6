@@ -14,9 +14,7 @@ class Component extends XItem {
     * Loads item information from the database
     */
    public function load($id) {
-
       parent::loadFromDatabase('#__components', $id);
-
    }
 
 

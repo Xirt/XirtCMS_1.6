@@ -8,7 +8,7 @@
  * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
-class LoginViewer {
+class Viewer {
 
    /**
     * Shows the login panel
@@ -19,7 +19,7 @@ class LoginViewer {
       $xConf->hideTemplate();
 
       if ($xUser->isAuth($xConf->adminLevel)) {
-      	return header('Location: index.php?content=adm_portal');
+         return header('Location: index.php?content=adm_portal');
       }
 
       // Show template

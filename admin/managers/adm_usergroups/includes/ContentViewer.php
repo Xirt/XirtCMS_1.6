@@ -76,9 +76,7 @@ class ContentViewer {
     * @param $id Integer of item to load (optional)
     */
    public static function showDetails($id = 0) {
-
       self::showItem($id);
-
    }
 
 }

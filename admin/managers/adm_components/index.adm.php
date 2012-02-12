@@ -47,9 +47,9 @@ class Manager extends XComponent {
             return;
 
 
-         /*
-          * Modify methods
-          */
+            /*
+             * Modify methods
+             */
          case 'edit_access':
             ContentManager::editAccess();
             return;

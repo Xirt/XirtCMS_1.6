@@ -1,26 +1,23 @@
 .cell-rank {
-   width: 55px;
-   overflow: hidden;
-   text-overflow: ellipsis;
+	width: 55px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 th.cell-options {
-   width: 72px;
-   text-align: center;
+	width: 72px;
+	text-align: center;
 }
 
 td.cell-options {
-   width: 56px;
-   text-align: center;
+	width: 56px;
+	text-align: center;
 }
-
-
 
 /*
  * Lay-overs
  */
-#item_rank,
-#nitem_rank {
-   width: 50px;
-   text-align: center;
+#item_rank,#nitem_rank {
+	width: 50px;
+	text-align: center;
 }

@@ -93,7 +93,7 @@ class ContentManager {
       $list = new TranslationList();
       $list->load($item->rank);
 
-      foreach ($list->getList() as $item) {
+      foreach ($list->toArray() as $item) {
 
          $item->set('rank', $rank);
          $item->save();
