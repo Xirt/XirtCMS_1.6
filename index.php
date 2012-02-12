@@ -1,11 +1,11 @@
 <?php
 
 /*******************************************
-** @author     A.G. Gideonse              **
-** @version    1.6                        **
-** @copyright  XirtCMS 2010 - 2012        **
-** @package    XirtCMS                    **
-*******************************************/
+ ** @author     A.G. Gideonse              **
+ ** @version    1.6                        **
+ ** @copyright  XirtCMS 2010 - 2012        **
+ ** @package    XirtCMS                    **
+ *******************************************/
 
 define('_XDIR', './');
 define('_XIRT', true);
@@ -32,6 +32,5 @@ function xirt_autoload($class) {
 }
 spl_autoload_register('xirt_autoload');
 
-$xStart = XTools::getMicrotime();
 new XEngine();
 ?>

@@ -53,10 +53,10 @@ class XTree extends XNode {
 
 
    /**
-   * Returns tree as an Array
-   *
-   * @return Array The tree as an Array
-   */
+    * Returns tree as an Array
+    *
+    * @return Array The tree as an Array
+    */
    public function toArray() {
 
       if ($this->_tree && !$this->_isChanged) {

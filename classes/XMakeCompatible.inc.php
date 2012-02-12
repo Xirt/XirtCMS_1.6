@@ -109,12 +109,12 @@ class XMakeCompatible {
          register_shutdown_function('session_write_close');
 
          session_set_save_handler(
-            array('XSession', 'open'),
-            array('XSession', 'close'),
-            array('XSession', 'read'),
-            array('XSession', 'write'),
-            array('XSession', 'destroy'),
-            array('XSession', 'clean')
+         array('XSession', 'open'),
+         array('XSession', 'close'),
+         array('XSession', 'read'),
+         array('XSession', 'write'),
+         array('XSession', 'destroy'),
+         array('XSession', 'clean')
          );
 
       }

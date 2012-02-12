@@ -116,7 +116,7 @@ class Yubikey {
 
          if (substr($param, 0, 2) == 'h=') {
 
-         	$signature = substr(trim($param), 2);
+            $signature = substr(trim($param), 2);
             unset($params[$key]);
 
          }
@@ -124,7 +124,7 @@ class Yubikey {
       }
 
       if (!$this->_validateSignature($params, $signature)) {
-      	return false;
+         return false;
       }
 
       return true;
@@ -140,8 +140,9 @@ class Yubikey {
     */
    private function otpIsModhex($otp) {
 
-      $modhexChars = array('c','b','d','e','f','g','h','i',
-                           'j', 'k','l','n','r','t','u','v');
+      $modhexChars = array(
+       'c','b','d','e','f','g','h','i', 'j', 'k','l','n','r','t','u','v'
+      );
 
       foreach (str_split($otp) as $char) {
 
@@ -232,7 +233,6 @@ class Yubikey {
     * @return String The encoded data
     */
    private function _encode($data) {
-
       return base64_encode(hash_hmac('sha1', $data, $this->_secret, true));
    }
 

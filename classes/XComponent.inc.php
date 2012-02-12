@@ -67,7 +67,7 @@ class XComponent {
     */
    private function __language() {
 
-   	foreach (Xirt::getLanguages(true) as $language) {
+      foreach (Xirt::getLanguages(true) as $language) {
 
          try {
 

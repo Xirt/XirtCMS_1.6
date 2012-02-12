@@ -308,8 +308,8 @@ class Xirt {
       }
 
       Xirt::displayMessage(
-         $xLang->headers['pageNotFound'],
-         $xLang->bodies['pageNotFound']
+      $xLang->headers['pageNotFound'],
+      $xLang->bodies['pageNotFound']
       );
 
       trigger_error("[XCore] Page not found (404).", E_USER_NOTICE);
@@ -333,8 +333,8 @@ class Xirt {
       trigger_error("[XCore] Unauthorized access (401).", E_USER_NOTICE);
 
       Xirt::displayMessage(
-         $xLang->headers['unauthorized'],
-         $xLang->bodies['unauthorized']
+      $xLang->headers['unauthorized'],
+      $xLang->bodies['unauthorized']
       );
 
    }
@@ -356,25 +356,25 @@ class Xirt {
    }
 
 
-//   /**
-//    * Sorting method to sort by child 'iso'
-//    *
-//    * @param $a The first item to compare
-//    * @param $b The second item to compare
-//    * @return int -1, 0, or 1 for 'less', 'equal to' or 'greater'
-//    */
-//   protected static function _sortByIso($a, $b) {
-//
-//      if (function_exists('gmp_cmp')) {
-//         return gmp_cmp($a->preference, $b->preference);
-//      }
-//
-//      if ($a->preference < $b->preference) {
-//         return -1;
-//      }
-//
-//      return intval($a->preference > $b->preference);
-//   }
+   //   /**
+   //    * Sorting method to sort by child 'iso'
+   //    *
+   //    * @param $a The first item to compare
+   //    * @param $b The second item to compare
+   //    * @return int -1, 0, or 1 for 'less', 'equal to' or 'greater'
+   //    */
+   //   protected static function _sortByIso($a, $b) {
+   //
+   //      if (function_exists('gmp_cmp')) {
+   //         return gmp_cmp($a->preference, $b->preference);
+   //      }
+   //
+   //      if ($a->preference < $b->preference) {
+   //         return -1;
+   //      }
+   //
+   //      return intval($a->preference > $b->preference);
+   //   }
 
 }
 ?>

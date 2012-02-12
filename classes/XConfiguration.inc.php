@@ -106,7 +106,7 @@ class XConfiguration extends DefaultConfiguration {
     * @access private
     * @return String The current language
     */
-    private function _getLanguage() {
+   private function _getLanguage() {
 
       if (defined('_ADMIN')) {
          return $this->admLanguage;
@@ -237,7 +237,7 @@ class XConfiguration extends DefaultConfiguration {
          return $_SESSION['mobile'];
       }
 
-      return XTools::isMobileRequest();
+      return XTools::isMobile();
    }
 
 }

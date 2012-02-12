@@ -71,7 +71,7 @@ class XAuthentication {
       session_regenerate_id();
 
       if (!$uId = XAuthentication::_verify($username, $password)) {
-      	return self::_snail();
+         return self::_snail();
       }
 
       $password = self::hash($password);
@@ -110,7 +110,7 @@ class XAuthentication {
 
       if ($reset === true) {
 
-      	unset($_SESSION['lc']);
+         unset($_SESSION['lc']);
          return null;
 
       }
@@ -143,13 +143,13 @@ class XAuthentication {
 
 
    /**
-   * Verifies a username / password combination
-   *
-   * @access protected
-   * @param $username String containing the username
-   * @param $password String containing the password
-   * @return boolean True on success, false on failure
-   */
+    * Verifies a username / password combination
+    *
+    * @access protected
+    * @param $username String containing the username
+    * @param $password String containing the password
+    * @return boolean True on success, false on failure
+    */
    protected static function _verify($username, $password) {
       global $xConf, $xDb;
 
@@ -175,7 +175,7 @@ class XAuthentication {
       $factors = 0;
 
       if (self::hash($password, $auth->salt) == $auth->password) {
-      	 $factors++;
+         $factors++;
       }
 
       // Yubikey verification

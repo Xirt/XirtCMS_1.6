@@ -11,13 +11,13 @@
 class XCountryList {
 
    /**
-	 * @var The location of the translated country files
+    * @var The location of the translated country files
     */
    const LOCATION = 'languages/countries/%s.ini';
 
 
    /**
-	 * @var The list with data
+    * @var The list with data
     */
    private $_list = array();
 

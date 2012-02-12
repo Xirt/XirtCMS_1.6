@@ -127,8 +127,8 @@ class XImage {
       $new->create($width, $height);
 
       imagecopyresampled(
-         $new->img, $this->img, $offsetX, $offsetY, 0, 0,
-         $nWidth, $nHeight, $props['width'], $props['height']
+      $new->img, $this->img, $offsetX, $offsetY, 0, 0,
+      $nWidth, $nHeight, $props['width'], $props['height']
       );
 
       $this->img = $new->img;

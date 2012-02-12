@@ -16,14 +16,18 @@ class XEngine {
     * Loads and initializes the current page
     */
    function __construct() {
+      global $xStart;
 
+      $xStart = XDateTime::getMicrotime();
+
+      // Prepare session
       XMakeCompatible::noCache();
       XMakeCompatible::prepareArguments();
 
       // Initialization
       $this->_init();
 
-      // Content
+      // Show content
       $this->_loadLanguage();
       $this->_loadUser();
       $this->_loadContent();
@@ -104,10 +108,10 @@ class XEngine {
 
       switch (true) {
 
-         case !$xConf->showTemplate:
+         case $xConf->mobile:
             return $xPage->preload(false);
 
-         case XTools::isMobileRequest():
+         case !$xConf->showTemplate:
             return $xPage->preload(false);
 
          case array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER):

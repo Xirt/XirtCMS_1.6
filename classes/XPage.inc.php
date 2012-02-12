@@ -115,6 +115,7 @@ class XPage {
     * @param $content The content item to load (optional)
     */
    private function _load($content = null) {
+      global $xConf;
 
       if (is_null($content) || !$content) {
          $content = XTools::getParam('content');
@@ -130,7 +131,7 @@ class XPage {
 
             switch (true) {
 
-               case XTools::isMobileRequest():
+               case $xConf->mobile:
                   return $component->showMobile();
 
                case array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER):
@@ -141,7 +142,7 @@ class XPage {
 
             }
 
-         break;
+            break;
 
          case 'mod':
 
@@ -155,11 +156,11 @@ class XPage {
             //}
 
             Xirt::pageNotFound();
-         break;
+            break;
 
          default:
             $this->_loadFrontpage();
-         break;
+            break;
 
       }
 

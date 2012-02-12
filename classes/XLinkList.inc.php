@@ -44,10 +44,10 @@ class XLinkList {
       while  ($dbRow = $stmt->fetchObject()) {
 
          $this->_list[] = new XLink(
-            $dbRow->cid,
-            $dbRow->iso,
-            $dbRow->uri_ori,
-            $dbRow->uri_sef
+         $dbRow->cid,
+         $dbRow->iso,
+         $dbRow->uri_ori,
+         $dbRow->uri_sef
          );
 
       }
@@ -85,7 +85,7 @@ class XLinkList {
 
          // Add language (SEF)
          if (current(Xirt::getLanguages())->iso != $xConf->language) {
-             $link = $xConf->language . '/' . $link;
+            $link = $xConf->language . '/' . $link;
          }
 
       }

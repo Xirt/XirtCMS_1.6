@@ -64,10 +64,10 @@ class XLog {
    public function onException(Exception $e) {
 
       $this->_log($this->_getData(
-         E_USER_ERROR,
-         $e->getMessage(),
-         $e->getFile(),
-         $e->getLine()
+      E_USER_ERROR,
+      $e->getMessage(),
+      $e->getFile(),
+      $e->getLine()
       ));
 
    }
@@ -163,7 +163,10 @@ class XLog {
    private function _toDatabase($data) {
       global $xDb;
 
-      $xDb->insert('#__log', $data);
+      if (isset($xDb) && !is_null($xDb)) {
+         $xDb->insert('#__log', $data);
+      }
+
    }
 
 

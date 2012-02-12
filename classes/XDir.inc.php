@@ -146,7 +146,7 @@ class XDir {
 
          if ($doDeepScan && is_dir($current)) {
 
-         	$deepPaths = $this->_summarize($current, $showFiles, $doDeepScan);
+            $deepPaths = $this->_summarize($current, $showFiles, $doDeepScan);
             $paths = array_merge($deepPaths, $paths);
 
          }
@@ -177,8 +177,8 @@ class XDir {
 
             // Recursion through filesystem
             $iterator = new RecursiveIteratorIterator(
-               new RecursiveDirectoryIterator($this->path),
-               RecursiveIteratorIterator::SELF_FIRST
+            new RecursiveDirectoryIterator($this->path),
+            RecursiveIteratorIterator::SELF_FIRST
             );
 
             foreach($iterator as $path) {

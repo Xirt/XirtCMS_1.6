@@ -187,7 +187,7 @@ class XNode {
    public function getMaxOrdering() {
 
       if (!isset($this->children) || !count($this->children)) {
-          return 0;
+         return 0;
       }
 
       foreach ($this->children as $child) {

@@ -34,7 +34,7 @@ class XDatabase extends PDO {
       global $xConf;
 
       // Connections values for this instance
-      $dsn      = $dsn  ? $dsn  : $xConf->dbDSN;
+      $dsn      = $dsn ? $dsn  : $xConf->dbDSN;
       $user     = $user ? $user : $xConf->dbUser;
       $password = $password ? $password : $xConf->dbPass;
 
@@ -338,9 +338,10 @@ class XDatabase extends PDO {
    public function stopTimer() {
 
       if (isset($this->start)) {
-      $this->timer = microtime() - $this->start;
-      unset($this->start);
+         $this->timer = microtime() - $this->start;
+         unset($this->start);
       }
+
    }
 
 }

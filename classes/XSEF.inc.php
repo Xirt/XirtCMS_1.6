@@ -27,126 +27,126 @@ class XSEF {
       'ô' => 'o', 'õ' => 'o', 'ö' => 'o',  'ø' => 'o',  'ù' => 'u', 'ú' => 'u',
       'û' => 'u', 'ý' => 'y', 'ý' => 'y',  'þ' => 'b',  'ÿ' => 'y', 'Ŕ' => 'R',
       'ŕ' => 'r', ' ' => '-'
-   );
+      );
 
 
-   /**
-    * Returns input with replaced links
-    *
-    * @param String $str The input text
-    * @return String The output text with replaced links
-    */
-   public static function parse($str) {
-      global $xConf;
+      /**
+       * Returns input with replaced links
+       *
+       * @param String $str The input text
+       * @return String The output text with replaced links
+       */
+      public static function parse($str) {
+         global $xConf;
 
-      if (!$xConf->sefUrls) {
+         if (!$xConf->sefUrls) {
+            return $str;
+         }
+
+         // Find all links, replace if possible
+         if (preg_match_all("/<a(.*)>/U", $str, $matches)) {
+
+            $originals = array();
+            $links = array();
+
+            $list = $matches[1];
+            foreach ($list as $link) {
+
+               $regex = '#([^\s=]+)\s*=\s*(\'[^<\']*\'|"[^<"]*")#';
+               if (!preg_match_all($regex, $link, $matches, PREG_SET_ORDER)) {
+                  continue;
+               }
+
+               $attribs = (Object)array();
+               foreach ($matches as $attr) {
+                  $attribs->$attr[1] = $attr[2];
+               }
+
+               if (!isset($attribs->href) || !isset($attribs->title)) {
+                  continue;
+               }
+
+               $name = strtolower($attribs->title);
+               $name = html_entity_decode($name, ENT_QUOTES, "UTF-8");
+               $name = str_replace(' ', '-', $name);
+               $name = preg_replace('/[^a-zA-Z0-9_-]/', '', $name);
+
+               $link      = preg_replace('/["\']/', '', $attribs->href);
+               $candidate = html_entity_decode($urlLink, ENT_QUOTES, "UTF-8");
+
+               // Relative internal link
+               if (strpos($candidate, 'index.php') === 0) {
+
+                  $links[] = XSEF::makeSEFLink($candidate, 0, $name);
+                  $originals[] = $link;
+                  continue;
+
+               }
+
+               // Absolute internal link
+               if (strpos($candidate, $xConf->baseURL) === 0) {
+
+                  $links[] = XSEF::makeSEFLink($candidate, 0, $name);
+                  $originals[] = $link;
+                  continue;
+
+               }
+
+            }
+
+            $str = str_replace($originals, $links, $str);
+
+         }
+
          return $str;
       }
 
-      // Find all links, replace if possible
-      if (preg_match_all("/<a(.*)>/U", $str, $matches)) {
 
-         $originals = array();
-         $links = array();
+      /**
+       * Returns a link according to SEF settings
+       *
+       * @param $original The original link
+       * @param $cId The cId of the original link
+       * @param $name The SEF term to use (optional, defaults 'index')
+       * @return String The URL according to SEF settings
+       */
+      public static function get($original, $cId = 0, $name = "index") {
+         global $xConf, $xLinks;
 
-         $list = $matches[1];
-         foreach ($list as $link) {
-
-            $regex = '#([^\s=]+)\s*=\s*(\'[^<\']*\'|"[^<"]*")#';
-            if (!preg_match_all($regex, $link, $matches, PREG_SET_ORDER)) {
-               continue;
-            }
-
-            $attribs = (Object)array();
-            foreach ($matches as $attr) {
-               $attribs->$attr[1] = $attr[2];
-            }
-
-            if (!isset($attribs->href) || !isset($attribs->title)) {
-               continue;
-            }
-
-            $name = strtolower($attribs->title);
-            $name = html_entity_decode($name, ENT_QUOTES, "UTF-8");
-            $name = str_replace(' ', '-', $name);
-            $name = preg_replace('/[^a-zA-Z0-9_-]/', '', $name);
-
-            $link      = preg_replace('/["\']/', '', $attribs->href);
-            $candidate = html_entity_decode($urlLink, ENT_QUOTES, "UTF-8");
-
-            // Relative internal link
-            if (strpos($candidate, 'index.php') === 0) {
-
-               $links[] = XSEF::makeSEFLink($candidate, 0, $name);
-               $originals[] = $link;
-               continue;
-
-            }
-
-            // Absolute internal link
-            if (strpos($candidate, $xConf->baseURL) === 0) {
-
-               $links[] = XSEF::makeSEFLink($candidate, 0, $name);
-               $originals[] = $link;
-               continue;
-
-            }
-
+         // Remove cId from original link
+         if (!$uri = parse_url($original)) {
+            return $original;
          }
 
-         $str = str_replace($originals, $links, $str);
+         if (array_key_exists('query', $uri)) {
 
-      }
+            parse_str($uri['query'], $args);
+            if (!$cId && isset($args['cid'])) {
 
-      return $str;
-   }
+               $cId = intval($args['cid']);
+               unset($args['cid']);
 
+            }
 
-   /**
-    * Returns a link according to SEF settings
-    *
-    * @param $original The original link
-    * @param $cId The cId of the original link
-    * @param $name The SEF term to use (optional, defaults 'index')
-    * @return String The URL according to SEF settings
-    */
-   public static function get($original, $cId = 0, $name = "index") {
-      global $xConf, $xLinks;
+            if (isset($args['lang'])) {
+               unset($args['lang']);
+            }
 
-      // Remove cId from original link
-      if (!$uri = parse_url($original)) {
+            ksort($args);
+            $original = http_build_query($args);
+         }
+
+         // Create new SEF entry
+         $xLinks = $xLinks ? $xLinks : new XLinkList();
+         $xLinks->add($cId, $xConf->language, $original, $name);
+
+         // Attempt to load new SEF entry
+         if ($link = $xLinks->returnLinkByLink($original, $xConf->language)) {
+            return $link->uri_sef;
+         }
+
          return $original;
       }
-
-      if (array_key_exists('query', $uri)) {
-
-         parse_str($uri['query'], $args);
-         if (!$cId && isset($args['cid'])) {
-
-            $cId = intval($args['cid']);
-            unset($args['cid']);
-
-         }
-
-         if (isset($args['lang'])) {
-            unset($args['lang']);
-         }
-
-         ksort($args);
-         $original = http_build_query($args);
-      }
-
-      // Create new SEF entry
-      $xLinks = $xLinks ? $xLinks : new XLinkList();
-      $xLinks->add($cId, $xConf->language, $original, $name);
-
-      // Attempt to load new SEF entry
-      if ($link = $xLinks->returnLinkByLink($original, $xConf->language)) {
-         return $link->uri_sef;
-      }
-
-      return $original;
-   }
 
 }
 ?>
