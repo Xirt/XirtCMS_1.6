@@ -13,7 +13,7 @@ class TranslationList extends XTranslationList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = '#__modules';
+   protected $_table = '#__modules';
 
 
    /**
@@ -24,7 +24,7 @@ class TranslationList extends XTranslationList {
     * @return boolean True on succes, false on failure
     */
    public function load($xId) {
-      return ($this->table ? !$this->_load($xId) : false);
+      return ($this->_table ? !$this->_load($xId) : false);
    }
 
 
@@ -49,7 +49,7 @@ class TranslationList extends XTranslationList {
                'INNER JOIN #__languages AS t2                        ' .
                'ON t1.language = t2.iso                              ' .
                'ORDER BY t2.preference, t1.xid                       ';
-      $trans = sprintf($trans, $this->table);
+      $trans = sprintf($trans, $this->_table);
 
       // Retrieve data
       $stmt = $xDb->prepare(sprintf($query, $trans));

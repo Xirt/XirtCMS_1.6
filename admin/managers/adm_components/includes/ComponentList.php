@@ -13,19 +13,19 @@ class ComponentList extends XContentList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = '#__components';
+   protected $_table = '#__components';
 
 
    /**
     * @var String The ordering column of the list (for database loading)
     */
-   var $column = 'name';
+   protected $_column = 'name';
 
 
    /**
     * @var Array The list of columns used for every item
     */
-   var $columns = array('id', 'name');
+   protected $_columns = array('id', 'name');
 
 }
 ?>

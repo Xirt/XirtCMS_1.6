@@ -13,7 +13,7 @@ class LanguageList extends XContentList {
    /**
     * @var String Table with item information
     */
-   var $table = '#__languages';
+   protected $_table = '#__languages';
 
 
    /**
@@ -22,7 +22,7 @@ class LanguageList extends XContentList {
     * @return boolean True on succes, false on failure
     */
    public function load() {
-      return ($this->table ? !$this->_load() : false);
+      return ($this->_table ? !$this->_load() : false);
    }
 
 
@@ -38,7 +38,7 @@ class LanguageList extends XContentList {
       $query = 'SELECT *               ' .
                'FROM %s                ' .
                'ORDER BY preference ASC';
-      $query = sprintf($query, $this->table);
+      $query = sprintf($query, $this->_table);
 
       // Retrieve data
       $stmt = $xDb->prepare($query);

@@ -13,19 +13,19 @@ class LinkList extends XContentList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = '#__links';
+   protected $_table = '#__links';
 
 
    /**
     * @var String The ordering column of the list (for database loading)
     */
-   var $column = 'uri_sef';
+   protected $_column = 'uri_sef';
 
 
    /**
     * @var Array The list of columns used for every item
     */
-   var $columns = array('uri_ori', 'uri_sef', 'cid');
+   protected $_columns = array('uri_ori', 'uri_sef', 'cid');
 
 
    /**
@@ -35,7 +35,7 @@ class LinkList extends XContentList {
     * @return boolean True on succes, false on failure
     */
    public function load($iso = null) {
-      return ($this->table ? !$this->_load($iso) : false);
+      return ($this->_table ? !$this->_load($iso) : false);
    }
 
 
@@ -55,7 +55,7 @@ class LinkList extends XContentList {
       $query = 'SELECT *      ' .
                'FROM %s       ' .
                'ORDER BY %s %s';
-      $query = sprintf($query, $this->table, $this->column, $this->order);
+      $query = sprintf($query, $this->_table, $this->_column, $this->_order);
 
       // Retrieve data
       $stmt = $xDb->prepare($query);

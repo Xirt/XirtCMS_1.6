@@ -17,7 +17,7 @@ class XItem {
 
 
    /**
-    * CONSTRUCTOR
+    * Creates a new XItem with given attributes
     *
     * @param $attribs Property/value combinations for initialization (optional)
     */
@@ -36,7 +36,7 @@ class XItem {
     * @param $id The ID of the item in the database
     */
    public function load($id) {
-      trigger_error("Method 'load()' not overwritten.", E_USER_ERROR);
+      trigger_error("[XItem] Method 'load()' not overwritten.", E_USER_ERROR);
    }
 
 
@@ -49,12 +49,17 @@ class XItem {
    public function loadFromDatabase($table, $id) {
       global $xDb;
 
-      $query = "SELECT *
-                FROM {$table}
-                WHERE id = {$id}";
-      $xDb->setQuery($query);
+      // Database query
+      $query = 'SELECT * FROM %s WHERE id = :id';
+      $query = sprintf($query, $table);
 
-      if ($dbRow = $xDb->loadRow()) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      // Populate instance
+      if ($dbRow = $stmt->fetchObject()) {
 
          foreach ($dbRow as $attrib => $value) {
             $this->set($attrib, $value);
@@ -92,7 +97,7 @@ class XItem {
     * Saves changes to the item to the database (placeholder for extending)
     */
    public function save() {
-      trigger_error("Method 'save()' not overwritten.", E_USER_ERROR);
+      trigger_error("[XItem] Method 'save()' not overwritten.", E_USER_ERROR);
    }
 
 
@@ -104,24 +109,11 @@ class XItem {
    public function saveToDatabase($table) {
       global $xDb;
 
-      // Prepare variables
-      $attribs = array();
-      foreach (get_object_vars($this) as $attrib => $value) {
-
-         if ($attrib == 'language' && !array_key_exists($value, Xirt::getLanguages())) {
-            return false;
-         }
-
-         $value = XTools::addslashes($value);
-         $attribs[] = sprintf("%s = '%s'", $attrib, $value);
-
+      if (!isset($this->id) || !$this->id) {
+         return false;
       }
 
-      // Save changes
-      $query = "UPDATE %s SET %s WHERE id = %s";
-      $query = sprintf($query, $table, implode(',', $attribs), $this->id);
-      $xDb->setQuery($query);
-      $xDb->query();
+      $xDb->update($table, get_object_vars($this), 'id=' . $this->id);
 
    }
 
@@ -130,7 +122,7 @@ class XItem {
     * Removes item from the database (placeholder for extending)
     */
    public function remove() {
-      trigger_error("Method 'remove()' not overwritten.", E_USER_ERROR);
+      trigger_error("[XItem] Method 'remove()' not overwritten.", E_USER_ERROR);
    }
 
 
@@ -142,10 +134,11 @@ class XItem {
    public function removeFromDatabase($table) {
       global $xDb;
 
-      $query = "DELETE FROM {$table}
-                WHERE id = {$this->id}";
-      $xDb->setQuery($query);
-      $xDb->query();
+      if (!isset($this->id) || !$this->id) {
+         return false;
+      }
+
+      $xDb->delete($table, 'id=' . $this->id);
 
    }
 
@@ -159,7 +152,6 @@ class XItem {
     * Returns item as a JSON Object
     */
    public function encode() {
-
       return json_encode($this);
    }
 

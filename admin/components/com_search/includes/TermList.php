@@ -13,19 +13,19 @@ class TermList extends XContentList {
    /**
     * @var String Table with item information
     */
-   var $table = '#__search';
+   protected $_table = '#__search';
 
 
    /**
     * @var String The ordering column of the list (for database loading)
     */
-   var $column = 'impressions';
+   protected $_column = 'impressions';
 
 
    /**
     * @var Array The list of columns used for every item
     */
-   var $columns = array('term', 'uri', 'impressions');
+   protected $_columns = array('term', 'uri', 'impressions');
 
 
    /**
@@ -35,7 +35,7 @@ class TermList extends XContentList {
     * @return boolean True on succes, false on failure
     */
    public function load($iso = null) {
-      return ($this->table ? !$this->_load($iso) : false);
+      return ($this->_table ? !$this->_load($iso) : false);
    }
 
 
@@ -53,7 +53,7 @@ class TermList extends XContentList {
 
       // Database query
       $query = "SELECT * FROM %s WHERE language = :iso ORDER BY %s %s";
-      $query = sprintf($query, $this->table, $this->column, $this->order);
+      $query = sprintf($query, $this->_table, $this->_column, $this->_order);
 
       // Retrieve data
       $stmt = $xDb->prepare($query);

@@ -19,13 +19,13 @@ class XTranslationList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = null;
+   protected $_table = null;
 
 
    /**
     * @var Array containing all items
     */
-   var $list = array();
+   protected $_list = array();
 
 
    /**
@@ -36,7 +36,7 @@ class XTranslationList {
     * @return boolean True on succes, false on failure
     */
    public function load($xId) {
-      return ($this->table ? !$this->_load($xId) : false);
+      return ($this->_table ? !$this->_load($xId) : false);
    }
 
 
@@ -49,18 +49,17 @@ class XTranslationList {
    private function _load($xId) {
       global $xDb;
 
-      $query = "SELECT *
-                FROM (
-                   SELECT t1.*
-                   FROM {$this->table} AS t1
-                   INNER JOIN #__languages AS t2 ON t1.language = t2.iso
-                   ORDER BY t2.preference, t1.xid
-                ) AS t3
-                WHERE xid = {$xId}
-                ORDER BY xid";
-      $xDb->setQuery($query);
+      // Database query
+      $stmt = "SELECT * FROM (%s) AS subset WHERE xid = :xid ORDER BY xid";
+      $subs = "SELECT t1.* FROM {$this->_table} AS t1 INNER JOIN #__languages AS t2 ON t1.language = t2.iso ORDER BY t2.preference, t1.xid";
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Retrieve data
+      $stmt = $xDb->prepare(sprintf($stmt, $subs));
+      $stmt->bindParam(':xid', $xId, PDO::PARAM_INT);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_add(new XItem($dbRow), false);
       }
 
@@ -80,10 +79,10 @@ class XTranslationList {
     */
    public function set($attrib, $value) {
 
-      foreach ($this->list as $translation) {
+      foreach ($this->_list as $translation) {
 
          $translation->set($attrib, $value);
-         $translation->saveToDatabase($this->table);
+         $translation->saveToDatabase($this->_table);
 
       }
 
@@ -111,12 +110,11 @@ class XTranslationList {
    public function _add($item, $doSave = true) {
       global $xDb;
 
-      if ($this->table && $doSave) {
-         $item = XTools::addslashes($item);
-         $xDb->insert($this->table, $item);
+      if ($this->_table && $doSave) {
+         $xDb->insert($this->_table, $item);
       }
 
-      return ($this->list[] = $item);
+      return ($this->_list[] = $item);
    }
 
 
@@ -125,66 +123,6 @@ class XTranslationList {
    /* MISCELLANEOUS */
    /*****************/
 
-   /**
-    * Returns first occurence of an item by field
-    *
-    * @deprecated
-    * @param $attrib String containing the field name to search in
-    * @param $value String containing the string to search for
-    * @return mixed The found item or null on failure
-    */
-   public function getItemByField($attrib, $value) {
-
-      trigger_error(
-         "Deprecated XTranslationList::getItemByField()",
-         E_USER_WARNING
-      );
-
-      return $this->getItemByAttribute($attrib, $value);
-   }
-
-
-   /**
-    * Returns first occurence of an item by field
-    *
-    * @deprecated
-    * @param $attrib String containing the field name to search in
-    * @param $value String containing the string to search for
-    * @return mixed The found item or null on failure
-    */
-   public function getItemByAttribute($attrib, $value) {
-
-      trigger_error(
-         "Deprecated XTranslationList::getItemByAttribute()",
-         E_USER_WARNING
-      );
-
-      foreach ($this->list as $item) {
-         if ($item->$attrib == $value) {
-            return $item;
-         }
-      }
-
-      return null;
-   }
-
-
-   /**
-    * Returns all items in the list
-    *
-    * @deprecated
-    * @return Array All items in the list
-    */
-   public function getList() {
-
-      trigger_error(
-         "Deprecated XTranslationList::getList()",
-         E_USER_WARNING
-      );
-
-      return $this->toArray();
-   }
-
 
    /**
     * Returns all items in the list
@@ -192,7 +130,7 @@ class XTranslationList {
     * @return Array All items in the list
     */
    public function toArray() {
-      return $this->list;
+      return $this->_list;
    }
 
 
@@ -202,7 +140,7 @@ class XTranslationList {
     * @return Int The amount of items in the list
     */
    public function count() {
-      return count($this->list);
+      return count($this->_list);
    }
 
 
@@ -210,7 +148,7 @@ class XTranslationList {
     * Returns list as a JSON Object
     */
    public function encode() {
-      return json_encode($this->list);
+      return json_encode($this->_list);
    }
 
 

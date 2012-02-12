@@ -13,19 +13,19 @@ class TweetList extends XContentList {
    /**
     * @var String Table with item information
     */
-   var $table = '#__twitter';
+   protected $_table = '#__twitter';
 
 
    /**
     * @var String The ordering column of the list (for database loading)
     */
-   var $column = 'created';
+   protected $_column = 'created';
 
 
    /**
     * @var Array The list of columns used for every item
     */
-   var $columns = array('author', 'content', 'created', 'status');
+   protected $_columns = array('author', 'content', 'created', 'status');
 
 }
 ?>

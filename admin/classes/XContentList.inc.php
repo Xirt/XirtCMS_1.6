@@ -13,43 +13,43 @@ class XContentList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = null;
+   protected $_table = null;
 
 
    /**
     * @var Integer The start of the list (for database loading)
     */
-   var $start = 0;
+   protected $_start = 0;
 
 
    /**
     * @var Integer The limit of the list (for database loading)
     */
-   var $limit = 0;
+   protected $_limit = 0;
 
 
    /**
     * @var String The ordering column of the list (for database loading)
     */
-   var $column = 'id';
+   protected $_column = 'id';
 
 
    /**
     * @var String The order of the list (for database loading: DESC / ASC)
     */
-   var $order = 'DESC';
+   protected $_order = 'DESC';
 
 
    /**
     * @var Array The list of columns used for every item
     */
-   var $columns = array();
+   protected $_columns = array();
 
 
    /**
     * @var Array containing all items
     */
-   var $list = array();
+   protected $_list = array();
 
 
    /**
@@ -58,7 +58,7 @@ class XContentList {
     * @return boolean True on succes, false on failure
     */
    public function load() {
-      return ($this->table ? !$this->_load() : false);
+      return ($this->_table ? !$this->_load() : false);
    }
 
 
@@ -70,12 +70,16 @@ class XContentList {
    private function _load() {
       global $xDb;
 
-      $query = "SELECT *
-                FROM {$this->table}
-                ORDER BY {$this->column} {$this->order}";
-      $xDb->setQuery($query);
+      // Database query
+      $query = "SELECT * FROM %s ORDER BY %s %s";
+      $query = sprintf($query, $this->_table, $this->_column, $this->_order);
 
-      foreach ($xDb->loadObjectList() as $dbRow) {
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->execute();
+
+      // Populate instance
+      while ($dbRow = $stmt->fetchObject()) {
          $this->_add(new XItem($dbRow), false);
       }
 
@@ -88,12 +92,12 @@ class XContentList {
    /***********/
 
    /**
-   * Sets a the start of the items in the database
-   *
-   * @param $start Integer defining the start of the list
-   */
+    * Sets a the start of the items in the database
+    *
+    * @param $start Integer defining the start of the list
+    */
    public function setStart($start) {
-      $this->start = ($start > 0) ? $start : 0;
+      $this->_start = ($start > 0) ? $start : 0;
    }
 
 
@@ -103,7 +107,7 @@ class XContentList {
     * @param $limit Integer with the maximum number to show
     */
    public function setLimit($limit) {
-      $this->limit = $limit ? $limit : 1;
+      $this->_limit = $limit ? $limit : 1;
 
    }
 
@@ -115,8 +119,8 @@ class XContentList {
     */
    public function setColumn($column) {
 
-      if (in_array($column, $this->columns)) {
-         $this->column = $column;
+      if (in_array($column, $this->_columns)) {
+         $this->_column = $column;
       }
 
    }
@@ -129,8 +133,8 @@ class XContentList {
     */
    public function setOrder($order) {
 
-      if (in_array($order, array("DESC", "ASC"))) {
-         $this->order = $order;
+      if (in_array($order, array('DESC', 'ASC'))) {
+         $this->_order = $order;
       }
 
    }
@@ -150,21 +154,19 @@ class XContentList {
    /**
     * Adds an item to the internal list
     *
+    * @access protected
     * @param $item The item to add
     * @param $saveToDatabase Toggles saving to the database (optional)
     * @return boolean true
     */
-   public function _add($item, $saveToDatabase = true) {
+   protected function _add($item, $saveToDatabase = true) {
       global $xDb;
 
-      if ($this->table && $saveToDatabase) {
-
-         $item = XTools::addslashes($item);
-         $xDb->insert($this->table, $item);
-
+      if ($this->_table && $saveToDatabase) {
+         $xDb->insert($this->_table, $item);
       }
 
-      return ($this->list[] = $item);
+      return ($this->_list[] = $item);
    }
 
 
@@ -182,49 +184,28 @@ class XContentList {
    public function getMaximum($attrib = 'xid') {
       global $xDb;
 
-      $query = "SELECT MAX({$attrib})
-                FROM {$this->table}";
-      $xDb->setQuery($query);
+      // Database query
+      $query = 'SELECT MAX(%s) FROM %s';
+      $query = sprintf($query, $attrib, $this->_table);
 
-      return intval($xDb->loadResult());
+      // Retrieve data
+      $stmt = $xDb->prepare($query);
+      $stmt->execute();
+
+      return intval($stmt->fetchColumn());
    }
 
 
    /**
     * Returns first occurence of an item by field
     *
-    * @deprecated
-    * @param $attrib String containing the field name to search in
-    * @param $value String containing the string to search for
-    * @return mixed The found item or null on failure
-    */
-   public function getItemByField($attrib, $value) {
-
-      trigger_error(
-         "Deprecated XContentList::getItemByField()",
-         E_USER_WARNING
-      );
-
-      return $this->getItemByAttribute($attrib, $value);
-   }
-
-
-   /**
-    * Returns first occurence of an item by field
-    *
-    * @deprecated
     * @param $attrib String containing the field name to search in
     * @param $value String containing the string to search for
     * @return mixed The found item or null on failure
     */
    public function getItemByAttribute($attrib, $value) {
 
-      trigger_error(
-         "Deprecated XContentList::getItemByAttribute()",
-         E_USER_WARNING
-      );
-
-      foreach ($this->list as $item) {
+      foreach ($this->_list as $item) {
          if ($item->$attrib == $value) {
             return $item;
          }
@@ -240,7 +221,7 @@ class XContentList {
     * @return Int The amount of items in the list
     */
    public function count() {
-      return count($this->list);
+      return count($this->_list);
    }
 
 
@@ -248,7 +229,7 @@ class XContentList {
     * Returns list as a JSON Object
     */
    public function encode() {
-      return json_encode($this->list);
+      return json_encode($this->_list);
    }
 
 

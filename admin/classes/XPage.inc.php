@@ -137,15 +137,15 @@ class XPage {
 
          case 'adm':
             $component = $this->_loadManager($component);
-         break;
+            break;
 
          case 'com':
             $component = $this->_loadComponent($component);
-         break;
+            break;
 
          default:
             $component = $this->_loadManager('adm_portal');
-         break;
+            break;
 
       }
 

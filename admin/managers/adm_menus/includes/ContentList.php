@@ -13,7 +13,7 @@ class ContentList extends XContentList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = '#__menus';
+   protected $_table = '#__menus';
 
 
    /**
@@ -23,7 +23,7 @@ class ContentList extends XContentList {
     * @return boolean True on succes, false on failure
     */
    public function load($iso = null) {
-      return ($this->table ? !$this->_load($iso) : false);
+      return ($this->_table ? !$this->_load($iso) : false);
    }
 
 
@@ -45,7 +45,7 @@ class ContentList extends XContentList {
                'FROM (%%s) AS subset                    ' .
                'GROUP BY xid                            ' .
                'ORDER BY ordering                       ';
-      $query = sprintf($query, $this->column, $this->order);
+      $query = sprintf($query, $this->_column, $this->_order);
 
       // Subquery (translations)
       $trans = 'SELECT t1.*, t2.preference              ' .
@@ -53,7 +53,7 @@ class ContentList extends XContentList {
                'INNER JOIN #__languages AS t2           ' .
                'ON t1.language = t2.iso                 ' .
                'ORDER BY replace(t2.preference, :iso, 0)';
-      $trans = sprintf($trans, $this->table);
+      $trans = sprintf($trans, $this->_table);
 
       // Retrieve data
       $stmt = $xDb->prepare(sprintf($query, $trans));

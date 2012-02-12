@@ -13,7 +13,7 @@ class TranslationList extends XTranslationList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = '#__menus';
+   protected $_table = '#__menus';
 
 
    /**

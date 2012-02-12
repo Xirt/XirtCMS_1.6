@@ -13,13 +13,13 @@ class TemplateList extends XContentList {
    /**
     * @var String Table with item information
     */
-   var $table = '#__templates';
+   protected $_table = '#__templates';
 
 
    /**
     * @var String The ordering column of the list (for database loading)
     */
-   var $column = 'active';
+   protected $_column = 'active';
 
 }
 ?>

@@ -13,19 +13,21 @@ class UserList extends XContentList {
    /**
     * @var String Table with item information
     */
-   var $table = '#__users';
+   protected $_table = '#__users';
 
 
    /**
     * @var String The ordering column of the list (for database loading)
     */
-   var $column = 'id';
+   protected $_column = 'id';
 
 
    /**
     * @var Array The list of columns used for every item
     */
-   var $columns = array('id', 'rank', 'name', 'username', 'mail', 'joined');
+   protected $_columns = array(
+      'id', 'rank', 'name', 'username', 'mail', 'joined'
+   );
 
 
    /**

@@ -31,7 +31,7 @@ class XListBuilder {
       $tpl = new XTemplate();
       $tpl->assign('xLang', $xLang);
       $tpl->assign('languageList', $list);
-      $tpl->display('templates/xtemplates/languageBox.tpl');
+      $tpl->display('templates/xtemplates/xlist-box-language.tpl');
 
    }
 
@@ -46,7 +46,7 @@ class XListBuilder {
       $tpl = new XTemplate();
       $tpl->assign('xLang', $xCom->xLang);
       $tpl->assign('columns', $columns);
-      $tpl->display('templates/xtemplates/xListTable.tpl');
+      $tpl->display('templates/xtemplates/xlist-table.tpl');
 
    }
 
