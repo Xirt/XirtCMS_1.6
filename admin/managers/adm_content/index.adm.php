@@ -11,7 +11,7 @@ require_once('includes/ContentManager.php');
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Manager extends XComponent {
@@ -56,9 +56,9 @@ class Manager extends XComponent {
             return;
 
 
-            /*
-             * Modify methods
-             */
+         /*
+          * Modify methods
+          */
          case 'add_content':
             ContentManager::AddItem();
             return;

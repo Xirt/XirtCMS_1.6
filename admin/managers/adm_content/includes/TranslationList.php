@@ -5,7 +5,7 @@
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class TranslationList extends XTranslationList {
@@ -13,7 +13,7 @@ class TranslationList extends XTranslationList {
    /**
     * @var String with the name of the table containing the information
     */
-   var $table = '#__staticcontent';
+   var $table = '#__content';
 
 
    /**

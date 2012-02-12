@@ -11,7 +11,7 @@
 class Mail {
 
    /**
-    * Constructor
+    * Creates a new recommendation mail for the given item
     *
     * @param $item The Content for the e-mail
     */
@@ -35,7 +35,7 @@ class Mail {
    }
 
 
-	/**
+   /**
     * Captures the form data in an object
     *
     * @access private
@@ -107,11 +107,11 @@ class Mail {
     * @param $item The ContenItem to retrieve the link for
     * @return String The link to the given item
     */
-	private static function _getLink($item) {
-	   global $xConf;
+   private static function _getLink($item) {
+      global $xConf;
 
-	   return $xConf->siteURL . "index.php?content=com_content&id=" . $item->id;
-	}
+      return $xConf->siteURL . "index.php?content=com_content&id=" . $item->id;
+   }
 
 }
 ?>

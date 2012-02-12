@@ -5,7 +5,7 @@
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Translation extends XItem {
@@ -37,7 +37,7 @@ class Translation extends XItem {
     */
    public function load($id) {
 
-      parent::loadFromDatabase('#__staticcontent', $id);
+      parent::loadFromDatabase('#__content', $id);
       $this->set('config', json_decode($this->config));
 
    }
@@ -99,7 +99,7 @@ class Translation extends XItem {
    public function save() {
 
       $this->set('config', json_encode($this->config));
-      parent::saveToDatabase('#__staticcontent');
+      parent::saveToDatabase('#__content');
 
    }
 
@@ -108,7 +108,7 @@ class Translation extends XItem {
     * Removes item from the database
     */
    public function remove() {
-      parent::removeFromDatabase('#__staticcontent');
+      parent::removeFromDatabase('#__content');
    }
 
 }

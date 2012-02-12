@@ -36,7 +36,7 @@ class Content {
 
       // Subquery (translations)
       $trans = 'SELECT t1.*, preference                    ' .
-               'FROM #__staticcontent AS t1                ' .
+               'FROM #__content AS t1                      ' .
                'INNER JOIN #__languages AS t2              ' .
                'ON t1.language = t2.iso                    ' .
                'WHERE t1.published = 1                     ' .

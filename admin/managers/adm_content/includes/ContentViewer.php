@@ -18,8 +18,8 @@ class ContentViewer {
 
       $optionList = array(
          -1 => $xCom->xLang->options['useDefault'],
-         0 => $xCom->xLang->options['hideItem'],
-         1 => $xCom->xLang->options['showItem']
+          0 => $xCom->xLang->options['hideItem'],
+          1 => $xCom->xLang->options['showItem']
       );
 
       // Show template
