@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xinstall type="template">
+	<name>Default</name>
+	<version>1.3</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+   <description><![CDATA[ The default template for XirtCMS. ]]></description>
+	<positions>
+		<position>tools</position>
+		<position>menu</position>
+		<position>content</position>
+		<position>footer</position>
+	</positions>
+</xinstall>

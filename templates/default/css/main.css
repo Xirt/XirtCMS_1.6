@@ -1,0 +1,196 @@
+body {
+   background: #dbe5f1;
+}
+
+body, div {
+   margin: 0;
+   padding: 0;
+   color: #000;
+   font-size: 13px;
+   font-family: Calibri, Arial, Helvetica, Sans-serif;
+   text-align: left;
+   line-height: 17px;
+}
+
+a {
+   color: #0071a6;
+   text-decoration: none;
+}
+
+a:hover {
+   color: #9966bd;
+   text-decoration: underline;
+}
+
+a:visited {
+   color: #9966bd;
+}
+
+a.external {
+   background: url(../images/external.png) center right no-repeat;
+   padding-right: 13px;
+}
+
+a img {
+   border: 0px;
+}
+
+h1 {
+   font-size: 18px;
+   margin: 0px 0px 15px 0px;
+}
+
+h2 {
+   font-size: 15px;
+   margin: 15px 0px;
+}
+
+
+/*********
+  LAYOUT
+*********/
+.box-container {
+   position: relative;
+   width: 960px;
+   margin: 0 auto;
+   padding-bottom: 1px;
+   background: #efefef;
+   box-shadow: 0 0 5px #808080;
+}
+
+.box-header {
+   position: relative;
+   height: 90px;
+   background: #fff;
+   border-bottom: 1px #c0c0c0 dotted;
+}
+
+.box-header a.logo {
+   position: absolute;
+   left: 10px;
+   top: 8px;
+   opacity: 0.80;
+}
+
+a.logo:hover {
+   opacity: 1;
+}
+
+.x-mod-pathway {
+   position: absolute;
+   bottom: 3px;
+   right: 5px;
+}
+
+.x-mod-languageselector {
+   position: absolute;
+   top: 5px;
+   right: 0px;
+}
+
+/*
+.x-mod-mobile a {
+   position: absolute;
+   bottom: 5px;
+   right: 0px;
+   padding: 3px 5px;
+   background: #ad0000;
+   color: #fff;
+   text-transform: uppercase;
+   font-weight: bold;
+   font-size: 12px;
+}
+*/
+
+.box-body {
+   margin: 25px;
+   padding: 25px 25px 15px 25px;
+   background: #fff;
+   letter-spacing: 1pt;
+   border: 1px #dedede solid;
+}
+
+.x-content {
+   text-align: justify; 
+}
+
+
+/***********
+  MAINMENU
+************/
+.x-mod-menu {
+   position: absolute;
+   top: 35px;
+   left: 225px;
+   padding: 0 15px;
+   font-size: 18px;
+}
+
+.x-mod-menu a {
+   color: #808080;
+   margin: 0 25px 0 15px;
+}
+
+.x-mod-menu a#active_menu,
+.x-mod-menu a:hover {
+   color: #000;
+   text-decoration: none;
+}
+
+
+/*************
+  BOTTOMMENU
+**************/
+.box-bottom {
+   width: 960px;
+   margin: 0 auto 15px auto;
+   padding: 3px 2px;
+   font-style: italic;
+   font-size: 12px;
+   color: #808080;
+}
+
+.x-mod-menu-footer {
+   float: right;
+}
+
+.x-mod-menu-footer a {
+   font-style: normal;
+   font-size: 12px;
+   margin: 0 5px;
+}
+
+.x-mod-menu-footer a:hover,
+.x-mod-menu-footer a#active_menu-footer {
+   text-decoration: underline;
+}
+
+
+/********
+* TOOLS *
+********/
+.x-mod-pathway b {
+   font-weight: normal; 
+}
+
+.x-mod-languageselector ul {
+   margin: 0;
+   list-style-type: none;
+   text-align: right;
+   text-transform: uppercase;
+   font-size: 11px;
+   color: #000;
+}
+
+.x-mod-languageselector a {
+   color: #000;
+}
+
+.x-mod-languageselector a.active {
+   font-weight: bold;
+}
+
+.x-mod-languageselector img {
+   float: right;
+   margin: 2px 5px;
+}
