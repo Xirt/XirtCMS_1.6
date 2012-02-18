@@ -6,13 +6,13 @@
 
    <fieldset class='box-form'>
 
-      <label for='x_uri_sef'>{$xLang->labels['uri_sef']}</label>
-      <input type='text' name='x_uri_sef' id='x_uri_sef' value='' class='required' />
+      <label for='x_alternative'>{$xLang->labels['alternative']}</label>
+      <input type='text' name='x_alternative' id='x_alternative' value='' class='required' />
 
       <br />
 
-      <label for='x_uri_ori'>{$xLang->labels['uri_ori']}</label>
-      <input type='text' name='x_uri_ori' id='x_uri_ori' value='' class='required' />
+      <label for='x_query'>{$xLang->labels['query']}</label>
+      <input type='text' name='x_query' id='x_query' value='' class='required' />
 
       <br />
 

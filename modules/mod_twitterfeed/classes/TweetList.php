@@ -13,13 +13,13 @@ class TweetList {
    /**
     * @var Array with the parsed entries of the feed
     */
-   var $_list = array();
+   protected $_list = array();
 
 
    /**
-   * @var Array The accounts represented in the list
-   */
-   var $_accounts = array();
+    * @var Array The accounts represented in the list
+    */
+   protected $_accounts = array();
 
 
    /**
@@ -59,19 +59,19 @@ class TweetList {
 
       // Retrieve data
       $stmt = $xDb->prepare($query);
-		$stmt->bindValue(':id', '10', PDO::PARAM_STR);
-		$stmt->execute();
+      $stmt->bindValue(':id', '10', PDO::PARAM_STR);
+      $stmt->execute();
 
-		// Populate instance
+      // Populate instance
       while ($dbRow = $stmt->fetchObject()) {
 
          $this->_list[] = new Tweet(
-            $dbRow->id,
-            $dbRow->account,
-            $dbRow->author,
-            $dbRow->avatar,
-            $dbRow->content,
-            $dbRow->created
+         $dbRow->id,
+         $dbRow->account,
+         $dbRow->author,
+         $dbRow->avatar,
+         $dbRow->content,
+         $dbRow->created
          );
 
       }

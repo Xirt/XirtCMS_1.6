@@ -59,7 +59,7 @@ var TwitterFeed = new Class({
 
          // Content (text / author / created)
          var content = new Element('div', {
-            'class': 'tweet-content',
+            'class': 'tweet-content'
          });
 
             new Element('p', {

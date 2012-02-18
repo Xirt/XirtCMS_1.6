@@ -40,7 +40,7 @@ class XEngine {
     * Initializes the core variables
     */
    private function _init() {
-      global $xCache, $xConf, $xDb, $xLog;
+      global $xCache, $xConf, $xDb, $xLinks, $xLog;
 
       session_start();
 
@@ -48,6 +48,7 @@ class XEngine {
       $xConf  = new XConfiguration();
       $xLog   = new XLog();
       $xDb    = new XDatabase();
+      $xLinks = new XLinkList();
 
       // Environment compatible
       XMakeCompatible::prepareSession();

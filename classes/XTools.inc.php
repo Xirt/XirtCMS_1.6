@@ -62,11 +62,8 @@ class XTools {
    public static function createLink($link, $cId = 0, $name = 'index') {
       global $xConf;
 
-      if ($xConf->sefUrls) {
-
-         // TODO: Only create link if non-existent
-         return XSEF::get($link, $cId, $name);
-
+      if ($xConf->alternativeLinks) {
+         return XSEF::convert($link, $cId, $name);
       }
 
       return htmlspecialchars($cId ? $link . '&cid=' . $cId : $link);

@@ -48,8 +48,8 @@ class mod_twitterfeed extends XModule {
    /**
     * Returns the query for the Twitter feed (defined in settings)
     *
-	 * @access private
-	 * @return String The query for the Twitter feed
+    * @access private
+    * @return String The query for the Twitter feed
     */
    private function _getQuery() {
       return '+from:' . implode('+OR+from:', $this->_getAccounts());
@@ -57,23 +57,23 @@ class mod_twitterfeed extends XModule {
 
 
    /**
-   * Returns the accounts represented in this Twitter feed
-   *
-   * @access private
-   * @return Array List of the accounts
-   */
+    * Returns the accounts represented in this Twitter feed
+    *
+    * @access private
+    * @return Array List of the accounts
+    */
    private function _getAccounts() {
       return explode(',', $this->xConf->accounts);
    }
 
 
    /**
-   * Makes text links in the given text clickable
-   *
-   * @access private
-   * @param $text The text to parse
-   * @return String The text with clickable links
-   */
+    * Makes text links in the given text clickable
+    *
+    * @access private
+    * @param $text The text to parse
+    * @return String The text with clickable links
+    */
    private function _linkify($text) {
 
       $pattern     = "(((f|ht){1}tp://)[-a-zA-Z0-9@:%_\+.~#?&//=]+)";

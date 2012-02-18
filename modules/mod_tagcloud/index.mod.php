@@ -67,7 +67,10 @@ class mod_tagcloud extends XModule {
     */
    private function _groupTerms($terms, $count) {
 
-      $terms = $this->_sortTerms($terms);
+      // Sort & catch empty arrays
+      if (!$terms = $this->_sortTerms($terms)) {
+         return array();
+      }
 
       // Define group means
       $maxValue   = end($terms)->impressions;

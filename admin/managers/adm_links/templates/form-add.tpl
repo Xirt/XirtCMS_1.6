@@ -6,13 +6,13 @@
 
    <fieldset class='box-form'>
 
-      <label for='nx_uri_sef'>{$xLang->labels['uri_sef']}</label>
-      <input type='text' name='nx_uri_sef' id='nx_uri_sef' value='' class='required' />
+      <label for='nx_alternative'>{$xLang->labels['alternative']}</label>
+      <input type='text' name='nx_alternative' id='nx_alternative' value='' class='required' />
 
       <br />
 
-      <label for='nx_uri_ori'>{$xLang->labels['uri_ori']}</label>
-      <input type='text' name='nx_uri_ori' id='nx_uri_ori' value='' class='required' />
+      <label for='nx_query'>{$xLang->labels['query']}</label>
+      <input type='text' name='nx_query' id='nx_query' value='' class='required' />
 
       <br />
 

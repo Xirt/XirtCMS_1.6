@@ -11,51 +11,87 @@
 class XLink {
 
    /**
-    * @var The cId of the link
+    * @var The cId of this link
     */
    var $cid  = 0;
 
 
    /**
-    * @var The language of the link
+    * @var The language of this link
     */
    var $iso = null;
 
 
    /**
-    * @var The original version of the link
+    * @var The query of the original link
     */
-   var $uri_ori = null;
+   var $query = null;
 
 
    /**
-    * @var The SEF version of the link
+    * @var The alternative version of this link
     */
-   var $uri_sef = null;
+   var $alternative = null;
 
 
    /**
-    * CONSTRUCTOR
+    * Create a new link (optionally filled with given values)
     *
-    * @param $cId The cId of the link (optional, defaults 0)
+    * @param $cId The cId of the link (optional)
     * @param $iso The language of the link (optional)
-    * @param $original The original version of the link (optional)
-    * @param $link The SEF version of the link (optional)
+    * @param $query The original version of the link (optional)
+    * @param $alt The SEF version of the link (optional)
     */
-   function __construct($cId = 0, $iso = null, $original = null, $link = null) {
+   function __construct($cId = 0, $iso = null, $query = null, $alt = null) {
       global $xConf;
 
-      $this->cid     = intval($cId);
-      $this->iso     = $iso;
-      $this->uri_sef = $link;
-      $this->uri_ori = $original;
-
-      if (!$this->uri_ori || !$this->iso) {
-         $this->_get();
-      }
+      $this->cid         = intval($cId);
+      $this->iso         = $iso;
+      $this->query       = $query;
+      $this->alternative = $alt;
 
    }
 
+
+   /**
+    * Fill this instance with the given values
+    *
+    * @param $query The query of the link
+    * @param $name The name to use for the alternative link
+    * @param $cId The cId of the link
+    * @param $iso The language of the link
+    * @return XLink This instance
+    */
+   function create($query, $name, $cId, $iso) {
+      global $xConf, $xLinks;
+
+      // Create link name (simplify given name)
+      $name = strtolower(htmlentities($name, ENT_COMPAT, 'UTF-8'));
+      $name = html_entity_decode($name, ENT_COMPAT, 'UTF-8');
+      $name = strtr($name, XSEF::$conversions);
+      $name = preg_replace('/[^\w-]/si', '', $name);
+
+      // Create alternative link
+      for ($i = 0; !$i || $xLinks->returnLinkByAlternative($link); $i++) {
+
+         // Numbering for duplicate terms
+         $link = $i ? sprintf('%s-%d', $name, $i) : $name;
+
+         // If not primary language, add language to link
+         if (current(Xirt::getLanguages())->iso != $xConf->language) {
+            $link = sprintf('%s/%s', $xConf->language, $link);
+         }
+
+      }
+
+      // Store values
+      $this->cid         = $cId;
+      $this->iso         = $iso;
+      $this->query       = $query;
+      $this->alternative = $link;
+
+      return $this;
+   }
 
    /**
     * Saves the links to the database
@@ -63,36 +99,35 @@ class XLink {
    public function save() {
       global $xDb;
 
-      $xDb->insert('#__links', $this);
-
+      return $xDb->insert('#__links', $this);
    }
 
 
    /**
     * Load SEF alternative from database
     *
-    * @access private
+    * @param $qry The query of the link to load
     * @return boolean True on success, false on failure
     */
-   private function _get() {
+   public function load($qry) {
       global $xDb;
 
       // Database query
-      $query = 'SELECT cid, iso, uri_ori ' .
+      $query = 'SELECT *                 ' .
                'FROM #__links            ' .
-               'WHERE uri_sef = :link    ';
+               'WHERE alternative = :link';
 
       // Retrieve data
       $stmt = $xDb->prepare($query);
-      $stmt->bindParam(':link', $this->uri_sef, PDO::PARAM_STR);
+      $stmt->bindParam(':link', $qry, PDO::PARAM_STR);
       $stmt->execute();
 
       // Populate instance
       if ($dbRow = $stmt->fetchObject()) {
 
-         $this->iso     = $dbRow->iso;
-         $this->cid     = $dbRow->cid;
-         $this->uri_ori = $dbRow->uri_ori;
+         foreach ($dbRow as $attrib => $value) {
+            $this->$attrib = $value;
+         }
 
          return false;
       }

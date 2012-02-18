@@ -29,8 +29,8 @@ class Tweet {
 
 
    /**
-   * @var The avatar of the author of the Tweet
-   */
+    * @var The avatar of the author of the Tweet
+    */
    var $avatar = null;
 
 

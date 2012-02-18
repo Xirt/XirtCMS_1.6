@@ -61,12 +61,12 @@ class TwitterFeed {
       foreach ($this->_getItems() as $item) {
 
          $this->_list[] = new Tweet(
-            $this->_parseGUID($this->_getValue($item, 'guid')),
-            $this->_parseAccount($this->_getValue($item, 'author')),
-            $this->_parseAuthor($this->_getValue($item, 'author')),
-            $this->_getValue($item, 'image_link'),
-            $this->_getValue($item, 'description'),
-            $this->_getValue($item, 'pubDate')
+         $this->_parseGUID($this->_getValue($item, 'guid')),
+         $this->_parseAccount($this->_getValue($item, 'author')),
+         $this->_parseAuthor($this->_getValue($item, 'author')),
+         $this->_getValue($item, 'image_link'),
+         $this->_getValue($item, 'description'),
+         $this->_getValue($item, 'pubDate')
          );
 
       }
@@ -99,9 +99,9 @@ class TwitterFeed {
 
    /**
     * Returns all items from the current feed
-	 *
-	 * @access private
-	 * @return Array The items in the feed
+    *
+    * @access private
+    * @return Array The items in the feed
     */
    private function _getItems() {
 
@@ -119,7 +119,7 @@ class TwitterFeed {
     * @access private
     * @param $item The item containing the requested attribute
     * @param $attrib The requested attribute
-	 * @return mixed Null on failure, the value on success
+    * @return mixed Null on failure, the value on success
     */
    private function _getValue($item, $attrib) {
 
@@ -149,8 +149,8 @@ class TwitterFeed {
 
    /**
     * Parses the account to a readable format
-	 *
-	 * @access private
+    *
+    * @access private
     * @param $author The account as given by the feed
     * @return String The account as a String value
     */
@@ -161,8 +161,8 @@ class TwitterFeed {
 
    /**
     * Parses the author to a readable format
-	 *
-	 * @access private
+    *
+    * @access private
     * @param $author The author as given by the feed
     * @return String The author as a String value
     */

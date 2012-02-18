@@ -6,8 +6,8 @@ var ContentList = new Class({
    
       this.parent(component, {
          sortable: true,
-         sortables: ['uri_sef', 'uri_ori', 'cid'],
-         column: 'uri_sef'
+         sortables: ['alternative', 'query', 'cid'],
+         column: 'alternative'
       });
 
    },
@@ -23,12 +23,12 @@ var ContentList = new Class({
             }).addClass('cell-id'));
 
             row.grab(new Element('td', {
-               text: item.uri_sef
-            }).addClass('cell-uri_sef'));
+               text: item.alternative
+            }).addClass('cell-alternative'));
 
             row.grab(new Element('td', {
-               text: item.uri_ori
-            }).addClass('cell-uri_ori'));
+               text: item.query
+            }).addClass('cell-query'));
 
             row.grab(new Element('td', {
                text: item.cid

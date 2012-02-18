@@ -8,7 +8,7 @@
       <a href='javascript:;' onclick="new AddPanel();" title='{$xLang->headers['addItem']}' class='new'>{$xLang->headers['addItem']}</a>
    </div>
 
-   {XListBuilder::showTable(array('id', 'uri_sef', 'uri_ori', 'cid', 'options'))}
+   {XListBuilder::showTable(array('id', 'alternative', 'query', 'cid', 'options'))}
 
 </div>
 

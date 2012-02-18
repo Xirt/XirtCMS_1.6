@@ -8,7 +8,7 @@ class DefaultConfiguration {
       $this->title               = "XirtCMS 1.6: Simple Content Management for Online Applications";
       $this->description         = "XirtCMS: Simple Content Management for Online Applications";
       $this->keywords            = "Xirt, XirtCMS, CMS, content, management, online, easy, modular, php";
-      $this->sefUrls             = false;
+      $this->alternativeLinks    = true;
 
       // Time/Date
       $this->timeFormat          = "d/m/Y H:i";

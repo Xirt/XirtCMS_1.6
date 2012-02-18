@@ -29,7 +29,7 @@ class XMakeCompatible {
    public static function prepareLink() {
       global $xConf;
 
-      if (defined('_ADMIN') || !$xConf->sefUrls) {
+      if (defined('_ADMIN') || !$xConf->alternativeLinks) {
          return false;
       }
 
@@ -44,12 +44,13 @@ class XMakeCompatible {
       }
 
       // Create XLink with URL
-      $link = new XLink(null, null, null, $uri);
+      $link = new XLink();
+      $link->load($uri);
 
       // Parse URL if necessary
-      if ($link->uri_ori && $link->iso) {
+      if ($link->query && $link->iso) {
 
-         parse_str($link->uri_ori, $args);
+         parse_str($link->query, $args);
          $xConf->setLanguage($link->iso);
          $_GET = array_merge($_GET, $args);
 

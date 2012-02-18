@@ -2,15 +2,18 @@
 <xinstall type="module">
 	<name>Tagcloud</name>
 	<module>tagcloud</module>
-   <version>1.1</version>
-   <authorName>A.G. Gideonse</authorName>
-   <authorUrl>http://www.xirtcms.com</authorUrl>
-   <copyright>XirtCMS</copyright>
-   <license>GNU General Public License</license>
+	<version>1.1</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
 	<description><![CDATA[ Shows a tagcloud based on the popularity of search terms. ]]></description>
 	<params>
-		<param name="css_name" type="text" default="" label="CSS postfix" description="A value that will be added to all default class / id values for module identification." />
-		<param name="terms_count" type="text" default="5" label="Amount of terms" description="The amount of terms to display." />
-		<param name="group_count" type="text" default="3" label="Amount of groups" description="The amount of groups to create." />
+		<param name="css_name" type="text" default="" label="CSS postfix"
+			description="A value that will be added to all default class / id values for module identification." />
+		<param name="terms_count" type="text" default="5" label="Amount of terms"
+			description="The amount of terms to display." />
+		<param name="group_count" type="text" default="3" label="Amount of groups"
+			description="The amount of groups to create." />
 	</params>
 </xinstall>

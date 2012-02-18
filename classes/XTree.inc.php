@@ -48,7 +48,7 @@ class XTree extends XNode {
     * @return Object The tree as an Object
     */
    public function getTree() {
-      return $this->_tree;
+      return $this;
    }
 
 

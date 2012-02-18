@@ -11,30 +11,43 @@
 class XLinkList {
 
    /**
-    * @var Array containing all listed items
+    * @var The status of this list
     */
-   var $_list = array();
+   private $_isLoaded = false;
 
 
    /**
-    * CONSTRUCTOR
+    * @var Array containing all listed items
+    */
+   private $_list = array();
+
+
+   /**
+    * Creates a new XLinkList (filled if SEF URLs are enabled)
     */
    function __construct() {
-      $this->_load();
+      global $xConf;
+
+      if ($xConf->alternativeLinks) {
+         $this->load();
+      }
+
    }
 
 
    /**
     * Fills the list with items from the database
-    *
-    * @access private
     */
-   function _load() {
+   public function load() {
       global $xDb;
 
+      // Enable reload of list
+      if ($this->_isLoaded) {
+         $this->_list = array();
+      }
+
       // Database query
-      $query = 'SELECT cid, iso, uri_ori, uri_sef ' .
-               'FROM #__links                     ';
+      $query = 'SELECT cid, iso, query, alternative FROM #__links';
 
       // Retrieve data
       $stmt = $xDb->prepare($query);
@@ -46,12 +59,13 @@ class XLinkList {
          $this->_list[] = new XLink(
          $dbRow->cid,
          $dbRow->iso,
-         $dbRow->uri_ori,
-         $dbRow->uri_sef
+         $dbRow->query,
+         $dbRow->alternative
          );
 
       }
 
+      return ($this->_isLoaded = true);
    }
 
 
@@ -63,37 +77,15 @@ class XLinkList {
     * @param $original String with the original URL of the page
     * @param $name String with the search term for the URL
     */
-   function add($cId, $iso, $original, $name) {
+   function add($item) {
       global $xConf, $xDb;
 
       // Item already exists
-      if ($this->returnLinkByLink($original, $iso)) {
-         return;
+      if ($this->returnLinkByQuery($item->query, $item->iso)) {
+         return false;
       }
 
-      // Create term (decode and remove special characters)
-      $name = strtolower(htmlentities($name, ENT_COMPAT, 'UTF-8'));
-      $name = html_entity_decode($name, ENT_COMPAT, 'UTF-8');
-      $name = strtr($name, XSEF::$conversions);
-      $name = preg_replace('/[^\w\d-]/si', '', $name);
-
-      // Create link
-      for ($i = 0; !$i || $this->returnLinkBySEF($name); $i++) {
-
-         $name = $i ? $name . '-' . $i : $name;
-         $link = $name . '.html';
-
-         // Add language (SEF)
-         if (current(Xirt::getLanguages())->iso != $xConf->language) {
-            $link = $xConf->language . '/' . $link;
-         }
-
-      }
-
-      $link = new XLink($cId, $xConf->language, $original, $link);
-      $this->_list[] = $link;
-      $link->save();
-
+      return ($this->_list[] = $item) && $item->save();
    }
 
 
@@ -103,11 +95,11 @@ class XLinkList {
     * @param $link String holding the SEF variant of the link
     * @return mixed Returns the original XLink on success, null otherwhise
     */
-   function returnLinkBySEF($link) {
+   function returnLinkByAlternative($link) {
 
       foreach ($this->_list as $item) {
 
-         if ($item->uri_sef == $link) {
+         if ($item->alternative == $link) {
             return $item;
          }
 
@@ -118,20 +110,20 @@ class XLinkList {
 
 
    /**
-    * Returns XLink by original (normal)
+    * Returns XLink by original query
     *
-    * @param $original String holding the original link
-    * @param $iso String holding the language of the link
+    * @param $query String holding the original query (order alphabetically)
+    * @param $iso String holding the language of the link (optional)
     * @return mixed Returns the XLink on success, null otherwhise
     */
-   function returnLinkByLink($original, $iso) {
+   function returnLinkByQuery($query, $iso = null) {
       global $xConf;
 
       $iso = $iso ? $iso : $xConf->language;
 
       foreach ($this->_list as $item) {
 
-         if ($item->uri_ori == $original && $item->iso == $iso) {
+         if ($item->query == $query && $item->iso == $iso) {
             return $item;
          }
 

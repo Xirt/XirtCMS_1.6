@@ -17,11 +17,11 @@ class ContentManager {
 
       $link = new Link();
 
-      $link->set('cid',     XTools::getParam('nx_cid', 0, _INT));
-      $link->set('uri_sef', XTools::getParam('nx_uri_sef'));
-      $link->set('uri_ori', XTools::getParam('nx_uri_ori'));
-      $link->set('iso',     XTools::getParam('nx_language'));
-      $link->set('custom',  1);
+      $link->set('cid',         XTools::getParam('nx_cid', 0, _INT));
+      $link->set('alternative', XTools::getParam('nx_alternative'));
+      $link->set('query',       XTools::getParam('nx_query'));
+      $link->set('iso',         XTools::getParam('nx_language'));
+      $link->set('custom',      1);
 
       $list = new LinkList($link->iso);
       $list->load();
@@ -42,12 +42,12 @@ class ContentManager {
       $list = new LinkList();
       $list->load();
 
-      $link->set('cid',     XTools::getParam('x_cid', 0, _INT));
-      $link->set('uri_sef', XTools::getParam('x_uri_sef'));
-      $link->set('uri_ori', XTools::getParam('x_uri_ori'));
+      $link->set('cid',         XTools::getParam('x_cid', 0, _INT));
+      $link->set('alternative', XTools::getParam('x_alternative'));
+      $link->set('query',       XTools::getParam('x_query'));
 
       // Already exists
-      if ($item = $list->getItemByAttribute('uri_sef', $link->uri_sef)) {
+      if ($item = $list->getItemByAttribute('alternative', $link->alternative)) {
 
          if ($item->id != $link->id) {
             die($xCom->xLang->messages['linkUsed']);

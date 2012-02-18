@@ -19,13 +19,13 @@ class LinkList extends XContentList {
    /**
     * @var String The ordering column of the list (for database loading)
     */
-   protected $_column = 'uri_sef';
+   protected $_column = 'query';
 
 
    /**
     * @var Array The list of columns used for every item
     */
-   protected $_columns = array('uri_ori', 'uri_sef', 'cid');
+   protected $_columns = array('query', 'alternative', 'cid');
 
 
    /**
@@ -83,7 +83,7 @@ class LinkList extends XContentList {
       global $xCom;
 
       // Already exists
-      if ($this->getItemByAttribute('uri_sef', $item->uri_sef)) {
+      if ($this->getItemByAttribute('alternative', $item->alternative)) {
          return !print($xCom->xLang->messages['linkUsed']);
       }
 

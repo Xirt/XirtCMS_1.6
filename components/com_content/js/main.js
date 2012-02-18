@@ -73,18 +73,26 @@ var TellAFriend = new Class({
 
 window.addEvent('domready', function() {
 
-   $('xBack').addEvent('click', function(e) {
-
-      history.go(-1);
-      e.stop();   
-
-   });
+   if ($('xBack')) {
+      
+      $('xBack').addEvent('click', function(e) {
    
-   $('xMail').addEvent('click', function(e) {
+         history.go(-1);
+         e.stop();   
+   
+      });
 
-      new TellAFriend();
-      e.stop();   
+   }
 
-   });
+   if ($('xMail')) {
+
+      $('xMail').addEvent('click', function(e) {
+
+         new TellAFriend();
+         e.stop();   
+   
+      });
+
+   }
 
 });

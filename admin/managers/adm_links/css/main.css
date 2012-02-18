@@ -2,12 +2,12 @@
 	width: 35px;
 }
 
-.cell-uri_sef {
+.cell-alternative {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-.cell-uri_ori {
+.cell-query {
 	width: 250px;
 	overflow: hidden;
 	text-overflow: ellipsis;
