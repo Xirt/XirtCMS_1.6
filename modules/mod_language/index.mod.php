@@ -19,7 +19,7 @@ class mod_language extends XModule {
 
 
    /**
-    * Shows the content
+    * Handles any normal requests
     */
    function showNormal() {
       global $xConf;
