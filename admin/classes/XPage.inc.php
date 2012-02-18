@@ -91,13 +91,13 @@ class XPage {
          $this->addStylesheet('../templates/xcss/xlist.css', 0);
 
          $this->addScript(sprintf('languages/%s.js', $xConf->language));
-         $this->addScript('../js/mootools.lib.js');
-         $this->addScript('../js/mootoolsmore.lib.js');
-         $this->addScript('../js/mootoolscustom.lib.js');
-         $this->addScript('../js/xvalidate.lib.js');
+         $this->addScript('../js/mootools.js');
+         $this->addScript('../js/mootoolsmore.js');
+         $this->addScript('../js/mootoolscustom.js');
+         $this->addScript('../js/xvalidate.js');
          $this->addScript('../js/xlist.js');
-         $this->addScript('../js/xadmin.lib.js');
-         $this->addScript('../js/xirt.lib.js');
+         $this->addScript('../js/xadmin.js');
+         $this->addScript('../js/xirt.js');
 
       }
 

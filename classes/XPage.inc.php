@@ -81,6 +81,8 @@ class XPage {
 
       if ($configureHeaders) {
 
+         $path = $xConf->debugMode ? 'js/src/' : 'js/';
+
          $this->setTitle($xConf->title);
 
          $this->addInformation('robots',        'index, follow');
@@ -92,12 +94,11 @@ class XPage {
          $this->addStylesheet('templates/xcss/xirt_front.css', 0);
 
          $this->addScript(sprintf('languages/%s.js', $xConf->language));
-         $this->addScript('js/mootools.lib.js');
-         $this->addScript('js/mootoolsmore.lib.js');
-         $this->addScript('js/mootoolscustom.lib.js');
-         $this->addScript('js/xvalidate.lib.js');
-         $this->addScript('js/xirt.lib.js');
-
+         $this->addScript($path . 'mootools.js');
+         $this->addScript($path . 'mootoolsmore.js');
+         $this->addScript($path . 'mootoolscustom.js');
+         $this->addScript($path . 'xvalidate.js');
+         $this->addScript($path . 'xirt.js');
 
       }
 

@@ -180,7 +180,7 @@ class XInclude {
       // Show template
       $tpl = new XTemplate();
       $tpl->assign('memoryUse', round(memory_get_peak_usage() / 1048576, 3));
-      $tpl->assign('parseTime', round(XTools::getMicrotime() - $xStart, 3));
+      $tpl->assign('parseTime', round(XDateTime::getMicrotime() - $xStart, 3));
       $tpl->assign('queryTime', round($xDb->timer, 3));
       $tpl->assign('queryCount', count($xDb->cache));
       $tpl->display('templates/xtemplates/display-statistics.tpl');
