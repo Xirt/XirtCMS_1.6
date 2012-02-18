@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xinstall type="module">
+	<name>Language Selection Panel</name>
+	<module>language</module>
+	<version>1.2</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+	<description><![CDATA[ Displays available languages for the website. ]]></description>
+	<params>
+		<param name="css_name" type="text" default="" label="CSS postfix" description="A value that will be added to all default class / id attributes for module identification." />
+		<param name="show_type" type="select" default="0" label="Display type" description="Defines the way the language selector should be displayed.">
+			<option name="List (with text)" value="0" />
+			<option name="Images only" value="1" />
+			<option name="Combined list" value="2" />
+			<option name="Dropdown menu" value="3" />
+		</param>
+		<param name="show_all" type="select" default="1" label="Show current language" description="Defines whether the current language must be displayed in the language selector.">
+			<option name="Yes" value="1" />
+			<option name="No" value="0" />
+		</param>
+		<param name="alpha_sort" type="select" default="0" label="Sort alphabetically" description="Defines whether the languages should be sorted or not.">
+			<option name="Yes" value="0" />
+			<option name="No" value="1" />
+		</param>
+	</params>
+</xinstall>
