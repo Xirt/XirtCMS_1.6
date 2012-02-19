@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xinstall type="module">
+	<name>Image showcase</name>
+	<module>showcase</module>
+	<version>1.1</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+   <description><![CDATA[ Shows a collection of images using Slimbox (a lightbox clone). ]]></description>
+	<params>
+		<param name="css_name" type="text" default="" label="CSS postfix" description="A value that will be added to all default class / id values for module identification." />
+		<param name="folder" type="text" default="" label="Image folder" description="The folder in which the images are located." />
+		<param name="prefix_ori" type="text" default="" label="Image prefix" description="A value that original images should start with." />
+		<param name="prefix_thumb" type="text" default="" label="Thumbnail prefix" description="A value that thumbnail images should start with (optional)." />
+		<param name="thumb_size" type="text" default="" label="Thumbnail size" description="The maximum height / width for a thumbnail (in pixels)." />
+		<param name="amount" type="text" default="" label="Amount of images" description="The amount of images to show." />
+		<param name="ext" type="text" default="10" label="Image extension" description="The extension(s) of the images. Seperated by pipes (e.g. jpg|png|gif)." />
+		<param name="alt" type="text" default="" label="Alt-value" description="The alt-attribute value of the displayed image." />
+	</params>
+</xinstall>
