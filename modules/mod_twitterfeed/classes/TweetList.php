@@ -66,12 +66,12 @@ class TweetList {
       while ($dbRow = $stmt->fetchObject()) {
 
          $this->_list[] = new Tweet(
-         $dbRow->id,
-         $dbRow->account,
-         $dbRow->author,
-         $dbRow->avatar,
-         $dbRow->content,
-         $dbRow->created
+            $dbRow->id,
+            $dbRow->account,
+            $dbRow->author,
+            $dbRow->avatar,
+            $dbRow->content,
+            $dbRow->created
          );
 
       }
