@@ -104,7 +104,7 @@ class mod_showcase extends XModule {
    private function _createThumbnail($image) {
 
       $item = sprintf("%s.jpg", md5($image));
-      $cached = self::PATH_CACHE . $cached;
+      $cached = self::PATH_CACHE . $item;
 
       if (!file_exists($cached)) {
 
