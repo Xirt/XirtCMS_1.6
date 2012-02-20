@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xinstall type="module">
+	<name>Show image</name>
+	<module>image</module>
+	<version>1.2</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+   <description><![CDATA[ Shows a static, dynamic or slideshow image. ]]></description>
+	<params>
+		<param name="css_name" type="text" default="" label="CSS postfix" description="A value that will be added to all default class / id values for module identification." />
+		<param name="show_type" type="select" default="0" label="Display type" description="Defines the way the imager should be displayed.">
+			<option name="Static" value="0" />
+			<option name="Random" value="1" />
+			<option name="Slideshow" value="2" />
+		</param>
+		<param name="show_link" type="radio" default="0" label="Link image" description="Defines whether the image should be linked to the defined URL.">
+			<option name="Yes" value="1" />
+			<option name="No" value="0" />
+		</param>
+		<param name="link" type="text" default="" label="Link" description="The URL the image should link to." />
+		<param name="folder" type="text" default="" label="Image folder" description="The folder in which the images are located." />
+		<param name="prefix" type="text" default="" label="Image prefix" description="A value that images that should be displayed start with." />
+		<param name="ext" type="text" default="" label="Image extension" description="The extension(s) of the images. Seperated by pipes (e.g. jpg|png|gif)." />
+		<param name="default" type="text" default="" label="Default image" description="The image that should be displayed by default." />
+		<param name="alt" type="text" default="" label="Alt-value" description="The alt-attribute value of the displayed image." />
+	</params>
+</xinstall>
