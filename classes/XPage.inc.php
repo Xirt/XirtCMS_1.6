@@ -317,7 +317,7 @@ class XPage {
       $components = Xirt::getComponents();
       if (!array_key_exists($name, $components)) {
 
-         trigger_error("[Core] Component not found ({$name})", E_USER_WARNING);
+         trigger_error("[XCore] Component not found ({$name})", E_USER_WARNING);
          return Xirt::pageNotFound();
 
       }
@@ -371,7 +371,7 @@ class XPage {
       $path = sprintf(XInclude::PATH_MODULES, $xConf->baseDir, $type);
       if (!is_readable($path)) {
 
-         trigger_error("Module failure ({$type})", E_USER_WARNING);
+         trigger_error("[XCore] Module failure ({$type})", E_USER_WARNING);
          return false;
 
       }

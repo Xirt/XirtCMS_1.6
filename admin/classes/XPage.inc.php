@@ -83,9 +83,9 @@ class XPage {
 
          $this->setTitle($xConf->title);
 
-         $this->addInformation('robots',        'noindex, follow');
-         $this->addInformation('language',      $xConf->language);
-         $this->addInformation('generator',     $xLang->version);
+         $this->addInformation('robots',    'noindex, follow');
+         $this->addInformation('language',  $xConf->language);
+         $this->addInformation('generator', $xLang->version);
 
          $this->addStylesheet('../templates/xcss/xirt.css', 0);
          $this->addStylesheet('../templates/xcss/xlist.css', 0);
@@ -292,7 +292,7 @@ class XPage {
       $components = Xirt::getComponents();
       if (!array_key_exists($name, $components)) {
 
-         trigger_error("[Core] Component not found ({$name})", E_USER_WARNING);
+         trigger_error("[XCore] Component not found ({$name})", E_USER_WARNING);
          return Xirt::pageNotFound();
 
       }
@@ -317,42 +317,6 @@ class XPage {
 
       require_once($path);
       return new Component($name, $component->config);
-   }
-
-
-   /**
-    * Loads a module (for AJAX calls)
-    *
-    * @access private
-    * @param $type String containing the name of the module to load
-    * @return mixed The generated instance of the module or false
-    */
-   private function _loadModule($type) {
-      global $xConf, $xUser;
-
-      $list = new XModuleList();
-      $list->filterByType($type);
-      $list = $list->toArray();
-
-      // Find module
-      if (!count($list) || !$module = current($list)) {
-
-         trigger_error("[XCore] Module not found ({$type})", E_USER_WARNING);
-         return false;
-
-      }
-
-      // Check module
-      $path = sprintf(XInclude::PATH_MODULES, $xConf->baseDir, $type);
-      if (!is_readable($path)) {
-
-         trigger_error("Module failure ({$type})", E_USER_WARNING);
-         return false;
-
-      }
-
-      require_once($path);
-      return new $type($module->config);
    }
 
 }
