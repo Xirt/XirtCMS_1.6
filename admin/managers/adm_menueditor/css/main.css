@@ -1,0 +1,63 @@
+.cell-id {
+	width: 55px;
+}
+
+.cell-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.cell-ordering {
+	width: 100px;
+	text-align: center;
+}
+
+.cell-sitemap,.cell-mobile {
+	width: 50px;
+	text-align: center;
+}
+
+.cell-status {
+	width: 65px;
+	text-align: center;
+}
+
+th.cell-options {
+	width: 156px;
+	text-align: center;
+}
+
+td.cell-options {
+	width: 140px;
+	text-align: center;
+}
+
+/**********
+* POP UPS *
+**********/
+#dvConfig .contentBox {
+	width: 825px;
+}
+
+#dvConfig .formBox {
+	float: left;
+	margin: 10px;
+}
+
+#dvConfig #linkBox {
+	float: none;
+}
+
+#dvConfig #linkBox input {
+	width: 780px;
+}
+
+#dvConfig #linkBox select {
+	height: auto;
+	width: 780px;
+	margin: 2px 5px;
+}
+
+#dvConfig #linkBox select#nitem_links_2 {
+	margin: 5px 10px;
+}
