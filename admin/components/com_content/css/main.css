@@ -1,5 +1,5 @@
 .xForm {
-	width: 730px;
+	width: 780px;
 	margin: auto;
 	padding: 10px;
 	background: #f9f9f9;
@@ -8,19 +8,28 @@
 }
 
 h1 {
-	margin: 5px 10px;
+	margin: 5px 10px 0 10px;
 }
 
-fieldset.box-form {
-	float: left;
-	margin: 15px 20px 5px 10px;
+div.column {
+	display: inline-block;
+	margin: 0 20px 5px 35px;
 	width: 365px;
+}
+
+div.column.preview {
+	width: 310px;
+	margin: 0 25px 5px 10px;
+}
+
+div.column fieldset {
+	width: 365px;
+	margin: 15px 0 5px 0;
 }
 
 fieldset.box-form.preview {
 	float: none;
-	margin: 20px 10px 5px 10px;
-	width: auto;
+	width: 100px;
 }
 
 .box-preview {

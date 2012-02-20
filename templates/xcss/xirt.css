@@ -80,7 +80,7 @@ form, body, div, table, td, tr, ul, li, p, legend, fieldset {
 .xForm fieldset,
 .xForm div.box-fieldset {
    width: auto;
-   background: #dbe5f1 url(../ximages/bg_form.png) repeat-x;
+   background: #dbe5f1 url(../ximages/gradient.png) repeat-x;
    box-shadow: 0 0 3px #c0c0c0;
    padding: 4px 6px 4px 6px;
    border: 0;
@@ -121,7 +121,7 @@ form, body, div, table, td, tr, ul, li, p, legend, fieldset {
 .xForm input,
 .xForm select,
 .xForm textarea,
-.xForm ul.mselect_list {
+.xForm ul.multiple-select {
    border: 1px #c0c0c0 solid;
    background: #fefefe;
    margin: 2px 0px 4px 2px;
@@ -181,22 +181,22 @@ form, body, div, table, td, tr, ul, li, p, legend, fieldset {
    border-bottom: 1px #c0c0c0 dotted;
 }
 
-.xForm ul.mselect_list {
+.xForm ul.multiple-select {
    float: left;
    overflow: auto;
 }
 
-.xForm ul.mselect_list li {
+.xForm ul.multiple-select li {
    padding-left: 25px;
    cursor: pointer;
 }
 
-.xForm ul.mselect_list li:hover,
-.xForm ul.mselect_list li.selected:hover {
+.xForm ul.multiple-select li:hover,
+.xForm ul.multiple-select li.selected:hover {
    background-color: #efefef;
 }
 
-.xForm ul.mselect_list li.selected {
+.xForm ul.multiple-select li.selected {
    background: url(../../images/cms/icons/check.png) 4px center no-repeat;
 
 }
