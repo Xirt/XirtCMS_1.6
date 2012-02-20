@@ -16,23 +16,17 @@ class mod_image extends XModule {
    function showNormal() {
 
       $list = array();
-      $class = null;
+      $extraClass = null;
+      $extraScript = false;
 
-      switch ($this->xConf->show_type) {
+      // Toggle inclusion of JavaScript
+      if (!defined('x-mod-image')) {
+         $extraScript = define('x-mod-image', 1);
+      }
 
-         case 0:
-            $list = $this->_showImage();
-            break;
-
-         case 1:
-            $list = $this->_showRandomImage();
-            break;
-
-         case 2:
-            $class = 'x-mod-image-slideshow';
-            $list = $this->_getImages();
-            break;
-
+      // Add classes for slideshows
+      if ($this->xConf->show_type == 2) {
+         $extraClass = 'x-mod-image-slideshow';
       }
 
       // Create URL (optional)
@@ -42,14 +36,40 @@ class mod_image extends XModule {
 
       // Show template
       $tpl = new XTemplate($this->_location());
-      $tpl->assign('xConf', $this->xConf);
-      $tpl->assign('class', $class);
-      $tpl->assign('images', $list);
-      $tpl->assign('defined', defined('x-mod-image'));
-      $tpl->assign('location', $url);
-      $tpl->display('template.tpl');
+      $tpl->assign('url',    $url);
+      $tpl->assign('class',  $extraClass);
+      $tpl->assign('xConf',  $this->xConf);
+      $tpl->assign('script', $extraScript);
+      $tpl->assign('images', $this->_getImageList());
+      $tpl->display('templates/template.tpl');
 
-      @define('x-mod-image', 1); // FIXME: throws error, change?
+   }
+
+
+   /**
+    * Returns a list with all selected images
+    *
+    * @access private
+    * @return Array with all selected images
+    */
+   private function _getImageList() {
+
+      switch ($this->xConf->show_type) {
+
+         case 0:
+            return $this->_showImage();
+            break;
+
+         case 1:
+            return $this->_showRandomImage();
+            break;
+
+         case 2:
+            return $this->_getImages();
+            break;
+
+      }
+
    }
 
 

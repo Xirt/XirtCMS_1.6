@@ -40,7 +40,7 @@ var Slideshows = Slideshows ? Slideshows : new Class({
 	
 				el.setStyles({
 					'position' : 'absolute',
-					'opacity'  : key ? 0 : 100,
+					'opacity'  : key ? 0 : 1,
 					'top'	     : 0,
 					'left'     : 0
 				});
@@ -60,7 +60,7 @@ var Slideshows = Slideshows ? Slideshows : new Class({
 
 			if (slideshow.images.length) {
 
-				slideshow.images[slideshow.current].fade('out');
+				slideshow.images[slideshow.current].fade(0);
 	
 				if (slideshow.current < slideshow.images.length - 1) {
 					slideshow.current = slideshow.current + 1;

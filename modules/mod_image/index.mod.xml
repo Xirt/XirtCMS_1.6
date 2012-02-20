@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xinstall type="module">
-	<name>Show image</name>
+	<name>Image</name>
 	<module>image</module>
 	<version>1.2</version>
 	<authorName>A.G. Gideonse</authorName>
