@@ -50,9 +50,13 @@ class Component extends XComponent {
             return;
 
 
-            /*
-             * Modify methods
-             */
+         /*
+          * Modify methods
+          */
+         case 'edit_config':
+            Manager::editConfig();
+            return;
+
          case 'add_item':
             Manager::addItem();
             return;

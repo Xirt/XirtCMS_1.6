@@ -16,15 +16,16 @@ class Viewer {
    public static function showTemplate() {
       global $xCom;
 
-      $languageList = array();
+      $languages = array();
       foreach (Xirt::getLanguages() as $iso => $language) {
-         $languageList[$iso] = $language->name;
+         $languages[$iso] = $language->name;
       }
 
       // Show template
       $tpl = new Template();
       $tpl->assign('xLang', $xCom->xLang);
-      $tpl->assign('languageList', $languageList);
+      $tpl->assign('xConf', $xCom->xConf);
+      $tpl->assign('languages', $languages);
       $tpl->display('main.tpl');
    }
 
