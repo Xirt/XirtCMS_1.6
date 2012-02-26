@@ -1,0 +1,159 @@
+.box-manager {
+   position: relative;
+}
+
+#box-tree {
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   width: 240px;
+   overflow: auto;
+   border: 1px #efefef  solid;
+   padding: 7px 5px;
+   background: rgb(249, 249, 249);
+   border: 1px dotted rgb(192, 192, 192);
+}
+
+#box-tree ul {
+   margin: 0px;
+   padding: 0px;
+}
+
+#box-tree li.folder,
+#box-tree ul ul li.folder {
+   margin: 0px;
+   padding-left: 22px;
+   list-style-type: none;
+   background: url(../images/folder_closed.png) no-repeat;
+   cursor: pointer;
+}
+
+#box-tree ul li.folder,
+#box-tree li.folder.open {
+   background: url(../images/folder_open.png) no-repeat;
+}
+
+
+/**
+ * Directory contents
+ */
+#box-files {
+   margin-left: 255px;
+   border: 1px #000000 solid;
+   background: #fff;
+   min-height: 300px;
+   height: 600px;
+   overflow: auto;
+   background: rgb(249, 249, 249);
+   border: 1px dotted rgb(192, 192, 192);
+}
+
+.box-file {
+   position: relative;
+   float: left;
+   text-align: center;
+   width: 100px;
+   margin: 10px;
+   font-size: 11px;
+   border: 1px #dedede solid;
+   box-shadow: 1px 2px 5px #dedede;
+   -moz-box-shadow: 1px 2px 5px #dedede;
+   -webkit-box-shadow: 1px 2px 5px #dedede;
+}
+
+.box-file abbr {
+   float: left;
+   width: 90px;
+   padding: 5px;
+   background: #B1D2E3 url(../../../../templates/ximages/bg_table.png) repeat-x;
+   color: #1f282e;
+   text-shadow: #c0c0c0 1px 1px 0px;
+   border-bottom: 1px #808080 solid;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+   overflow: hidden;
+}
+
+.box-file img.icon {
+   float: left;
+   background: #fff;
+   padding: 15px 34px;
+}
+
+.box-file img.icon.clickable:hover {
+   background: #efefef;
+}
+
+.box-file img.clickable {
+   cursor: pointer;
+}
+
+.box-file .box-options {
+   float: left;
+   position: static;
+   height: 20px;
+   width: 80px;
+   background: #f5f5f5;
+   border-top: 1px #c0c0c0 dotted;
+}
+
+.box-file .box-options img {
+   float: right;
+   clear: none;
+   margin: 2px 0 0 8px;
+   cursor: pointer;
+}
+
+
+/**
+ * Windows
+ */
+#dvItem input[type=text] {
+   width: 250px;
+}
+
+.box-form input.file {
+   float: left;
+   height: auto;
+   width: auto;
+}
+
+#dvItem td {
+   text-align: center;
+}
+
+#dvItem table input {
+   width: auto;
+}
+
+#dvItem input:disabled {
+   background: #efefef;
+}
+
+#uBar {
+   margin: auto;
+}
+
+#box-permissions {
+   width: 275px;
+   margin: 15px auto;
+}
+
+#box-permissions table {
+   margin: auto;
+}
+
+#box-permissions table th {
+   padding: 5px 10px;
+   vertical-align: middle;
+   text-align: center;
+}
+
+#box-permissions table td {
+   width: 60px;
+   height: 60px;
+   padding: 5px;
+   vertical-align: middle;
+   background: #efefef;
+}

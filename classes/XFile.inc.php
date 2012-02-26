@@ -71,8 +71,8 @@ class XFile {
     */
    public function move($path) {
 
-      if (@rename($this->file, $path . basename($this->file))) {
-         return ($this->file = $path . basename($this->file));
+      if (@rename($this->file, $path . $this->name)) {
+         return ($this->file = $path . $this->name);
       }
 
       return false;
