@@ -32,7 +32,7 @@ form, body, div, table, td, tr, ul, li, p, legend, fieldset {
 }
 
 .xProgressBox {
-   width: 400px;
+   width: 380px;
    background: #c0c0c0;
    border: 1px #808080 solid;
    border-radius: 3px;
@@ -44,7 +44,7 @@ form, body, div, table, td, tr, ul, li, p, legend, fieldset {
 }
 
 .xProgressBar {
-   background: #e0dbe3 url(../ximages/loading.gif);
+   background: #fff url(../../images/cms/upload-bar.gif);
    width: 0;
    height: 15px;
 }

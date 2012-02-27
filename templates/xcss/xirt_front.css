@@ -2,241 +2,224 @@
 /* XIRTCMS ELEMENTS */
 /********************/
 .xirt-overlay {
-   opacity: 0.1;
-   position: fixed;
-   left: 0;
-   top: 0;
-   background: #fff;
-   z-index: 1000;
+	opacity: 0.1;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: #fff;
+	z-index: 1000;
 }
 
 .xStatsBox {
-   padding: 10px;
-   border-top: 2px #808080 solid;
-   border-bottom: 1px #808080 solid;
-   background: #dbe5f1 url(../ximages/gradient.png) repeat-x;
-   cursor: pointer;
+	padding: 10px;
+	border-top: 2px #808080 solid;
+	border-bottom: 1px #808080 solid;
+	background: #dbe5f1 url(../ximages/gradient.png) repeat-x;
+	cursor: pointer;
 }
 
 .xProgressBox {
-   width: 400px;
-   background: #c0c0c0;
-   border: 1px #808080 solid;
-   border-radius: 3px;
+	width: 380px;
+	background: #c0c0c0;
+	border: 1px #808080 solid;
+	border-radius: 3px;
 
-   /* Compatibility */
-   -webkit-border-radius: 3px;
-   -moz-border-radius: 3px;
-
+	/* Compatibility */
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
 }
 
 .xProgressBar {
-   background: #e0dbe3 url(../ximages/loading.gif);
-   width: 0;
-   height: 15px;
+   background: #fff url(../../images/cms/upload-bar.gif);
+	width: 0;
+	height: 15px;
 }
 
 .xPDF .box-download {
-   text-align: center;
+	text-align: center;
 }
 
 .xPDF .box-download button {
-   height: 45px;
-   line-height: 40px;
-   margin: 5px auto;
-   padding:  0 5px 0 45px;
-   background-image: url(../../images/cms/icons/reader-pdf.png);
-   background-position: 2px center;
-   background-repeat: no-repeat;
-   box-shadow: 0 0 5px #c0c0c0;
-   border: 1px #c0c0c0 solid;
-   text-align: left;
+	height: 45px;
+	line-height: 40px;
+	margin: 5px auto;
+	padding: 0 5px 0 45px;
+	background-image: url(../../images/cms/icons/reader-pdf.png);
+	background-position: 2px center;
+	background-repeat: no-repeat;
+	box-shadow: 0 0 5px #c0c0c0;
+	border: 1px #c0c0c0 solid;
+	text-align: left;
 }
-
-
 
 /*******************/
 /* SYSTEM MESSAGES */
 /*******************/
 .xMessage {
-   margin: 10px 0;
-   padding: 10px;
-   border-top: 2px #808080 solid;
-   border-bottom: 1px #808080 solid;
-   background: #dbe5f1 url(../ximages/gradient.png) repeat-x;
+	margin: 10px 0;
+	padding: 10px;
+	border-top: 2px #808080 solid;
+	border-bottom: 1px #808080 solid;
+	background: #dbe5f1 url(../ximages/gradient.png) repeat-x;
 }
 
 .xMessage h2 {
-   margin: 0;
-   font-size: 15px;
-   font-weight: bold;
+	margin: 0;
+	font-size: 15px;
+	font-weight: bold;
 }
 
 .xMessage.xJavaScript h2 {
-   color: #dc2a2a;
+	color: #dc2a2a;
 }
-
-
 
 /*********/
 /* FORMS */
 /*********/
 .xForm label {
-   float: left;
-   width: 190px;
+	float: left;
+	width: 190px;
 }
-
-
 
 /************
  XIRT MESSAGE
 ************/
 .xirt-alert {
-   position: absolute;
-   max-width: 500px;
-   padding: 10px;
-   background: #FFF;
-   border-radius: 10px 0;
-   box-shadow: 2px 2px 7px #c0c0c0;
-   z-index: 1020;
+	position: absolute;
+	max-width: 500px;
+	padding: 10px;
+	background: #FFF;
+	border-radius: 10px 0;
+	box-shadow: 2px 2px 7px #c0c0c0;
+	z-index: 1020;
 
-   /* Compatibility */
-   -webkit-box-shadow: 2px 2px 7px #c0c0c0;
-   -moz-box-shadow: 2px 2px 7px #c0c0c0;
-   -webkit-border-radius: 10px 0;
-   -moz-border-radius: 10px 0;
-
+	/* Compatibility */
+	-webkit-box-shadow: 2px 2px 7px #c0c0c0;
+	-moz-box-shadow: 2px 2px 7px #c0c0c0;
+	-webkit-border-radius: 10px 0;
+	-moz-border-radius: 10px 0;
 }
 
 .xirt-alert .box-content {
-   text-align: center;
+	text-align: center;
 }
 
 .xirt-alert .box-buttons {
-   margin-top: 10px;
-   text-align: center;
+	margin-top: 10px;
+	text-align: center;
 }
-
-
 
 /**********************
  XIRT TOOLTIP / NOTICE
 **********************/
 .xirt-tooltip {
-   background: url(../ximages/tooltip-pointer.png) left center no-repeat;
-   padding-left: 4px;
-   max-width: 296px;
-   z-index: 1040;
+	background: url(../ximages/tooltip-pointer.png) left center no-repeat;
+	padding-left: 4px;
+	max-width: 296px;
+	z-index: 1040;
 }
 
 .xirt-tooltip p {
-   display: block;
-   padding: 3px 10px;
-   background: url(../ximages/tooltip-bg.png);
-   color: #ffffff;
-   border-radius: 5px;
-   box-shadow: 2px 2px 7px #808080;
+	display: block;
+	padding: 3px 10px;
+	background: url(../ximages/tooltip-bg.png);
+	color: #ffffff;
+	border-radius: 5px;
+	box-shadow: 2px 2px 7px #808080;
 
-   /* Compatibility */
-   -webkit-border-radius: 5px;
-   -moz-border-radius: 5px;
-   -webkit-box-shadow: 2px 2px 7px #808080;
-   -moz-box-shadow: 2px 2px 7px #808080;
-
+	/* Compatibility */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-box-shadow: 2px 2px 7px #808080;
+	-moz-box-shadow: 2px 2px 7px #808080;
 }
-
-
 
 /************
  XIRT POP-UP
 ************/
 .xirt-window {
-   position: absolute;
-   z-index: 1001;
-   text-align: justify;
-   overflow-y: auto;
-   overflow-x: hidden;
-   background: #fff;
-   border-bottom-left-radius: 10px;
-   border-bottom-right-radius: 10px;
-   box-shadow: 0 0 10px #808080;
+	position: absolute;
+	z-index: 1001;
+	text-align: justify;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: #fff;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	box-shadow: 0 0 10px #808080;
 
-   /* Compatibility */
-   -moz-border-radius-bottomLeft: 10px;
-   -moz-border-radius-bottomRight: 10px;
-   -webkit-border-bottom-left-radius: 10px;
-   -webkit-border-bottom-right-radius: 10px;
-   -webkit-box-shadow: 0 0 10px #808080;
-   -moz-box-shadow: 0 0 10px #808080;
-
+	/* Compatibility */
+	-moz-border-radius-bottomLeft: 10px;
+	-moz-border-radius-bottomRight: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-box-shadow: 0 0 10px #808080;
+	-moz-box-shadow: 0 0 10px #808080;
 }
 
 .xirt-window .xirt-content,
 .xirt-window .box-buttons {
-   position: relative;
-   padding: 10px 10px;
+	position: relative;
+	padding: 10px 10px;
 }
-
-
 
 /******************
  XIRT NOTICE (ROAR)
 ******************/
 .roar-body {
-   position: absolute;
-   text-align: left;
-   color: #fff;
-   z-index: 1100;
+	position: absolute;
+	text-align: left;
+	color: #fff;
+	z-index: 1100;
 }
 
 .roar {
-   position: absolute;
-   width: 300px;
-   cursor: pointer;
+	position: absolute;
+	width: 300px;
+	cursor: pointer;
 }
 
 .roar-bg {
-   position: absolute;
-   width: 100%;
-   height: 100%;
-   left: 0;
-   top: 0;
-   background-color: #000;
-   border-radius: 10px;
-   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-   z-index: 1125;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: #000;
+	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	z-index: 1125;
 
-   /* Compatibility */
-   -webkit-border-radius: 5px;
-   -moz-border-radius: 10px;
-   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-
+	/* Compatibility */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 10px;
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .roar-body-ugly .roar {
-   background-color: #333;
+	background-color: #333;
 }
 
 .roar-body-ugly .roar-bg {
-   display: none;
+	display: none;
 }
 
 .roar h3 {
-   position: relative;
-   padding: 15px 10px 0;
-   margin: 0;
-   border: 0;
-   font-size: 13px;
-   color: #fff;
-   z-index: 1130;
+	position: relative;
+	padding: 15px 10px 0;
+	margin: 0;
+	border: 0;
+	font-size: 13px;
+	color: #fff;
+	z-index: 1130;
 }
 
 .roar p {
-   position: relative;
-   padding: 10px 10px 15px;
-   margin: 0;
-   font-size: 12px;
-   color: #fff;
-   z-index: 1130;
+	position: relative;
+	padding: 10px 10px 15px;
+	margin: 0;
+	font-size: 12px;
+	color: #fff;
+	z-index: 1130;
 }

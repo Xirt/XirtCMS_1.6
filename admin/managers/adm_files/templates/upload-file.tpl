@@ -11,7 +11,7 @@
 
 		</fieldset>
 
-		<div id='uBar'></div>
+		<div id='bar-progress'></div>
 
 		<div class='box-buttons' id='buttons-upload'>
 

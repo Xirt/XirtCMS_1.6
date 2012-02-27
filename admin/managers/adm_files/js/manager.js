@@ -16,20 +16,26 @@ var XManager = new Class({
 	remove: function() {
 
 		if (confirm(XLang.confirmations['remove'])) {
+
 			new Request({
 				onFailure: Xirt.showError,
-				onSuccess: function() {
-					Xirt.showNotice(XLang.messages['removed']);
-					XTreeViewer.reload();
-					XFileViewer.reload();
-				},
+				onSuccess: this.onRemoval,
 				url: 'index.php'
 			}).post({
 				content: 'adm_files',
 				task: 'remove_item',
 				path: this.retrieve('path')
 			});
+
 		}
+
+	},
+	
+	onRemoval: function() {
+
+		Xirt.showNotice(XLang.messages['removed']);
+		XTreeViewer.reload();
+		XFileViewer.reload();
 
 	}
 
@@ -42,7 +48,6 @@ window.addEvent('domready', function() {
 	XFileViewer = new FileViewer('box-files');
 
 });
-
 
 
 /*******************************
@@ -76,44 +81,48 @@ var UploadFilePanel = new Class({
 
 	Extends: AddPanel,
 
-	// METHOD :: Initializes panel
+	// Initializes panel
 	initialize: function() {
 
 		this.panel = 'dvAdd';
-
-		this.addEvent('finished', function() {
-			XTreeViewer.reload();
-			XFileViewer.reload();
-		});
 
 		this.addEvent('populate', function(form) {
 			form.path.set('value', XFileViewer._path);
 		});
 
-		this.parent();
+		// Overwrite default form handling
+		this.parent({ 'width' : 500 });
+		this.form.removeEvents('submit');
  
-		new XUpload({																				  // TODO: Refactor / merge with XUpload.js
-
+		// Add upload tracking
+		new XUpload({
 			form: this.form,
-			progressBar: 'uBar',
-
-			onStart: function() {
-				$('buttons-upload').hide();
-			},
-
-			onFailure: function() {
-				$('buttons-upload').show();
-			},
-
-			onComplete: function() {
-				this.form.reset();
-				this.window.hide();
-				XFileViewer.reload();
-				$('buttons-upload').show();
-			}.bind(this)
-
+			progressBar: 'bar-progress',
+			onStart: this.onStart.bind(this),
+			onFailure: this.onFailure.bind(this),
+			onComplete: this.onComplete.bind(this)
 		});
 		
+	},
+	
+	// Fired on upload
+	onStart: function() {
+		$('buttons-upload').reveal();		
+	},
+	
+	// Fired on upload completion
+	onComplete: function() {
+		
+		this.form.reset();
+		this.window.hide();
+		XFileViewer.reload();		
+		$('buttons-upload').reveal();
+
+	},
+	
+	// Fired on upload failure
+	onFailure: function() {
+		$('buttons-upload').dissolve();		
 	}
 
 });
@@ -127,11 +136,11 @@ var EditPanel = new Class({
 
 	Extends: ManagePanel,
 	
-	// METHOD :: Initializes panel
+	// Initializes panel
 	initialize: function(path) {
 
-   	new PathList('x-path');
-   	this.panel = 'dvItem';
+		new PathList('x-path');
+		this.panel = 'dvItem';
 		this.path = path;
 
 		this.addEvent('finished', function() {
@@ -141,8 +150,7 @@ var EditPanel = new Class({
 
 		this.addEvent('populate', function(form, json) {
 
-			$('box-permissions').hide();
-			
+			$('box-permissions').hide();			
 			this._parsePath(json);
 			
 			if (json.chmod != -1) {
@@ -189,9 +197,9 @@ var EditPanel = new Class({
 	},
 
 	// Adds all returned paths to the form
-	_parsePath: function(json) {                                                 // TODO: Rewrite (if possible)
+	_parsePath: function(json) {
 
-		var path	 = [];
+		var path	   = [];
 		var looping = true;
 		var paths	= json.path.split('/');
 		var options = this.form.x_path.options;

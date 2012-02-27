@@ -22,11 +22,11 @@ class Manager extends XComponent {
     */
    function showNormal() {
 
-      XPage::addStylesheet('managers/adm_files/css/main.css');
-      XPage::addScript('managers/adm_files/js/fileviewer.js');
-      XPage::addScript('managers/adm_files/js/filetree.js');
-      XPage::addScript('managers/adm_files/js/manager.js');
-      XPage::addScript('../js/src/xupload.js');
+      XPage::addStylesheet('managers/adm_files/css/main.css?' . microtime());
+      XPage::addScript('managers/adm_files/js/fileviewer.js?' . microtime());
+      XPage::addScript('managers/adm_files/js/filetree.js?' . microtime());
+      XPage::addScript('managers/adm_files/js/manager.js?' . microtime());
+      XPage::addScript('../js/src/xupload.js?' . microtime());
       XInclude::plugin('slimbox');
 
       switch (XTools::getParam('task')) {

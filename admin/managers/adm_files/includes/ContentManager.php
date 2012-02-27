@@ -40,7 +40,7 @@ class ContentManager {
       $xConf->showTemplate(false);
       $path = XTools::getParam('path');
 
-      $upload = new XUpload($_POST['APC_UPLOAD_PROGRESS']);
+      $upload = new XUpload($_POST['APC_UPLOAD_PROGRESS']);                     // ISSET?
       $upload->move('nitem_file', $path);
 
    }

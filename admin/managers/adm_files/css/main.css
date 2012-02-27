@@ -25,13 +25,13 @@
    margin: 0px;
    padding-left: 22px;
    list-style-type: none;
-   background: url(../images/folder_closed.png) no-repeat;
+   background: url(../images/folder-closed.png) no-repeat;
    cursor: pointer;
 }
 
 #box-tree ul li.folder,
 #box-tree li.folder.open {
-   background: url(../images/folder_open.png) no-repeat;
+   background: url(../images/folder-open.png) no-repeat;
 }
 
 
@@ -66,7 +66,7 @@
    float: left;
    width: 90px;
    padding: 5px;
-   background: #B1D2E3 url(../../../../templates/ximages/bg_table.png) repeat-x;
+   background: #B1D2E3 url(../../../../templates/ximages/gradient.png) repeat-x;
    color: #1f282e;
    text-shadow: #c0c0c0 1px 1px 0px;
    border-bottom: 1px #808080 solid;
@@ -113,26 +113,10 @@
    width: 250px;
 }
 
-.box-form input.file {
+#dvAdd .box-form input.file {
    float: left;
    height: auto;
    width: auto;
-}
-
-#dvItem td {
-   text-align: center;
-}
-
-#dvItem table input {
-   width: auto;
-}
-
-#dvItem input:disabled {
-   background: #efefef;
-}
-
-#uBar {
-   margin: auto;
 }
 
 #box-permissions {
@@ -155,5 +139,14 @@
    height: 60px;
    padding: 5px;
    vertical-align: middle;
+   text-align: center;
+   background: #efefef;
+}
+
+#box-permissions input {
+   width: auto;
+}
+
+#box-permissions input:disabled {
    background: #efefef;
 }
