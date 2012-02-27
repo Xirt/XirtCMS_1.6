@@ -61,9 +61,9 @@
    <!-- [Start] Componenten Subbox //-->
    <div class='box-submenu submenu' id='sM_components' style='display: none;'>
 
-   {foreach from=$componentsList item=item}
-      <div class='submenu-item' onclick="document.location.assign('index.php?content={$item->com_name}');">
-      <img src='components/{$item->com_name}/icon.png' alt="{$item->name}" />
+   {foreach from=$components item=item}
+      <div class='submenu-item' onclick="document.location.assign('index.php?content={$item->type}');">
+      <img src='components/{$item->type}/icon.png' alt="{$item->name}" />
 
       <h4>{$item->name}</h4>
 

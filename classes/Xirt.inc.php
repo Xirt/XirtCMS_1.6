@@ -222,7 +222,7 @@ class Xirt {
          // Create list
          $list = array();
          while ($dbRow = $stmt->fetchObject()) {
-            $list[$dbRow->com_name] = $dbRow;
+            $list[$dbRow->type] = $dbRow;
          }
 
          $xCache->set('components', $list);

@@ -216,7 +216,7 @@ class ContentViewer {
       $list = array();
 
       foreach (Xirt::getComponents() as $type => $component) {
-         $list[self::URI_COMPONENT . $type] = $component->name;
+         $list[sprintf(self::URI_COMPONENT, $type)] = $component->name;
       }
 
       return $list;
