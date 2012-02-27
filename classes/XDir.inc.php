@@ -38,7 +38,6 @@ class XDir {
          return true;
       }
 
-      $this->unlink();
       return false;
    }
 
@@ -118,7 +117,7 @@ class XDir {
     * @return Array containing all found files / directories
     */
    public function summarize($showFiles = true, $doDeepScan = false) {
-      return $this->_summarize($this->path, $showFiles, $doDeepScan);
+      return $this->_summarize(substr($this->path, 0, -1), $showFiles, $doDeepScan);
    }
 
 
@@ -136,12 +135,12 @@ class XDir {
       $paths = $files = array();
       foreach (array_diff(scandir($path), array('.', '..')) as $item) {
 
-         $current = $path . $item;
+         $current = sprintf('%s/%s', $path, $item);
 
          if (is_file($current) && $showFiles) {
             $files[] = $current;
          } elseif (is_dir($current)) {
-            $paths[] = $current;
+            $paths[] = $current . '/';
          }
 
          if ($doDeepScan && is_dir($current)) {

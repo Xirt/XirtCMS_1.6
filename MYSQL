@@ -1,0 +1,387 @@
+-- phpMyAdmin SQL Dump
+-- version 3.4.5deb1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Feb 27, 2012 at 04:41 PM
+-- Server version: 5.1.58
+-- PHP Version: 5.3.6-13ubuntu3.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `test_xirt`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_components`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_components` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` text NOT NULL,
+  `type` varchar(64) DEFAULT NULL,
+  `config` text NOT NULL,
+  `access_min` tinyint(3) NOT NULL DEFAULT '1',
+  `access_max` tinyint(3) NOT NULL DEFAULT '100',
+  `menu` tinyint(1) NOT NULL DEFAULT '0',
+  `removable` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3112 ;
+
+--
+-- Dumping data for table `xirt_components`
+--
+
+INSERT INTO `xirt_components` (`id`, `name`, `type`, `config`, `access_min`, `access_max`, `menu`, `removable`) VALUES
+(2, 'Content Viewer', 'com_content', '{"css_name":"","show_title":"1","show_author":"0","show_created":"0","show_modified":"0","download_icon":"0","print_icon":"1","mail_icon":"0","back_icon":"1"}', 1, 100, 1, 0),
+(1, 'Xirt Helper', 'com_helper', '', 1, 100, 0, 0),
+(3, 'Search Engine', 'com_search', '{"search_type":0,"recording":1,"default_value":"","default_limit":10,"default_method":0,"titlelength":50,"textlength":250,"node_id":1}', 1, 100, 1, 1),
+(4, 'Sitemap', 'com_sitemap', '', 1, 100, 0, 0),
+(5, 'Tweet Management', 'com_twitter', '{}', 1, 100, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_content`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_content` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `xid` bigint(20) unsigned NOT NULL,
+  `language` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `title` text NOT NULL,
+  `category` bigint(20) DEFAULT NULL,
+  `content` longtext NOT NULL,
+  `meta_title` text,
+  `meta_keywords` text,
+  `meta_description` text,
+  `config` text,
+  `locked` bigint(20) NOT NULL DEFAULT '0',
+  `published` tinyint(1) NOT NULL DEFAULT '1',
+  `mobile` tinyint(1) NOT NULL DEFAULT '1',
+  `created` datetime NOT NULL,
+  `author_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `author_name` text NOT NULL,
+  `modified` datetime NOT NULL,
+  `modifier_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `modifier_name` text,
+  `access_min` tinyint(3) NOT NULL DEFAULT '1',
+  `access_max` tinyint(3) NOT NULL DEFAULT '100',
+  PRIMARY KEY (`id`),
+  FULLTEXT KEY `content` (`title`,`content`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `xirt_content`
+--
+
+INSERT INTO `xirt_content` (`id`, `xid`, `language`, `title`, `category`, `content`, `meta_title`, `meta_keywords`, `meta_description`, `config`, `locked`, `published`, `mobile`, `created`, `author_id`, `author_name`, `modified`, `modifier_id`, `modifier_name`, `access_min`, `access_max`) VALUES
+(1, 1, 'en-GB', 'Home', 0, '<p>This is your brand new home page!</p>', '', '', '', '{"css_name":"","show_title":-1,"show_author":-1,"show_created":-1,"show_modified":-1,"back_icon":0,"download_icon":-1,"print_icon":-1,"mail_icon":-1}', 0, 1, 1, '2012-02-16 19:13:38', 1, 'Admin', '0000-00-00 00:00:00', 1, 'Admin', 1, 100),
+(2, 1, 'nl-NL', 'Home', 0, '<p>Dit is uw nieuwe website!</p>', '', '', '', '{"css_name":"","show_title":-1,"show_author":-1,"show_created":-1,"show_modified":-1,"back_icon":0,"download_icon":-1,"print_icon":-1,"mail_icon":-1}', 0, 1, 1, '2012-02-16 19:13:38', 1, 'Admin', '0000-00-00 00:00:00', 1, 'Admin', 1, 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_content_categories`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_content_categories` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `xid` bigint(20) NOT NULL,
+  `level` tinyint(4) NOT NULL DEFAULT '1',
+  `language` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `ordering` int(6) NOT NULL DEFAULT '999999',
+  `parent_id` int(6) NOT NULL DEFAULT '0',
+  `name` tinytext NOT NULL,
+  `config` text NOT NULL,
+  `published` tinyint(1) NOT NULL DEFAULT '1',
+  `sitemap` tinyint(1) NOT NULL DEFAULT '0',
+  `mobile` tinyint(1) NOT NULL DEFAULT '1',
+  `access_min` tinyint(3) NOT NULL DEFAULT '1',
+  `access_max` tinyint(3) NOT NULL DEFAULT '100',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_languages`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_languages` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `iso` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  `preference` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `xirt_languages`
+--
+
+INSERT INTO `xirt_languages` (`id`, `name`, `iso`, `published`, `preference`) VALUES
+(1, 'English', 'en-GB', 1, 1),
+(2, 'Nederlands', 'nl-NL', 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_links`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_links` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `iso` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `query` text,
+  `alternative` text,
+  `cid` bigint(20) NOT NULL,
+  `custom` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `xirt_links`
+--
+
+INSERT INTO `xirt_links` (`id`, `iso`, `query`, `alternative`, `cid`, `custom`) VALUES
+(1, 'en-GB', 'content=com_content&id=1', 'home', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_log`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_log` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `error_no` int(4) unsigned DEFAULT NULL,
+  `error_msg` text,
+  `error_src` text,
+  `error_line` int(4) DEFAULT NULL,
+  `request_ip` varchar(128) DEFAULT NULL,
+  `request_agent` text,
+  `request_uri` text,
+  `request_method` varchar(4) DEFAULT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_menunodes`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_menunodes` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `xid` bigint(20) NOT NULL,
+  `level` tinyint(4) NOT NULL DEFAULT '1',
+  `language` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `menu_id` bigint(20) NOT NULL,
+  `ordering` int(6) NOT NULL DEFAULT '999999',
+  `parent_id` int(6) NOT NULL DEFAULT '0',
+  `name` tinytext NOT NULL,
+  `link` text,
+  `image` tinytext,
+  `link_type` tinyint(1) NOT NULL DEFAULT '0',
+  `css_name` varchar(100) NOT NULL DEFAULT '',
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  `sitemap` tinyint(1) NOT NULL DEFAULT '1',
+  `mobile` tinyint(1) NOT NULL DEFAULT '1',
+  `home` tinyint(1) NOT NULL DEFAULT '0',
+  `access_min` tinyint(3) NOT NULL DEFAULT '1',
+  `access_max` tinyint(3) NOT NULL DEFAULT '100',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_menus`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_menus` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `xid` bigint(20) NOT NULL,
+  `language` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `title` varchar(128) NOT NULL DEFAULT '0',
+  `ordering` int(6) NOT NULL DEFAULT '999999',
+  `sitemap` tinyint(1) NOT NULL DEFAULT '1',
+  `mobile` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `xirt_menus`
+--
+
+INSERT INTO `xirt_menus` (`id`, `xid`, `language`, `title`, `ordering`, `sitemap`, `mobile`) VALUES
+(1, 1, 'en-GB', 'Main menu', 1, 1, 1),
+(2, 1, 'nl-NL', 'Hoofdmenu', 1, 1, 1),
+(3, 2, 'en-GB', 'Footer menu', 2, 1, 1),
+(4, 2, 'nl-NL', 'Menu (beneden)', 2, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_modules`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_modules` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `xid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `language` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `name` varchar(150) NOT NULL,
+  `ordering` int(6) NOT NULL DEFAULT '0',
+  `position` varchar(15) DEFAULT 'module',
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  `mobile` tinyint(1) NOT NULL DEFAULT '0',
+  `type` varchar(100) NOT NULL,
+  `pages` tinytext NOT NULL,
+  `config` text NOT NULL,
+  `access_min` tinyint(3) NOT NULL DEFAULT '1',
+  `access_max` tinyint(3) NOT NULL DEFAULT '100',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `xirt_modules`
+--
+
+INSERT INTO `xirt_modules` (`id`, `xid`, `language`, `name`, `ordering`, `position`, `published`, `mobile`, `type`, `pages`, `config`, `access_min`, `access_max`) VALUES
+(1, 1, 'en-GB', '[Menu] Main', 2, 'menu', 1, 1, 'mod_menu', '|all|', '{"css_name":"","title":"","menu_id":"1","show_type":"1","parent_id":"","level_start":"0","level_end":"0","separator_style":"0","separator":"|"}', 1, 100),
+(2, 2, 'en-GB', '[Menu] Footer', 2, 'footer', 1, 1, 'mod_menu', '|all|', '{"css_name":"-footer","title":"","menu_id":"2","show_type":"0","parent_id":"","level_start":"0","level_end":"0","separator_style":"1","separator":"|"}', 1, 100),
+(3, 3, 'en-GB', '[Tools] Language', 2, 'tools', 1, 1, 'mod_language', '|all|', '{"css_name":"","show_type":"1","show_all":"1","alpha_sort":"0"}', 1, 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_search`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_search` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `language` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `term` varchar(150) NOT NULL,
+  `uri` varchar(255) NOT NULL,
+  `impressions` bigint(20) NOT NULL DEFAULT '0',
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_sessions` (
+  `id` varchar(32) NOT NULL,
+  `modified` int(10) unsigned DEFAULT NULL,
+  `data` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_templates`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_templates` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `folder` varchar(60) NOT NULL,
+  `positions` text,
+  `pages` tinytext,
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `xirt_templates`
+--
+
+INSERT INTO `xirt_templates` (`id`, `name`, `folder`, `positions`, `pages`, `published`, `active`) VALUES
+(1, 'Default', 'default', '|footer|menu|tools|head|tools|content|', '|all|', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_twitter`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_twitter` (
+  `id` bigint(20) unsigned NOT NULL,
+  `content` text,
+  `account` tinytext NOT NULL,
+  `author` tinytext NOT NULL,
+  `avatar` tinytext NOT NULL,
+  `created` datetime NOT NULL,
+  `published` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_usergroups`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_usergroups` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `rank` tinyint(3) NOT NULL DEFAULT '0',
+  `language` varchar(5) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `removable` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `xirt_usergroups`
+--
+
+INSERT INTO `xirt_usergroups` (`id`, `rank`, `language`, `name`, `removable`) VALUES
+(1, 1, 'en-GB', 'Gast', 1),
+(2, 10, 'en-GB', 'Member', 1),
+(3, 50, 'en-GB', 'Moderator', 1),
+(4, 75, 'en-GB', 'Administrator', 1),
+(5, 100, 'en-GB', 'Super Administrator', 0),
+(6, 100, 'nl-NL', 'Super Beheerder', 0),
+(7, 1, 'nl-NL', 'Gast', 1),
+(8, 10, 'nl-NL', 'Geregistreerd lid', 1),
+(9, 75, 'nl-NL', 'Beheerder', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_users`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_users` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `salt` varchar(21) NOT NULL,
+  `yubikey` varchar(12) DEFAULT NULL,
+  `name` varchar(128) NOT NULL,
+  `rank` tinyint(3) NOT NULL DEFAULT '10',
+  `mail` varchar(64) NOT NULL,
+  `joined` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `editor` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `xirt_users`
+--
+
+INSERT INTO `xirt_users` (`id`, `username`, `password`, `salt`, `yubikey`, `name`, `rank`, `mail`, `joined`, `editor`) VALUES
+(1, 'Admin', '', '', '', 'Administrator', 100, 'you@yourdomain.com', '2012-01-01 00:00:00', 1);

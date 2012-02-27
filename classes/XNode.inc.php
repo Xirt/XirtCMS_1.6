@@ -180,6 +180,31 @@ class XNode {
 
 
    /**
+    * Returns first occurence of XNode by given field (uses depth-first search)
+    *
+    * @param $field The field to search
+    * @param $value The value to look for
+    * @return found XNode or null on failure
+    */
+   public function getItemByField($field, $value) {
+
+      if ($this->$field == $value) {
+         return $this;
+      }
+
+      foreach ($this->children as $child) {
+
+         if ($node = $child->getItemByField($field, $value)) {
+            return $node;
+         }
+
+      }
+
+      return null;
+   }
+
+
+   /**
     * Returns the maximum ordering in use
     *
     * @return int Maximum ordering found or 0
