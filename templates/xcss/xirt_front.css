@@ -40,6 +40,7 @@
 }
 
 .xPDF .box-download button {
+	width: auto;
 	height: 45px;
 	line-height: 40px;
 	margin: 5px auto;
@@ -50,6 +51,7 @@
 	box-shadow: 0 0 5px #c0c0c0;
 	border: 1px #c0c0c0 solid;
 	text-align: left;
+	cursor: pointer;
 }
 
 /*******************/
