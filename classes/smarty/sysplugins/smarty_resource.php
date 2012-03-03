@@ -254,6 +254,8 @@ abstract class Smarty_Resource {
                 }
             }
         }
+        
+        $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
 
         // relative file name?
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
@@ -264,7 +266,13 @@ abstract class Smarty_Resource {
                 }
                 if ($source->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
                     // try PHP include_path
-                    if (($_filepath = Smarty_Internal_Get_Include_Path::getIncludePath($_filepath)) !== false) {
+                    if ($_stream_resolve_include_path) {
+                        $_filepath = stream_resolve_include_path($_filepath);
+                    } else {
+                        $_filepath = Smarty_Internal_Get_Include_Path::getIncludePath($_filepath);
+                    }
+                    
+                    if ($_filepath !== false) {
                         if ($this->fileExists($source, $_filepath)) {
                             return $_filepath;
                         }
@@ -314,13 +322,9 @@ abstract class Smarty_Resource {
      */
     protected function fileExists(Smarty_Template_Source $source, $file)
     {
+        $source->timestamp = @filemtime($file);
+        return $source->exists = !!$source->timestamp;
 
-        // A.G. Gideonse (14/01/2012) modified:
-        if ($source->exists = file_exists($file)) {
-           return ($source->timestamp = @filemtime($file));
-        }
-
-        return ($source->timestamp = false);
     }
 
     /**
@@ -686,11 +690,8 @@ class Smarty_Template_Source {
 
         $compiled = new Smarty_Template_Compiled($this);
         $this->handler->populateCompiledFilepath($compiled, $_template);
-
-        // A.G. Gideonse (14/01/2012) modified:
-        if ($compiled->exists = file_exists($compiled->filepath)) {
-           $compiled->timestamp = @filemtime($compiled->filepath);
-        }
+        $compiled->timestamp = @filemtime($compiled->filepath);
+        $compiled->exists = !!$compiled->timestamp;
 
         // runtime cache
         Smarty_Resource::$compileds[$_cache_key] = $compiled;
