@@ -76,7 +76,7 @@ class XMakeCompatible {
          $isEscaped = true;
       }
 
-      if (isset($escaped)) {
+      if (isset($isEscaped)) {
 
          $in = array(&$_GET, &$_POST, &$_COOKIE);
          while (list($k, $v) = each($in)) {
