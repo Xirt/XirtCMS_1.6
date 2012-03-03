@@ -141,7 +141,7 @@ class mod_menu extends XModule {
 
       if ($oEcho && $xConf->separator_style == 2) {
 
-         print("<li class='separator{$node->css_name}'>");
+         print("<li class='separator" . current($mchildren)->css_name . "'>");
          print($xConf->separator);
          print("</li>");
 
@@ -189,7 +189,7 @@ class mod_menu extends XModule {
 
       // End current level, draw separator
       if ($oEcho && $xConf->separator_style == 2) {
-         print("<li class='separator{$node->css_name}'>");
+         print("<li class='separator" . $node->css_name . "'>");
          print($xConf->separator);
          print("</li>");
       }
