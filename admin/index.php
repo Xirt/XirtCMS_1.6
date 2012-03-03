@@ -36,6 +36,7 @@ function xirt_autoload($class) {
 
 }
 spl_autoload_register('xirt_autoload');
+set_include_path('.');
 
 new XEngine();
 ?>
