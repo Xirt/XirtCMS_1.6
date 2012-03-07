@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xinstall type="module">
+	<name>RSS feed</name>
+	<module>rssfeed</module>
+	<version>1.0</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+	<description><![CDATA[ This module shows a RSS-feed. ]]></description>
+	<params>
+		<param name="css_name" type="text" default="" label="CSS postfix"	description="A value that will be added to all default class / id values for module identification." />
+		<param name="title" type="text" default="" label="Title of feed" description="The title of the feed (optional)."></param>
+		<param name="feed" type="text" default="" label="RSS-feed location" description="The location of the RSS-feed."></param>
+		<param name="limit" type="text" default="10" label="Number of items" description="The maximum number of items to show."></param>
+		<param name="cache" type="select" default="1" label="Cache results" description="Toggles caching of retrieved feeds.">
+         <option name="Yes" value="1" />
+         <option name="No" value="0" />
+		</param>
+	</params>
+</xinstall>
