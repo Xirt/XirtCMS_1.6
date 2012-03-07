@@ -310,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `xirt_templates` (
 --
 
 INSERT INTO `xirt_templates` (`id`, `name`, `folder`, `positions`, `pages`, `published`, `active`) VALUES
-(1, 'Default', 'default', '|footer|menu|tools|head|tools|content|', '|all|', 0, 0);
+(1, 'Default', 'default', '|footer|menu|tools|head|tools|content|', '|all|', 1, 1);
 
 -- --------------------------------------------------------
 
