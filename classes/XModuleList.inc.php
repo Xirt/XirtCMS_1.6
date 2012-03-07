@@ -138,6 +138,10 @@ class XModuleList {
                   continue;
                }
 
+               if (!isset($languages[$item->language])) {
+                  continue;
+               }
+
                if ($languages[$item->language]->preference > $preference) {
                   unset($this->_list[$key]);
                }
