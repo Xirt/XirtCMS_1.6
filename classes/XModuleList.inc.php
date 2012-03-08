@@ -123,7 +123,7 @@ class XModuleList {
                }
 
                if ($languages[$item->language]->preference != $preference) {
-                  unset($list[$key]);
+                  unset($this->_list[$key]);
                }
             }
 
