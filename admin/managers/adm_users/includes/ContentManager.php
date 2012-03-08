@@ -77,8 +77,10 @@ class ContentManager {
 
       // Correct ranks (limit upgrading / protect owner)
       if (intval($user->id) !== 1) {
+
          $user->set('rank', XTools::getParam('x_rank', 0, _INT));
          $user->set('rank', min($xUser->rank, $user->rank));
+
       }
 
       $user->set('mail',   $newMail);
@@ -95,8 +97,12 @@ class ContentManager {
    public static function resetPassword() {
       global $xCom, $xConf;
 
-      $password = XTools::generatePassword();
+      $password = XTools::getParam('x_password');
       $content  = (object) $xCom->xLang->mailReset;
+
+      if (!XValidate::isPassword($password)) {
+         $password = XTools::generatePassword();
+      }
 
       // Reset password
       $user  = new User();

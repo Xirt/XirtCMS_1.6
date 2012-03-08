@@ -13,3 +13,5 @@
 {include file="form-add.tpl"}
 
 {include file="form-edit.tpl"}
+
+{include file="form-password.tpl"}

@@ -68,7 +68,7 @@ var ContentList = new Class({
             'class': 'url',
             'src': '../images/cms/icons/password.png'
          }).store('id', item.id)
-         .addEvent('click', XManager.resetPassword));
+         .addEvent('click', XManager.showPasswordForm));
 
          var opacity = Math.min(item.id - 0.75, 1);
          cell.grab(new Element('img', {

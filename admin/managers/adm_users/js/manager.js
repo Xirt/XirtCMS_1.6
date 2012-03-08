@@ -1,72 +1,53 @@
 var XManager = new Class({
 
-   Extends: XDefaultManager,
+	Extends: XDefaultManager,
 
-   // METHOD :: Loads edit-form
-   showEditForm: function() {
-      new EditPanel(this.retrieve('id'));
-   },
+	// METHOD :: Loads edit-form
+	showEditForm: function() {
+		new EditPanel(this.retrieve('id'));
+	},
 
-   // METHOD :: Resets password of user
-   resetPassword: function() {
+	// METHOD :: Loads password-form
+	showPasswordForm: function() {
+		new PasswordPanel(this.retrieve('id'));
+	},
+	
+	// METHOD :: Removes item
+	remove: function() {
 
-      if (confirm(XLang.confirmations['reset'])) {
+		if (confirm(XLang.confirmations['remove'])) {
 
-         new Request({
-            onFailure: Xirt.showError,
-            onSuccess: XManager.resetCompleted,
-            url: 'index.php'
-         }).post({
-            content: 'adm_users',
-            task: 'reset_password',
-            id: this.retrieve('id')
-         });
+			new Request({
+				onFailure: Xirt.showError,
+				onSuccess: XManager.removeCompleted,
+				url: 'index.php'
+			}).post({
+				content: 'adm_users',
+				task: 'remove_item',
+				id: this.retrieve('id')
+			});
 
-      }
+		}
 
-   },
+	},
 
-   // METHOD :: Removes item
-   remove: function() {
+	// METHOD :: Shows removal completion
+	removeCompleted: function(transport) {
 
-      if (confirm(XLang.confirmations['remove'])) {
+		if (transport) {
+			Xirt.showNotice(transport);
+			return false;
+		}
 
-         new Request({
-            onFailure: Xirt.showError,
-            onSuccess: XManager.removeCompleted,
-            url: 'index.php'
-         }).post({
-            content: 'adm_users',
-            task: 'remove_item',
-            id: this.retrieve('id')
-         });
+		XManager.reload();
 
-      }
-
-   },
-
-   // METHOD :: Shows reset completion
-   resetCompleted: function(transport) {
-      Xirt.showNotice(transport);
-   },
-
-   // METHOD :: Shows removal completion
-   removeCompleted: function(transport) {
-
-      if (transport) {
-         Xirt.showNotice(transport);
-         return false;
-      }
-
-      XManager.reload();
-
-   }
+	}
 
 });
 
 window.addEvent('domready', function() {
-   XManager = new XManager('adm_users');
-   XManager.load();
+	XManager = new XManager('adm_users');
+	XManager.load();
 });
 
 
@@ -76,18 +57,18 @@ window.addEvent('domready', function() {
 ****************************/
 var AddPanel = new Class({
 
-   Extends: AddPanel,
+	Extends: AddPanel,
 
-   // METHOD :: Initializes panel
-   initialize: function() {
+	// METHOD :: Initializes panel
+	initialize: function() {
 
-      this.panel = 'dvAdd';
-      this.addEvent('finished', function() {
-         XManager.reload();
-      });
+		this.panel = 'dvAdd';
+		this.addEvent('finished', function() {
+			XManager.reload();
+		});
 
-      this.parent();
-   }
+		this.parent();
+	}
 
 });
 
@@ -98,22 +79,63 @@ var AddPanel = new Class({
 *****************************/
 var EditPanel = new Class({
 
-   Extends: ManagePanel,
+	Extends: ManagePanel,
 
-   // METHOD :: Initializes panel
-   initialize: function(id) {
+	// METHOD :: Initializes panel
+	initialize: function(id) {
 
-      this.panel = 'dvItem';
+		this.panel = 'dvItem';
 
-      this.addEvent('populate', function() {
-         this.form.x_rank.disabled = (this.id == '1');
-      });
+		this.addEvent('populate', function() {
+			this.form.x_rank.disabled = (this.id == '1');
+		});
 
-      this.addEvent('finished', function() {
-         XManager.reload();
-      });
+		this.addEvent('finished', function() {
+			XManager.reload();
+		});
 
-      this.parent(id);
-   }
+		this.parent(id);
+	}
+
+});
+
+
+
+/*********************************
+* Class to show 'password'-panel *
+*********************************/
+var PasswordPanel = new Class({
+
+	Extends: ManagePanel,
+
+	// Initializes panel
+	initialize: function(id) {
+
+		this.panel = 'dvPassword';
+		this.parent(id);
+
+		// Activate toggler
+		$('randomizer').removeEvents('click');
+		$('randomizer').addEvent('click', this.toggleCustomizer);
+		$('randomizer').fireEvent('click');
+
+	},
+	
+	toggleCustomizer: function() {
+
+		Xirt.hideTooltips();
+		var el = $('custom-password');
+		($('randomizer').checked ? el.hide() : el.show());
+
+	},
+	
+	// Message to show on finish
+	_finished: function(output) {
+
+		Xirt.showNotice(output);
+		this.fireEvent('onFinished');
+		this.hide();
+
+	}
 
 });

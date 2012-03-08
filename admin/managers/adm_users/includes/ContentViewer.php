@@ -72,6 +72,7 @@ class ContentViewer {
 
       }
 
+      $item->set('password', null, true);
       $item->show();
 
    }
