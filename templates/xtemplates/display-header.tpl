@@ -17,6 +17,10 @@
    <link type='text/css' href='{$src}' rel='stylesheet' />
 {/foreach}
 
+<!--[if lt IE 9]>
+   <link type='text/css' href='templates/xcss/msie.css' rel='stylesheet' />
+<![endif]-->
+
 {foreach from=$scripts item=src}
    <script type='text/javascript' src='{$src}'></script>
 {/foreach}

@@ -2,113 +2,109 @@
   LIST BOX (ISOS)
 ******************/
 .box-language {
-   display: inline-block;
-   margin: 5px 0 15px 0;
-   border: 1px #eaeaea solid;
+	display: inline-block;
+	margin: 5px 0 15px 0;
+	border: 1px #eaeaea solid;
 }
 
 .box-language span.label {
-   display: inline-block;
-   padding: 5px 15px 5px 7px;
-   background: #B1D2E3 url(../ximages/xlist-header-bg.png) repeat-x;
-   text-align: center;
-   font-weight: bold;
-   color: #1f282e;
+	display: inline-block;
+	padding: 5px 15px 5px 7px;
+	background: #B1D2E3 url(../ximages/xlist-header-bg.png) repeat-x;
+	text-align: center;
+	font-weight: bold;
+	color: #1f282e;
 }
 
 .box-language .list-iso {
-   display: inline-block;
-   margin: 5px 5px;
-   cursor: pointer;
-   opacity: 0.25;
+	display: inline-block;
+	margin: 5px 5px;
+	cursor: pointer;
+	opacity: 0.25;
 }
 
 .box-language .list-iso:hover {
-   opacity: 0.5;  
+	opacity: 0.5;
 }
 
 .box-language .list-iso.active {
-   opacity: 1;
+	opacity: 1;
 }
 
 .box-language .list-iso img {
-   vertical-align: middle;
+	vertical-align: middle;
 }
-
-
 
 /*******************
   LIST BOX (TOOLS)
 *******************/
 .box-tools {
-   position: absolute;
-   top: 10px;
-   right: 15px;
+	position: absolute;
+	top: 10px;
+	right: 15px;
 }
-
-
 
 /*******************
   LIST BOX (TABLE)
 *******************/
 .table-xlist {
-   width: 100%;
-   background: #B1D2E3 url(../ximages/xlist-header-bg.png) repeat-x;
+	width: 100%;
+	background: #B1D2E3 url(../ximages/xlist-header-bg.png) repeat-x;
 }
 
 .table-xlist th {
-   padding: 5px 8px 5px 7px;
-   color: #1f282e;
-   text-shadow: #c0c0c0 1px 1px 0;
-   border-bottom: 1px #808080 solid;
+	padding: 5px 8px 5px 7px;
+	color: #1f282e;
+	text-shadow: #c0c0c0 1px 1px 0;
+	border-bottom: 1px #808080 solid;
 }
 
 .table-xlist th.sortable {
-   cursor: pointer;
+	cursor: pointer;
 }
 
 .table-xlist th.sortable.DESC {
-   background: url(../ximages/xlist-sort-down.png) 3px center no-repeat;
-   padding: 5px 0 5px 15px;
+	background: url(../ximages/xlist-sort-down.png) 3px center no-repeat;
+	padding: 5px 0 5px 15px;
 }
 
 .table-xlist th.sortable.ASC {
-   background: url(../ximages/xlist-sort-up.png) 3px center no-repeat;
-   padding: 5px 0 5px 15px;
+	background: url(../ximages/xlist-sort-up.png) 3px center no-repeat;
+	padding: 5px 0 5px 15px;
 }
 
 .table-xlist .box-scroll {
-   overflow-x: hidden;
-   overflow-y: scroll;
-   border: 1px #eaeaea solid;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	border: 1px #eaeaea solid;
 }
 
 .table-xlist-content {
-   width: 100%;
+	width: 100%;
 }
 
 .table-xlist-content tr td {
-   padding: 0 8px 0 7px;
-   height: 32px;
-   vertical-align: middle;
-   border-bottom: 2px #fff solid;
-   white-space: nowrap;
-   color: #1f282e;
+	padding: 0 8px 0 7px;
+	height: 32px;
+	vertical-align: middle;
+	border-bottom: 2px #fff solid;
+	white-space: nowrap;
+	color: #1f282e;
 }
 
 .table-xlist-content td.table-empty,
 .table-xlist-content td.table-loading {
-   padding: 5px;
-   text-align: center;
-   font-style: italic;
+	padding: 5px;
+	text-align: center;
+	font-style: italic;
 }
 
 .table-xlist-content td.table-loading img {
-   margin: 3px auto;
+	margin: 3px auto;
 }
 
 .table-xlist-content tr {
-   background: url(../ximages/xlist-row-bg.png) #DBE5F1 repeat-x;
+	background: url(../ximages/xlist-row-bg.png) #DBE5F1 repeat-x;
 }
 
 .table-xlist-content tr:hover {
@@ -116,63 +112,61 @@
 }
 
 .table-xlist-content tr:hover td {
-   border-bottom: 2px #85c3e8 solid;
+	border-bottom: 2px #85c3e8 solid;
 }
 
 .table-xlist-content td img {
-   vertical-align: middle;
-   margin: 0 5px;
+	vertical-align: middle;
+	margin: 0 5px;
 }
 
 .table-xlist-content button.move-down,
 .table-xlist-content button.move-up {
-   width: 16px;
-   height: 16px;
-   margin: 0 2px;
-   border: 0;
-   background: url(../../images/cms/icons/arrow_down.png) no-repeat;
+	width: 16px;
+	height: 16px;
+	margin: 0 2px;
+	border: 0;
+	background: url(../../images/cms/icons/arrow_down.png) no-repeat;
 }
 
 .table-xlist-content button.move-down {
-   background: url(../../images/cms/icons/arrow_down.png) no-repeat;
+	background: url(../../images/cms/icons/arrow_down.png) no-repeat;
 }
 
 .table-xlist-content button.move-up {
-   background: url(../../images/cms/icons/arrow_up.png) no-repeat;
+	background: url(../../images/cms/icons/arrow_up.png) no-repeat;
 }
-
-
 
 /********************
   LIST BOX (LEGEND)
 ********************/
 .box-legend {
-   margin: 15px auto 0 auto;
-   text-align: center;
+	margin: 15px auto 0 auto;
+	text-align: center;
 }
 
 .box-legend .legend {
-   display: inline-block;
-   width: 200px;
-   line-height: 22px;
+	display: inline-block;
+	width: 200px;
+	line-height: 22px;
 }
 
 .box-legend .legend div {
-   float: left;
-   width: 25px;
-   height: 20px;
-   margin: 0 10px;
-   border: 1px #eaeaea solid;
+	float: left;
+	width: 25px;
+	height: 20px;
+	margin: 0 10px;
+	border: 1px #eaeaea solid;
 }
 
 .box-legend .box-translation {
-   background: url(../ximages/xlist-row-bg.png) #DBE5F1 repeat-x;
+	background: url(../ximages/xlist-row-bg.png) #DBE5F1 repeat-x;
 }
 
 .box-legend .box-orange {
-   background: url(../ximages/xlist-row-bg.png) #ffd093 repeat-x;
+	background: url(../ximages/xlist-row-bg.png) #ffd093 repeat-x;
 }
 
 .box-legend .box-missing {
-   background: url(../ximages/xlist-row-bg.png) #feb3b3 repeat-x;
+	background: url(../ximages/xlist-row-bg.png) #feb3b3 repeat-x;
 }

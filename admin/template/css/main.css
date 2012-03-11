@@ -103,13 +103,13 @@ div.box-container {
 	position: relative;
 	margin: 25px 25px 0 25px;
 	padding: 25px;
-	background: #ffffff;
+	background: #fff;
 	letter-spacing: 1pt;
 	overflow-y: auto;
 	overflow-x: hidden;
 	border-top-left-radius: 25px;
 	border-bottom-right-radius: 25px;
-	box-shadow: 0px 0px 7px #808080;
+	box-shadow: 0 0 7px #808080;
 }
 
 .xStatsBox {
@@ -328,6 +328,4 @@ a.logout {
 
 .xirt-window .xForm .box-affect input {
 	float: left;
-	margin: 0 7px 0 3px;
-	width: auto;
 }

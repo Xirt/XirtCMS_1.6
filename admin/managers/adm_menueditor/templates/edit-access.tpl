@@ -14,7 +14,7 @@
 
 			<div class='box-affect'>
 
-				<input type='checkbox' name='affect_all' value='1' />
+				<input type='checkbox' name='affect_all' value='1' class='checkbox' />
 				{$xLang->misc['affectAll']}
 
 			</div>

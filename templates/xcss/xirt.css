@@ -150,12 +150,17 @@ form, body, div, table, td, tr, ul, li, p, legend, fieldset {
    border: 1px #000000 solid;
 }
 
-.xForm input[type=checkbox],
-.xForm input[type=radio] {
+.xForm input.radio,     /* IE8 fix */
+.xForm input.checkbox,  /* IE8 fix */
+.xForm input[type=radio],
+.xForm input[type=checkbox] {
+   border: 0;
+   padding: 0;
    width: auto;
-   height: 25px;
-   margin: 10px 5px 5px 0;
+   height: auto;
+   margin: 1px 7px 0 3px;
    vertical-align: bottom;
+   background: inherit;
 }
 
 .xForm .label-radio {

@@ -1,4 +1,4 @@
-<di id='dvItem' style='display: none;'>
+<div id='dvItem' style='display: none;'>
 
 <form action='index.php' method='post' class='xForm'>
 

@@ -13,9 +13,9 @@
 
 		<label for='x_recording'>{$xLang->labels['recordTerms']}</label>
 
-		<input type='radio' name='x_recording' value='1' {if $xConf->recording}checked='checked'{/if}/>
+		<input type='radio' name='x_recording' value='1' class='radio' {if $xConf->recording}checked='checked'{/if}/>
 		<span class='label-radio'>{$xLang->options['positive']}</span>
-		<input type='radio' name='x_recording' value='0' {if !$xConf->recording}checked='checked'{/if}/>
+		<input type='radio' name='x_recording' value='0' class='radio' {if !$xConf->recording}checked='checked'{/if}/>
 		<span class='label-radio'>{$xLang->options['negative']}</span>
 
 		<br />

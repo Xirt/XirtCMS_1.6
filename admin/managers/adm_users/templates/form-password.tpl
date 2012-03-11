@@ -6,7 +6,7 @@
 
 	<fieldset class='box-form'>
 
-		<input type='checkbox' name='randomizer' id='randomizer' value='0' />
+		<input type='checkbox' name='randomizer' id='randomizer' value='0' class='checkbox' />
 		{$xLang->misc['randomizePassword']}
 
 	</fieldset>

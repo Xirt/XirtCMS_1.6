@@ -1,0 +1,13 @@
+.xirt-alert,
+.xirt-window,
+.xForm button,
+.xForm fieldset,
+.xForm div.box-fieldset {
+   border: 1px #c0c0c0 solid;
+}
+
+/* Back-end */
+div.box-submenu,
+div.box-container {
+   border: 1px #c0c0c0 solid;
+}
