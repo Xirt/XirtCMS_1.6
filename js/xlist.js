@@ -7,10 +7,12 @@ var XList = new Class({
 
 	options: {
 		
-		sortable: false,  // Toggles sorting
-		options: true,	 // Unused yet
-		sortables: [],	 // The columns that can be sorted
-		column: 'id'		// The column to sort on (init)
+		sortable: false, // Toggles sorting
+		options: true,   // Unused yet
+		sortables: [],	  // The columns that can be sorted
+		column: 'id',    // The column to sort on (init)
+		order: 'ASC',    // The order to sort (init)
+		limit: 999       // The limit (init)
 
 	},
 
@@ -18,14 +20,15 @@ var XList = new Class({
 	column: null,
 	order: 'ASC',
 	columns: [],
-	
+	limit: 999,
 	
 	// MEHOD :: CONSTRUCTOR
 	initialize: function(component, options) {
 
-		this.table	  = $('table');
+		this.table	   = $('table');
 		this.component = component;
 		this.container = $('container');
+		this.scrollbox = this.table.getElement('.box-scroll'); 
 
 		// Override options
 		this.setOptions(options);
@@ -46,9 +49,15 @@ var XList = new Class({
 		}, this);
 
 		// Initialize
+		this._resize();
 		this.initLanguageBox();
-		this.sort(this.options.column);
+		this.setColumn(this.options.column);
+		this.setOrder(this.options.order);
+		this.setLimit(this.options.limit);
 		
+		// Triggers
+		window.addEvent('resize', this._resize.bind(this));
+
 	},
 
 	// Initializes the language box (optional)
@@ -90,6 +99,7 @@ var XList = new Class({
 			task: 'show_content_list',
 			column: this.column,
 			order: this.order,
+			limit: this.limit,
 			iso: XManager.language
 		});
 		
@@ -109,8 +119,8 @@ var XList = new Class({
 			this.list[this.list.length] = item;
 		}, this);
 
-		//this.sort();
 		this._show();
+
 	},
 
 	_show: function() {
@@ -126,10 +136,20 @@ var XList = new Class({
 				opacity: 0.5,
 				onStart: function() {},
 				onSort: function() {}
-			 });
+			});
+
 			el.addClass('sortable').store('column', column);
 			
 		}
+
+	},
+	
+	_resize: function() {
+
+		this.scrollbox.setStyles({
+			'max-height' : Math.max(window.getSize().y - 325, 200)
+		});
+
 	},
 
 	show: function() {
@@ -207,7 +227,7 @@ var XList = new Class({
 		this.container.empty();
 	},
 	
-	sort: function(column) {
+	setColumn: function(column) {
 		
 		// Modify list order
 		this.order = (this.order == 'ASC') ? 'DESC' : 'ASC';
@@ -224,6 +244,15 @@ var XList = new Class({
 
 		}, this);
 		
+	},
+	
+	setOrder: function(order) {	
+		this.order = (order == 'ASC') ? 'DESC' : 'ASC';
+		this.setColumn(this.column);
+	},
+	
+	setLimit: function(limit) {
+		this.limit = Math.abs(limit);
 	},
 
 	// (Re-)Style list
@@ -281,7 +310,7 @@ var XList = new Class({
 	// Sorts items in list
 	_onSort: function(e) {
 		
-		this.sort(e.target.retrieve('column'));
+		this.setColumn(e.target.retrieve('column'));
 		this.reload();
 		
 	},
