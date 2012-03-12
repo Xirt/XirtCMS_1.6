@@ -126,6 +126,7 @@ class XLog {
     * @param $data Extended information on event
     */
    private function _log($data) {
+      global $xConf;
 
       // Capture error-control (@)
       if (0 === error_reporting()) {
@@ -146,7 +147,12 @@ class XLog {
             exit;
 
          default:
-            $this->_display($data);
+
+            // Hides notices / warnings in live-mode
+            if ($xConf->debugMode && $data->error_no < E_USER_ERROR) {
+               $this->_display($data);
+            }
+
             break;
 
       }
