@@ -4,18 +4,19 @@
 <head>
 {XPage::addScript('managers/adm_login/js/main.js')}
 {XPage::addStylesheet('managers/adm_login/css/main.css', 1)}
+{XPage::addStylesheet('managers/adm_login/css/msie.css', 1, true)}
 {XInclude::header()}
 </head>
 
 <body>
 
-<div class='mainBar'>
+<div class='bar-main'>
 
    <form action='index.php' method='post' id='form-login' class='xForm'>
 
-      <div class='loginBox'>
+      <div class='box-login'>
 
-         <div class='contentBox'>
+         <div class='box-content'>
 
             {$xLang->texts['login']}
 

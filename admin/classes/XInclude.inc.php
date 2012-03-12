@@ -45,7 +45,9 @@ class XInclude {
 
       // Prepare stylesheets
       asort($xPage->_stylesheets);
+      asort($xPage->_stylesheetsMSIE);
       $xPage->_stylesheets = array_keys($xPage->_stylesheets);
+      $xPage->_stylesheetsMSIE = array_keys($xPage->_stylesheetsMSIE);
 
       // Prepare JavaScript files (combine if requested)
       if (!$xConf->debugMode && $xConf->combineScripts) {
@@ -73,6 +75,7 @@ class XInclude {
       $tpl->assign('scripts', $xPage->_scripts);
       $tpl->assign('metatags', $xPage->_metatags);
       $tpl->assign('stylesheets', $xPage->_stylesheets);
+      $tpl->assign('stylesheets_ie', $xPage->_stylesheetsMSIE);
       $tpl->display('templates/xtemplates/display-header.tpl');
 
       $xPage->sentHeaders = true;

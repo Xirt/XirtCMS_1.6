@@ -18,7 +18,9 @@
 {/foreach}
 
 <!--[if lt IE 9]>
-   <link type='text/css' href='templates/xcss/msie.css' rel='stylesheet' />
+{foreach from=$stylesheets_ie item=src}
+   <link type='text/css' href='{$src}' rel='stylesheet' />
+{/foreach}
 <![endif]-->
 
 {foreach from=$scripts item=src}

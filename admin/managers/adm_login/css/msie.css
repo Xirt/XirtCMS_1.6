@@ -1,0 +1,8 @@
+div.box-login,
+div.box-login fieldset {
+   border: 1px #808080 solid;
+}
+
+div.box-login div.box-content input {
+   width: 258px;
+}

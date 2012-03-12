@@ -6,6 +6,10 @@
    border: 1px #c0c0c0 solid;
 }
 
+.xirt-window {
+   border-top: 0;
+}
+
 /* Back-end */
 div.box-submenu,
 div.box-container {
