@@ -32,7 +32,7 @@ class mod_showcase extends XModule {
       $tpl->assign('id',     rand());
       $tpl->assign('xConf',  $this->xConf);
       $tpl->assign('images', $this->_getImageList());
-      $tpl->display('template.tpl');
+      $tpl->display('templates/template.tpl');
 
    }
 
@@ -180,11 +180,13 @@ class mod_showcase extends XModule {
          @closedir($dh);
       }
 
-      // Limit the list
+      // Limited lists must be shuffled
       if (count($list) > $this->xConf->amount && shuffle($list)) {
          return array_slice($list, 0, $this->xConf->amount);
       }
 
+      // Otherwise return sorted
+      sort($list);
       return $list;
    }
 
