@@ -27,7 +27,7 @@
       <br />
 
       <label for='x_yubikey'>{$xLang->labels['yubikey']}</label>
-      <input type='text' name='x_yubikey' value='' class='validate-alphanum maxLength:12' />
+      <input type='text' name='x_yubikey' value='' class='validate-alphanum' maxlength='12' />
 
    </fieldset>
 
