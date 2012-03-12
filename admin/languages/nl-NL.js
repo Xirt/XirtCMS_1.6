@@ -33,7 +33,7 @@ var XLang = {
       'validate-phone'           : 'Vul een valide telefoonnummer in.',
       'validate-match'           : 'De waarden van deze velden moeten overeenkomen.',
       'minLength'                : 'De ingevoerde waarde is te kort.',
-      'maxLenght'                : 'De ingevoerde waarde is te lang.',
+      'maxLength'                : 'De ingevoerde waarde is te lang.',
       'validate-password'        : 'Password is niet sterk (complex) genoeg.',
       'validate-required-check'  : 'Deze checkbox is verplicht.',
       'validate-custom-required' : 'Dit veld is verplicht.',

@@ -83,9 +83,10 @@ class ContentManager {
 
       }
 
-      $user->set('mail',   $newMail);
-      $user->set('name',   XTools::getParam('x_name'));
-      $user->set('editor', XTools::getParam('x_editor', 0, _INT));
+      $user->set('mail',    $newMail);
+      $user->set('name',    XTools::getParam('x_name'));
+      $user->set('yubikey', XTools::getParam('x_yubikey'));
+      $user->set('editor',  XTools::getParam('x_editor', 0, _INT));
       $user->save();
 
    }

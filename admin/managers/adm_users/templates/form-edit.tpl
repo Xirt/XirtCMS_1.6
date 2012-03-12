@@ -24,6 +24,11 @@
       <label for='x_editor'>{$xLang->labels['editor']}</label>
       {html_options name=x_editor options=$xLang->options['editors']}
 
+      <br />
+
+      <label for='x_yubikey'>{$xLang->labels['yubikey']}</label>
+      <input type='text' name='x_yubikey' value='' class='validate-alphanum maxLength:12' />
+
    </fieldset>
 
    <div class='box-buttons'>
