@@ -49,7 +49,7 @@ var XLang = {
       'validate-phone'           : "Please fill in a valid phone number.",
       'validate-match'           : "This value should match the previous field.",
       'minLength'                : "The inserted value is too short.",
-      'maxLenght'                : "The inserted value is too long.",
+      'maxLength'                : "The inserted value is too long.",
       'validate-password'        : "Password is not a valid format.",
       'validate-required-check'  : "This checkbox is required.",
       'validate-custom-required' : "This field is required.",
