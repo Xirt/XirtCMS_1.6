@@ -41,6 +41,12 @@ class XPage {
 
 
    /**
+    * @var List holding all MSEI-CSS files for the page (version 8 and lower)
+    */
+   var $_stylesheetsMSIE = array();
+
+
+   /**
     * @var Variables holding the page content for showing
     */
    var $_content = null;
@@ -92,6 +98,7 @@ class XPage {
          $this->addInformation('description',   $xConf->description);
 
          $this->addStylesheet('templates/xcss/xirt_front.css', 0);
+         $this->addStylesheet('templates/xcss/msie.css', 0, true);
 
          $this->addScript(sprintf('languages/%s.js', $xConf->language));
          $this->addScript($path . 'mootools.js');
@@ -278,11 +285,17 @@ class XPage {
     *
     * @param $file String with path to filename
     * @param $prio int for setting the priority of the file (defaults 1)
+    * @param $msie int toggling MS Internet Explorer only modus (version 8-)
     */
-   public static function addStylesheet($file, $prio = 1) {
+   public static function addStylesheet($file, $prio = 1, $msie = 0) {
       global $xPage;
 
-      $xPage->_stylesheets[$file] = $prio;
+      if ($msie) {
+         $xPage->_stylesheetsMSIE[$file] = $prio;
+      } else {
+         $xPage->_stylesheets[$file] = $prio;
+      }
+
    }
 
 
