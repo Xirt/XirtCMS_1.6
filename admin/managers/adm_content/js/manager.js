@@ -42,21 +42,15 @@ var XManager = new Class({
    },
    
    showEditPanel: function() {
-
       XManager.editor.load(this.retrieve('id'));
-
    },
 
    showConfigPanel: function() {
-
       new ConfigPanel(this.retrieve('id'));
-
    },
 
    showAccessPanel: function() {
-
       new AccessPanel(this.retrieve('id'));
-
    }
 
 });
@@ -112,7 +106,6 @@ var EditPanel = new Class({
       this.hasEditor = !!CKEDITOR;
       this.jsEditor  = this.hasEditor ? CKEDITOR.instances.x_content : null;
       this.rawEditor = this.hasEditor ? null : $('x_content');
-
       this.setOptions(options);
       this._validation();
       
@@ -127,7 +120,7 @@ var EditPanel = new Class({
 
          if (this.hasEditor) {
 
-            this.jsEditor.setReadOnly(false);
+            //this.jsEditor.setReadOnly(false);
             this.jsEditor.setData(json.content);
 
          } else {
@@ -147,7 +140,7 @@ var EditPanel = new Class({
          if (this.hasEditor) {
 
             this.jsEditor.updateElement();
-            this.jsEditor.setReadOnly(true);
+            //this.jsEditor.setReadOnly(true);
 
          }
 
@@ -169,7 +162,7 @@ var EditPanel = new Class({
       if (this.hasEditor) {
       
          this.jsEditor.setData(XLang.messages['loading']);
-         this.jsEditor.setReadOnly(true);
+         //this.jsEditor.setReadOnly(true);
 
       } else {
 

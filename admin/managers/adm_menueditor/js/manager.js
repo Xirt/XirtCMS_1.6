@@ -125,9 +125,14 @@ var XManager = new Class({
    // METHOD :: Switch the currently selected link type
    selectLinkType: function() {
 
-      var cVal = this.value;
-      $$('select[size=15]').each(function(cEl) {
-         (cEl.id.substr(-1) != cVal) ? cEl.hide() : cEl.show();
+      var value = this.value;
+
+      $$('select[size=15]').each(function(el) {
+      	
+      	el = $(el);
+      	var id = el.get('id');
+      	(id.substr(id.length - 1) != value) ? el.hide() : el.show();
+
       });
 
    },
@@ -161,7 +166,7 @@ var AddPanel = new Class({
 
    Extends: AddPanel,
 
-   // METHOD :: Initializes panel
+   // Initializes panel
    initialize: function() {
 
       this.panel = 'dvAdd';
@@ -188,7 +193,7 @@ var EditNodePanel = new Class({
 
    Extends: ManagePanel,
 
-   // METHOD :: Initializes panel
+   // Initializes panel
    initialize: function(id) {
 
       this.panel = 'dvItem';
@@ -211,7 +216,7 @@ var EditConfigPanel = new Class({
 
    Extends: ManagePanel,
 
-   // METHOD :: Initializes panel
+   // Initializes panel
    initialize: function(id) {
 
       this.panel = 'dvConfig';
@@ -245,7 +250,7 @@ var AccessPanel = new Class({
 
    Extends: ManagePanel,
 
-   // METHOD :: Initializes panel
+   // Initializes panel
    initialize: function(id) {
 
       this.panel = 'dvAccess';

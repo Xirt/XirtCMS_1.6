@@ -214,8 +214,8 @@ var EditPanel = new Class({
 			path = paths.join('/') + '/';
 
 			Object.every(options, function(option) {
-				
-				if (option.value == path) {
+
+				if (options == path) {
 					
 					this.form.x_path.set('value', path);
 					return (looping = false);

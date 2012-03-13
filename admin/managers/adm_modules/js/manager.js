@@ -11,21 +11,15 @@ var XManager = new Class({
    },
 
    showEditPanel: function() {
-
       new EditPanel(this.retrieve('id'));
-
    },
 
    showConfigPanel: function() {
-
       new ConfigPanel(this.retrieve('id'));
-
    },
 
    showAccessPanel: function() {
-
       new AccessPanel(this.retrieve('id'));
-
    }
 
 });
@@ -56,6 +50,7 @@ var AddPanel = new Class({
       });
 
       this.parent();
+
    }
 
 });
@@ -83,7 +78,7 @@ var EditPanel = new Class({
          form.affect_all.set('checked', false);
 
          var container = $('configuration').empty();
-         Object.every(json.config, function(data) {
+         Object.every(json.config, function(data, key) {
 
             switch (data.type) {
 
@@ -97,8 +92,7 @@ var EditPanel = new Class({
 
             }
 
-            return container.grab(new Element('br'));
-
+            return true;
          }, this);
 
       }, this);
@@ -169,8 +163,10 @@ var ConfigPanel = new Class({
          var pages = json.pages.split('|');
          Array.each(form.pages, function(el) {
 
-            el.set('selected', false);
-            if (pages.contains(el.value)) {
+            el = $(el);
+         	el.set('selected', false);
+
+         	if (pages.contains(el.get('value'))) {
                el.set('selected', true);
             }
 
@@ -191,7 +187,7 @@ var ConfigPanel = new Class({
 
          });
 
-         form.x_pages.set('value', '|' + pages.join('|') + '|');                // Pipes naar PHP verhuizen ?
+         form.x_pages.set('value', '|' + pages.join('|') + '|');
       });
 
       this.parent(id, { 'width' : 525 });
