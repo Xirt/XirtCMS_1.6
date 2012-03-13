@@ -25,7 +25,7 @@ class ContentManager {
       $item->set('title',       XTools::getParam('nx_title'));
       $item->set('category',    XTools::getParam('nx_category'));
       $item->set('language',    XTools::getParam('nx_language'));
-      $item->set('created',     date('Y-m-d H:i:s'));
+      $item->set('created',     date('c'));
 
       $list->add($item);
 
@@ -54,7 +54,7 @@ class ContentManager {
             $item->set('published',   0);
             $item->set('content',     '');
             $item->set('language',    $iso);
-            $item->set('created',     time());
+            $item->set('created',     date('c'));
             $item->set('author_id',   $xUser->id);
             $item->set('author_name', $xUser->username);
             $item->set('title',       $item->title . '*');
@@ -76,7 +76,7 @@ class ContentManager {
       // Save content
       $item = new Translation();
       $item->load(XTools::getParam('id', 0, _INT));
-      $item->set('modified',         time());
+      $item->set('modified',         date('c'));
       $item->set('modifier_id',      $xUser->id);
       $item->set('modifier_name',    $xUser->username);
       $item->set('title',            XTools::getParam('x_title'));
