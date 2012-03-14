@@ -1,0 +1,11 @@
+.xirt-alert,
+.xirt-window,
+.xForm button,
+.xForm fieldset,
+.xForm div.box-fieldset {
+   border: 1px #c0c0c0 solid;
+}
+
+.xirt-window {
+   border-top: 0;
+}

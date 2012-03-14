@@ -98,7 +98,7 @@ class XPage {
          $this->addInformation('description',   $xConf->description);
 
          $this->addStylesheet('templates/xcss/xirt_front.css', 0);
-         $this->addStylesheet('templates/xcss/msie.css', 0, true);
+         $this->addStylesheet('templates/xcss/msie_front.css', 0, true);
 
          $this->addScript(sprintf('languages/%s.js', $xConf->language));
          $this->addScript($path . 'mootools.js');
