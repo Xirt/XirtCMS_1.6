@@ -2,30 +2,31 @@
 
 /**
  * Object containing details about a file
- * TODO: Needs new commenting / refacturing
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class File extends XFile {
 
-   var $name = null;
-   var $path = null;
+   /**
+    * @var The type of the instance
+    */
    var $type = null;
 
 
    /**
     * Initializes object with details about the file / directory
     *
-    * @param $path The path to the file / directory
-    * @param $file The name of the new file
+    * @param $path The path to the file
+    * @param $file The name of the file
     */
    function __construct($path, $file) {
 
       parent::__construct($path, $file);
       $this->_init();
+
    }
 
 
@@ -39,8 +40,7 @@ class File extends XFile {
       $this->type       = $this->_getType();
       $this->writable   = is_writable($this->file);
       $this->dimensions = $this->_getDimensions();
-
-      $this->chmod = $this->getPermissions();
+      $this->chmod      = $this->getPermissions();
 
    }
 
@@ -60,20 +60,33 @@ class File extends XFile {
    }
 
 
+   /**
+    * Returns the dimenions for this image (if the instance is an image)
+    *
+    * @access private
+    * @return String The dimensions for this image or null
+    */
    private function _getDimensions() {
+      global $xCom;
 
       $type = isset($this->type) ? $this->_getType() : $this->type;
       if ($this->type != 'image' || !($img = @getimagesize($this->path))) {
          return null;
       }
 
-      return sprintf("%s x %s pixels", $img[0], $img[1]);
+      return sprintf($xCom->xLang->misc['dimensions'], $img[0], $img[1]);
    }
 
 
+   /**
+    * Returns the type for this file (or unknown)
+    *
+    * @access private
+    * @return String The dimensions for this image or null
+    */
    private function _getType() {
 
-      $extList = array (
+      $extensions = array (
          'archive'  => array('7z', 'deb', 'gz', 'pkg', 'rar', 'gz', 'zip'),
          'cer'      => array('cer', 'csr'),
          'document' => array('doc', 'docx', 'odt'),
@@ -96,17 +109,17 @@ class File extends XFile {
          )
       );
 
-      $fileParts = explode('.', $this->name);
-      $ext = array_pop($fileParts);
-      foreach ($extList as $type => $associatedExtensions) {
+      $ext = array_pop(explode('.', $this->name));
 
-         if (in_array($ext, $associatedExtensions)) {
+      foreach ($extensions as $type => $associates) {
+
+         if (in_array($ext, $associates)) {
             return $type;
          }
 
       }
 
-      return is_dir($this->file) ? 'folder' : 'unknown';
+      return 'unknown';
    }
 
 

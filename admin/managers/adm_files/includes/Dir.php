@@ -2,29 +2,30 @@
 
 /**
  * Object containing details about a directory
- * TODO: Needs new commenting / refacturing
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Dir extends XDir {
 
-   var $name = null;
-   var $path = null;
-   var $type = null;
+   /**
+    * @var The type of the instance (compatibility with files)
+    */
+   var $type = 'folder';
 
 
    /**
     * Initializes object with details about the file / directory
     *
-    * @param $path The path to the file / directory
+    * @param $path The path to the directory
     */
    function __construct($path) {
 
       parent::__construct($path);
       $this->_init();
+
    }
 
 
@@ -35,10 +36,9 @@ class Dir extends XDir {
     */
    private function _init() {
 
-      $this->type       = $this->_getType();
-      $this->writable   = is_writable($this->path);
-
-      $this->chmod = $this->getPermissions();
+      $this->type     = $this->_getType();
+      $this->writable = is_writable($this->path);
+      $this->chmod    = $this->getPermissions();
 
    }
 
@@ -55,13 +55,6 @@ class Dir extends XDir {
       }
 
       return substr(decoct(fileperms($this->path)), -3);
-   }
-
-
-   private function _getType() {
-
-      return 'folder';
-
    }
 
 

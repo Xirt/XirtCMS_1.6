@@ -13,7 +13,7 @@ class XDir {
    /**
     * Constructor
     *
-    * @param $path The location of the new file
+    * @param $path The path to the directory
     */
    function __construct($path) {
 

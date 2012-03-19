@@ -13,8 +13,8 @@ class XFile {
    /**
     * Constructor
     *
-    * @param $path The location of the new file
-    * @param $file The name of the new file
+    * @param $path The path to the file
+    * @param $file The name of the file
     */
    function __construct($path, $file) {
 
