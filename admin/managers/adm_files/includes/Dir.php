@@ -36,7 +36,6 @@ class Dir extends XDir {
     */
    private function _init() {
 
-      $this->type     = $this->_getType();
       $this->writable = is_writable($this->path);
       $this->chmod    = $this->getPermissions();
 

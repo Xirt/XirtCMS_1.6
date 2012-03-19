@@ -69,8 +69,7 @@ class File extends XFile {
    private function _getDimensions() {
       global $xCom;
 
-      $type = isset($this->type) ? $this->_getType() : $this->type;
-      if ($this->type != 'image' || !($img = @getimagesize($this->path))) {
+      if ($this->type != 'image' || !($img = @getimagesize($this->file))) {
          return null;
       }
 
