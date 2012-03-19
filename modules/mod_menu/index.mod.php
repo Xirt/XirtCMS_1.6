@@ -4,7 +4,7 @@ require_once('MenuLink.php');
 
 /**
  * This module shows a menu with defined specifications
- * TODO: Rewrite using Object Oriented approach
+ * TODO: 1.7 - Rewrite using Object Oriented approach
  *
  * @author     A.G. Gideonse
  * @version    1.6

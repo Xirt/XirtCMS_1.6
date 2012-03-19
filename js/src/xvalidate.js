@@ -48,7 +48,7 @@ Form.Validator.add('validate-simple', {
 
 /**
  * Validates password strength
- * TODO: Include password strength indication (show or return)
+ * TODO: 1.7 - Include password strength indication (show or return)
  */
 Form.Validator.add('validate-password', {
 	

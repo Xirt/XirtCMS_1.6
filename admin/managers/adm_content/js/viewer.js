@@ -48,7 +48,7 @@ var CategoryList = new Class({
          Array.each(this.list, function(option) {
 
             var level = parseInt(option.level);
-            var indent = XAdmin.createIdent((level - 1) * 2, '- ');
+            var indent = XAdmin.indent((level - 1) * 2, '- ');
             
             el.grab(new Element('option', {
                value: option.xid,

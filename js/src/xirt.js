@@ -671,7 +671,8 @@ var PDF = new Class({
 
 
 /**
- * Class for submitting forms (prevents MooTools bug)
+ * Class for submitting forms
+ * Prevents MooTools 'bug' #1066 on https://mootools.lighthouseapp.com
  * 
  * Extends: Request (MooTools)
  */
@@ -689,3 +690,22 @@ Request.Form = new Class({
 	}
 
 });
+
+
+
+/**
+ * Class for mass resetting forms
+ * 
+ * Extends: Forms (MooTools)
+ */
+Forms = {
+	
+	reset : function() {
+
+		Array.each($$('form'), function(el) {
+			el.reset();
+		});
+
+	}
+
+};

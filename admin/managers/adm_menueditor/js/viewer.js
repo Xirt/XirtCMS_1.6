@@ -59,7 +59,7 @@ var ContentList = new Class({
 
          if (item.level > 1) {
             
-            var indent = XAdmin.createIdent((item.level - 1) * 5);
+            var indent = XAdmin.indent((item.level - 1) * 5);
             cell.appendText(indent);
             cell.grab(new Element('sup', { text : 'L' }));
             
@@ -202,7 +202,7 @@ var ContentList = new Class({
 
       this.list.each(function (item) {
 
-         var indent = XAdmin.createIdent((item.level - 1) * 5, '- ');
+         var indent = XAdmin.indent((item.level - 1) * 5, '- ');
          el.grab(new Element('option', {
             value : item.xid,
             text : indent + item.name
