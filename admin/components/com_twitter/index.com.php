@@ -1,11 +1,5 @@
 <?php
 
-require_once('includes/Tweet.php');
-require_once('includes/Viewer.php');
-require_once('includes/Manager.php');
-require_once('includes/Template.php');
-require_once('includes/TweetList.php');
-
 /**
  * Component to manage saved Twitter tweets
  *
@@ -20,13 +14,7 @@ class Component extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('components/com_twitter/css/main.css');
-      XPage::addScript('components/com_twitter/js/viewer.js');
-      XPage::addScript('components/com_twitter/js/manager.js');
-
-      Viewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
 
@@ -41,22 +29,22 @@ class Component extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            Viewer::showList();
+            new TweetsController('TweetsModel', 'TweetsView', 'show');
             return;
 
          case 'show_item':
-            Viewer::showItem();
+            new TweetController('TweetModel', 'TweetView', 'show');
             return;
 
          /*
           * Modify methods
           */
          case 'toggle_status':
-            Manager::toggleStatus();
+            new TweetController('TweetModel', null, 'toggleStatus');
             return;
 
          case 'remove_item':
-            Manager::removeItem();
+            new TweetController('TweetModel', null, 'delete');
             return;
 
       }

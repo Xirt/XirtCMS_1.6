@@ -11,47 +11,47 @@
       <hr />
 
       <label for='item_css_name'>{$xLang->labels['CSSName']}</label>
-      <input type='text' name=item_css_name value='{$xConf->css_name}' maxlength='64' class='validate-simple' />
+      <input type='text' name=item_css_name value='{$configuration->css_name}' maxlength='64' class='validate-simple' />
 
       <br />
 
       <label for='item_show_title'>{$xLang->labels['showTitle']}</label>
-      {html_options name=item_show_title id=item_show_title options=$options selected=$xConf->show_title}
+      {html_options name=item_show_title id=item_show_title options=$options selected=$configuration->show_title}
 
       <br />
 
       <label for='item_show_author'>{$xLang->labels['showAuthor']}</label>
-      {html_options name=item_show_author id=item_show_author options=$options selected=$xConf->show_author}
+      {html_options name=item_show_author id=item_show_author options=$options selected=$configuration->show_author}
 
       <br />
 
       <label for='item_show_created'>{$xLang->labels['showCreated']}</label>
-      {html_options name=item_show_created id=item_show_created options=$options selected=$xConf->show_created}
+      {html_options name=item_show_created id=item_show_created options=$options selected=$configuration->show_created}
 
       <br />
 
       <label for='item_show_modified'>{$xLang->labels['showModified']}</label>
-      {html_options name=item_show_modified id=item_show_modified options=$options selected=$xConf->show_modified}
+      {html_options name=item_show_modified id=item_show_modified options=$options selected=$configuration->show_modified}
 
       <br />
 
       <label for='item_back_icon'>{$xLang->labels['backIcon']}</label>
-      {html_options name=item_back_icon id=item_back_icon options=$options selected=$xConf->back_icon}
+      {html_options name=item_back_icon id=item_back_icon options=$options selected=$configuration->back_icon}
 
       <br />
 
       <label for='item_download_icon'>{$xLang->labels['downloadIcon']}</label>
-      {html_options name=item_download_icon id=item_download_icon options=$options selected=$xConf->download_icon}
+      {html_options name=item_download_icon id=item_download_icon options=$options selected=$configuration->download_icon}
 
       <br />
 
       <label for='item_print_icon'>{$xLang->labels['printIcon']}</label>
-      {html_options name=item_print_icon id=item_print_icon options=$options selected=$xConf->print_icon}
+      {html_options name=item_print_icon id=item_print_icon options=$options selected=$configuration->print_icon}
 
       <br />
 
       <label for='item_mail_icon'>{$xLang->labels['mailIcon']}</label>
-      {html_options name=item_mail_icon id=item_mail_icon options=$options selected=$xConf->mail_icon}
+      {html_options name=item_mail_icon id=item_mail_icon options=$options selected=$configuration->mail_icon}
 
       <hr />
 

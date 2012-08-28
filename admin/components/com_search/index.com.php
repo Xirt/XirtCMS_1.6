@@ -1,14 +1,7 @@
 <?php
 
-require_once('includes/Term.php');
-require_once('includes/Viewer.php');
-require_once('includes/Manager.php');
-require_once('includes/Template.php');
-require_once('includes/TermList.php');
-
-
 /**
- * Manager for XirtCMS links
+ * Manager for XirtCMS Search Terms
  *
  * @author     A.G. Gideonse
  * @version    1.6
@@ -21,13 +14,7 @@ class Component extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('components/com_search/css/main.css');
-      XPage::addScript('components/com_search/js/manager.js');
-      XPage::addScript('components/com_search/js/viewer.js');
-
-      Viewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
 
@@ -42,31 +29,31 @@ class Component extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            Viewer::showList();
+            new TermsController('TermsModel', 'TermsView', 'show');
             return;
 
          case 'show_item':
-            Viewer::showItem();
+            new TermController('TermModel', 'TermView', 'show');
             return;
 
 
          /*
           * Modify methods
           */
-         case 'edit_config':
-            Manager::editConfig();
-            return;
-
          case 'add_item':
-            Manager::addItem();
+            new TermController('TermModel', null, 'add');
             return;
 
          case 'edit_item':
-            Manager::editItem();
+            new TermController('TermModel', null, 'edit');
+            return;
+
+         case 'edit_config':
+            new ComponentController('ComponentModel', null, 'edit');
             return;
 
          case 'remove_item':
-            Manager::removeItem();
+            new TermController('TermModel', null, 'delete');
             return;
 
       }

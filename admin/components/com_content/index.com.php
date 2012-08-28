@@ -1,11 +1,7 @@
 <?php
 
-require_once('includes/Viewer.php');
-require_once('includes/Manager.php');
-require_once('includes/Template.php');
-
 /**
- * Manager for XirtCMS static content viewer
+ * Manager for the default XirtCMS Content Viewer
  *
  * @author     A.G. Gideonse
  * @version    1.6
@@ -18,12 +14,7 @@ class Component extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('components/com_content/css/main.css');
-      XPage::addScript('components/com_content/js/main.js');
-
-      Viewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
 
@@ -31,7 +22,7 @@ class Component extends XComponent {
     * Handles any AJAX requests
     */
    function showAjax() {
-      Manager::save();
+      new ConfigurationController('ConfigurationModel', null, 'edit');
    }
 
 }

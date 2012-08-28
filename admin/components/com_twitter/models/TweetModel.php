@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Object containing details about a Twitter tweet
+ * Model for single Tweets
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2011 - 2012
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
-class Tweet extends XItem {
+class TweetModel extends XItemModel {
 
    /**
     * Loads item information from the database
@@ -29,19 +29,8 @@ class Tweet extends XItem {
    /**
     * Removes item from the database
     */
-   public function remove() {
-      parent::removeFromDatabase('#__twitter');
-   }
-
-
-   /**
-    * Toggles publication status
-    */
-   public function toggleStatus() {
-
-      $this->set('published', intval(!$this->published));
-      $this->save();
-
+   public function delete() {
+      parent::deleteFromDatabase('#__twitter');
    }
 
 }

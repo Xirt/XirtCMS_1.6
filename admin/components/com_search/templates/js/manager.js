@@ -121,6 +121,7 @@ var ConfigPanel = new Class({
 
 		this.panel = 'dvConfig';
 		this.parent(0);
+		this.show();
 
 	},
 
