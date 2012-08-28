@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xinstall type='module'>
+	<name>Toggle Mobile Button</name>
+	<module>mobile</module>
+	<version>1.0</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorEmail>info@xirtcms.com</authorEmail>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+	<description><![CDATA[ This module allows switching between normal and mobile vieuwing mode ]]></description>
+	<params>
+		<param name='css_class' type='text' default='' label='CSS Class'
+			description='A class that will be added to the container of the module' />
+	</params>
+</xinstall>
