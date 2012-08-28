@@ -1,11 +1,5 @@
 <?php
 
-require_once('includes/Translation.php');
-require_once('includes/ContentList.php');
-require_once('includes/TranslationList.php');
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
  * Manager for XirtCMS static content
  *
@@ -20,13 +14,7 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_content/css/main.css');
-      XPage::addScript('managers/adm_content/js/viewer.js');
-      XPage::addScript('managers/adm_content/js/manager.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
    /**
@@ -40,19 +28,24 @@ class Manager extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showContentList();
+            new ContentsController('ContentsModel', 'ContentsView', 'show');
             return;
 
          case 'show_category_list':
-            ContentViewer::showCategoryList();
+
+            // TODO: Show XCategoryList using MVC structure
+            $list = new XCategoryList();
+            $list->load();
+            $list->show();
+
             return;
 
          case 'show_item':
-            ContentViewer::showItem();
+            new ContentController('ContentModel', 'ContentView', 'show');
             return;
 
          case 'show_details':
-            ContentViewer::showDetails();
+            new ContentController('ContentModel', 'ContentView', 'showDetails');
             return;
 
 
@@ -60,35 +53,38 @@ class Manager extends XComponent {
           * Modify methods
           */
          case 'add_content':
-            ContentManager::AddItem();
+            new ContentController('ContentModel', null, 'add');
             return;
 
          case 'add_translation':
-            ContentManager::addTranslation();
+            new ContentListController('ContentListModel', null, 'translate');
             return;
 
          case 'edit_item':
-            ContentManager::editItem();
+            new ContentController('ContentModel', null, 'edit');
+            new ContentListController('ContentListModel', null, 'edit');
             return;
 
          case 'edit_config':
-            ContentManager::editConfiguration();
+            new ContentController('ContentModel', null, 'editConfiguration');
+            new ContentListController('ContentListModel', null, 'editConfiguration');
             return;
 
          case 'edit_access':
-            ContentManager::editAccess();
+            new ContentController('ContentModel', null, 'editAccess');
+            new ContentListController('ContentListModel', null, 'editAccess');
             return;
 
          case 'toggle_mobile':
-            ContentManager::toggleMobile();
+            new ContentController('ContentModel', null, 'toggleMobile');
             return;
 
          case 'toggle_status':
-            ContentManager::toggleStatus();
+            new ContentController('ContentModel', null, 'toggleStatus');
             return;
 
          case 'remove_translation':
-            ContentManager::removeTranslation();
+            new ContentController('ContentModel', null, 'delete');
             return;
 
       }

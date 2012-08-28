@@ -18,7 +18,7 @@
          </td>
 
          <td>
-            {html_options options=$pagesList name=positions id=positions multiple=multiple size=14}
+            {html_options options=$pages name=positions id=positions multiple=multiple size=14}
             <input type='hidden' name='x_positions' id='x_positions' value='' />
          </td>
       </tr>

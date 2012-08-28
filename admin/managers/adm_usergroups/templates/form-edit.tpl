@@ -7,7 +7,7 @@
    <fieldset class='box-form'>
 
       <label for='x_rank'>{$xLang->labels['rank']} *</label>
-      {html_options options=$rankList name=x_rank id=x_rank}
+      {html_options options=$ranks name=x_rank id=x_rank}
 
       <br />
 
@@ -26,6 +26,7 @@
 
       <input type='hidden' name='content' value='adm_usergroups' />
       <input type='hidden' name='task' value='edit_item' />
+      <input type='hidden' name='xid' value='' />
       <input type='hidden' name='id' value='' />
 
       <button type='submit' class='save green left'>{$xLang->buttons['save']}</button>

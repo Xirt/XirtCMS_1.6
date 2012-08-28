@@ -12,12 +12,12 @@
       <br />
 
       <label for='nx_type'>{$xLang->labels['type']}</label>
-      {html_options options=$moduleList name=nx_type}
+      {html_options options=$modules name=nx_type}
 
       <br />
 
       <label for='nx_language'>{$xLang->labels['language']}</label>
-      {html_options options=$languageList name=nx_language}
+      {html_options options=$languages name=nx_language}
 
    </fieldset>
 

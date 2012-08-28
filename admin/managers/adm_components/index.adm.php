@@ -1,16 +1,11 @@
 <?php
 
-require_once('includes/Component.php');
-require_once('includes/ComponentList.php');
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
  * Manager for XirtCMS components
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Manager extends XComponent {
@@ -19,14 +14,9 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_components/css/main.css');
-      XPage::addScript('managers/adm_components/js/viewer.js');
-      XPage::addScript('managers/adm_components/js/manager.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
+
 
    /**
     * Handles any AJAX requests
@@ -39,19 +29,19 @@ class Manager extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showList();
+            new ComponentsController('ComponentsModel', 'ComponentsView', 'show');
             return;
 
          case 'show_item':
-            ContentViewer::showItem();
+            new ComponentController('ComponentModel', 'ComponentView', 'show');
             return;
 
 
-            /*
-             * Modify methods
-             */
+         /*
+          * Modify methods
+          */
          case 'edit_access':
-            ContentManager::editAccess();
+            new ComponentController('ComponentModel', null, 'editAccess');
             return;
 
       }

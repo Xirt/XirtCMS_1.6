@@ -17,7 +17,7 @@
       <br />
 
       <label for='plist'>{$xLang->labels['pages']}</label>
-      {html_options options=$pagesList name=pages id=pages multiple=multiple size=14}
+      {html_options options=$pages name=pages id=pages multiple=multiple size=14}
       <input type='hidden' name='x_pages' value=''/>
 
    </fieldset>

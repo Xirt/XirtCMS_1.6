@@ -1,10 +1,5 @@
 <?php
 
-require_once('includes/Template.php');
-require_once('includes/TemplateList.php');
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
  * Manager for XirtCMS templates
  *
@@ -19,13 +14,7 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_templates/css/main.css');
-      XPage::addScript('managers/adm_templates/js/manager.js');
-      XPage::addScript('managers/adm_templates/js/viewer.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
    /**
@@ -39,38 +28,39 @@ class Manager extends XComponent {
           * View methods
           */
          case "show_content_list":
-            ContentViewer::showList();
+            new TemplatesController('TemplatesModel', 'TemplatesView', 'show');
             return;
 
          case "show_item":
-            ContentViewer::showItem();
+            new TemplateController('TemplateModel', 'TemplateView', 'show');
             return;
 
-            /*
-             * Modify methods
-             */
+         /*
+          * Modify methods
+          */
          case "add_item":
-            ContentManager::addItem();
+            new TemplateController('TemplateModel', null, 'add');
             return;
 
          case "edit_item":
-            ContentManager::editItem();
+            new TemplateController('TemplateModel', null, 'edit');
             return;
 
          case "edit_config":
-            ContentManager::editConfiguration();
+            new TemplateController('TemplateModel', null, 'edit_config');
             return;
 
          case 'toggle_status':
-            ContentManager::toggleStatus();
+            new TemplateController('TemplateModel', null, 'toggle_status');
             return;
 
          case 'toggle_active':
-            ContentManager::toggleActive();
+            new TemplatesController('TemplatesModel', null, 'unset_active');
+            new TemplateController('TemplateModel', null, 'set_active');
             return;
 
          case "remove_item":
-            ContentManager::removeItem();
+            new TemplateController('TemplateModel', null, 'delete');
             return;
 
       }

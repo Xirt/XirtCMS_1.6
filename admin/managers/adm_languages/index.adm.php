@@ -1,11 +1,5 @@
 <?php
 
-require_once('includes/Language.php');
-require_once('includes/LanguageList.php');
-
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
  * Manager for XirtCMS languages
  *
@@ -20,13 +14,7 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_languages/css/main.css');
-      XPage::addScript('managers/adm_languages/js/viewer.js');
-      XPage::addScript('managers/adm_languages/js/manager.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
    /**
@@ -40,23 +28,23 @@ class Manager extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showList();
+            new LanguagesController('LanguagesModel', 'LanguagesView', 'show');
             return;
 
 
-            /*
-             * Modify methods
-             */
-         case 'move_down':
-            ContentManager::moveDown();
-            return;
-
+         /*
+          * Modify methods
+          */
          case 'move_up':
-            ContentManager::moveUp();
+            new LanguagesController('LanguagesModel', null, 'moveUp');
+            return;
+
+         case 'move_down':
+            new LanguagesController('LanguagesModel', null, 'moveDown');
             return;
 
          case 'toggle_status':
-            ContentManager::toggleStatus();
+            new LanguageController('LanguageModel', null, 'toggle');
             return;
 
       }

@@ -1,4 +1,4 @@
-<h1>{$xLang->titles['component']} &raquo; {$menuTitle}</h1>
+<h1>{$xLang->titles['component']} &raquo; {$title}</h1>
 
 <div class='listBox'>
 
@@ -6,7 +6,7 @@
 
    <div class='box-tools'>
 
-      <a href='javascript:;' onclick='history.go(-1);' title='{$xLang->misc['goBack']}' class='back'>{$xLang->misc['goBack']}</a>
+      <a href='index.php?content=adm_menus' title='{$xLang->misc['goBack']}' class='back'>{$xLang->misc['goBack']}</a>
       <a href='javascript:;' onclick='new AddPanel();' title='{$xLang->headers['addItem']}' class='new'>{$xLang->headers['addItem']}</a>
 
    </div>

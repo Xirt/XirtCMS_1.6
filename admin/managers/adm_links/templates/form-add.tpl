@@ -22,7 +22,7 @@
       <br />
 
       <label for='nx_language'>{$xLang->labels['ISO']}</label>
-      {html_options options=$languageList name=nx_language id=nx_language}
+      {html_options options=$languages name=nx_language id=nx_language}
 
    </fieldset>
 

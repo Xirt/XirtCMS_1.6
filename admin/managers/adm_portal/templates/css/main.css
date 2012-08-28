@@ -1,0 +1,142 @@
+.box-xlist {
+   width: 800px;
+}
+
+.box-scroll {
+   max-height: 250px;
+}
+
+.cell-id {
+   width: 55px;
+}
+
+.cell-error_no {
+   width: 40px;
+   text-align: center;
+}
+
+.cell-error_msg {
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.cell-time {
+   width: 125px;
+}
+
+th.cell-options {
+   width: 72px;
+   text-align: center;
+}
+
+td.cell-options {
+   width: 56px;
+   text-align: center;
+}
+
+
+/* Entry types */
+.type-512 {
+   background: url(../../../../images/cms/icons/warning.png) no-repeat center center;
+}
+
+.type-1024 {
+   background: url(../../../../images/cms/icons/notice.png) no-repeat center center;
+}
+
+
+/* Lay-over */
+#dvItem input {
+     background: inherit;
+     border: 0pt none;
+     width: 525px;
+     color: #333333;
+}
+
+
+
+
+
+.box-notice {
+	padding: 2px 7px;
+	margin: 10px 5px;
+	background: #DEECF7;
+	border: 1px #85C3E8 dashed;
+	border-width: 1px 0px;
+}
+
+.box-warning {
+	margin: 10px 5px;
+	background: #FEB3B1;
+	border: 1px #A40E0E dashed;
+	border-width: 1px 0px;
+}
+
+.box-warning img {
+	margin: 3px 8px 3px 3px;
+	vertical-align: middle;
+}
+
+.xirt-window .xirt-content {
+	font-family: Courier New;
+	font-size: 11px;
+}
+
+/*fieldset.box-form {
+	float: left;
+	width: 245px;
+	margin: 10px;
+}
+*/
+.box-form ul {
+	float: right;
+	margin: 0 0 5px 0;
+}
+
+.box-form li {
+	float: left;
+	margin: 0 5px 0 0;
+	list-style-type: none;
+	font-size: 10px;
+}
+
+legend {
+	clear: both;
+	background: #dbe5f1;
+	margin-left: 10px;
+	margin-bottom: 2px;
+	padding: 3px 10px;
+	border: 1px #d3d3d3 solid;
+	border-top-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	-moz-border-radius-topLeft: 10px;
+	-moz-border-radius-bottomRight: 10px;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+}
+
+div.portalBox {
+	float: left;
+	margin: 5px;
+	padding: 1px 5px;
+	width: 225px;
+	height: 65px;
+	background: #dbe5f1;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	cursor: pointer;
+}
+
+div.portalBox:hover {
+	background: #85c3e8;
+}
+
+div.portalBox img {
+	float: left;
+	margin-right: 10px;
+}
+
+div.portalBox h4 {
+	margin: 5px 0px 3px 0px;
+	padding: 0px;
+}

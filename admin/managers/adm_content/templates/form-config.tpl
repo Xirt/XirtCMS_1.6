@@ -12,43 +12,43 @@
 			<br />
 
 			<label for='x_show_title'>{$xLang->labels['showTitle']}</label>
-			{html_options name=x_show_title options=$optionList}
+			{html_options name=x_show_title options=$options}
 
 			<br />
 
 			<label for='x_show_author'>{$xLang->labels['showAuthor']}</label>
-			{html_options name=x_show_author options=$optionList}
+			{html_options name=x_show_author options=$options}
 
 			<br />
 
 			<label for='x_show_created'>{$xLang->labels['showCreated']}</label>
-			{html_options name=x_show_created options=$optionList}
+			{html_options name=x_show_created options=$options}
 
 			<br />
 
 			<label for='x_show_modified'>{$xLang->labels['showModified']}</label>
-			{html_options name=x_show_modified options=$optionList}
+			{html_options name=x_show_modified options=$options}
 
 			<br />
 
 			<label
 				for='x_back_icon'>{$xLang->labels['backIcon']}</label> {html_options
-			name=x_back_icon options=$optionList}
+			name=x_back_icon options=$options}
 
 			<br />
 
 			<label for='x_download_icon'>{$xLang->labels['downloadIcon']}</label>
-			{html_options name=x_download_icon options=$optionList}
+			{html_options name=x_download_icon options=$options}
 
 			<br />
 
 			<label for='x_print_icon'>{$xLang->labels['printIcon']}</label>
-			{html_options name=x_print_icon options=$optionList}
+			{html_options name=x_print_icon options=$options}
 
 			<br />
 
 			<label for='x_mail_icon'>{$xLang->labels['mailIcon']}</label> {html_options
-			name=x_mail_icon options=$optionList}
+			name=x_mail_icon options=$options}
 
 			<div class='box-affect'>
 

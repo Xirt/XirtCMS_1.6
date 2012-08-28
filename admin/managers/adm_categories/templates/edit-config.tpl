@@ -93,7 +93,7 @@
          {$xLang->misc['affectAll']}
 
       </div>
-      
+
    </fieldset>
 
    <div class='box-buttons'>

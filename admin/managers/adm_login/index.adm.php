@@ -1,15 +1,11 @@
 <?php
 
-require_once('includes/User.php');
-require_once('includes/Viewer.php');
-require_once('includes/LoginManager.php');
-
 /**
  * Manager for handling authentication (back-end)
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Manager extends XComponent {
@@ -22,11 +18,10 @@ class Manager extends XComponent {
       switch (XTools::getParam('task')) {
 
          case 'logout':
-            LoginManager::logout();
-            break;
+            new LoginController(null, null, 'logout');
 
          default:
-            Viewer::showForm();
+            new PanelController(null, 'PanelView', 'show');
             break;
 
       }
@@ -42,11 +37,11 @@ class Manager extends XComponent {
       switch (XTools::getParam('task')) {
 
          case 'attempt_login':
-            LoginManager::login();
+            new LoginController(null, null, 'login');
             break;
 
          case 'request_password':
-            LoginManager::requestPassword();
+            new UserController('UserModel', null, 'reset');
             break;
 
       }

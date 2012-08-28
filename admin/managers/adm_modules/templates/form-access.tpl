@@ -7,12 +7,12 @@
    <fieldset class='box-form'>
 
       <label for='access_min'>{$xLang->labels['accessMin']}</label>
-      {html_options name=access_min options=$rankList}
+      {html_options name=access_min options=$ranks}
 
       <br />
 
       <label for='access_max'>{$xLang->labels['accessMax']}</label>
-      {html_options name=access_max options=$rankList}
+      {html_options name=access_max options=$ranks}
 
       <br />
 

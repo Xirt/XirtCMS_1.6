@@ -57,6 +57,7 @@
 
       <input type='hidden' name='content' value='adm_content' />
       <input type='hidden' name='task' value='edit_item' />
+      <input type='hidden' name='xid' value='' />
       <input type='hidden' name='id' value='' />
 
       <button type='submit' class='save green left'>{$xLang->buttons['save']}</button>

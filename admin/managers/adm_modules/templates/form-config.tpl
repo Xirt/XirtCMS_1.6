@@ -7,7 +7,7 @@
    <fieldset class='box-form'>
 
       <label for='x_position'>{$xLang->labels['position']}</label>
-      {html_options options=$positionList name=x_position}
+      {html_options options=$positions name=x_position}
 
       <br />
 
@@ -17,7 +17,7 @@
       <hr />
 
       <label>{$xLang->labels['pages']}</label>
-      {html_options options=$pagesList name=pages id=pages multiple=multiple size=10}
+      {html_options options=$pages name=pages id=pages multiple=multiple size=10}
       <input type='hidden' name='x_pages' value='' />
 
       <br />

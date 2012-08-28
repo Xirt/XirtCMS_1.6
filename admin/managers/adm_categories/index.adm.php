@@ -7,13 +7,13 @@ require_once('includes/ContentViewer.php');
 require_once('includes/ContentManager.php');
 
 /**
-* Manager for XirtCMS content categories
-*
-* @author     A.G. Gideonse
-* @version    1.6
-* @copyright  XirtCMS 2010 - 2011
-* @package    XirtCMS
-*/
+ * Manager for XirtCMS content categories
+ *
+ * @author     A.G. Gideonse
+ * @version    1.6
+ * @copyright  XirtCMS 2010 - 2011
+ * @package    XirtCMS
+ */
 class Manager extends XComponent {
 
    /**

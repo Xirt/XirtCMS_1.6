@@ -1,11 +1,5 @@
 <?php
 
-require_once('includes/Link.php');
-require_once('includes/LinkList.php');
-
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
  * Manager for XirtCMS links
  *
@@ -20,12 +14,7 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_links/css/main.css');
-      XPage::addScript('managers/adm_links/js/manager.js');
-      XPage::addScript('managers/adm_links/js/viewer.js');
-
-      ContentViewer::showTemplate();
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
 
@@ -40,11 +29,11 @@ class Manager extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showList();
+            new LinksController('LinksModel', 'LinksView', 'show');
             return;
 
          case 'show_item':
-            ContentViewer::showItem();
+            new LinkController('LinkModel', 'LinkView', 'show');
             return;
 
 
@@ -52,15 +41,15 @@ class Manager extends XComponent {
              * Modify methods
              */
          case 'add_item':
-            ContentManager::addItem();
+            new LinkController('LinkModel', null, 'add');
             return;
 
          case 'edit_item':
-            ContentManager::editItem();
+            new LinkController('LinkModel', null, 'edit');
             return;
 
          case 'remove_item':
-            ContentManager::removeItem();
+            new LinkController('LinkModel', null, 'delete');
             return;
       }
 

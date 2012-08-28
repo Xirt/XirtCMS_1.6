@@ -2,7 +2,7 @@
 
 <div class='listBox'>
 
-   {XListBuilder::showLanguage($languageList)}
+   {XListBuilder::showLanguage($languages)}
 
    <div class='box-tools'>
       <a href='javascript:;' onclick="new AddPanel();" title='{$xLang->headers['addItem']}' class='new'>{$xLang->headers['addItem']}</a>

@@ -1,11 +1,5 @@
 <?php
 
-require_once('includes/Translation.php');
-require_once('includes/ContentList.php');
-require_once('includes/TranslationList.php');
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
  * Manager for XirtCMS usergroups
  *
@@ -20,13 +14,7 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_usergroups/css/main.css');
-      XPage::addScript('managers/adm_usergroups/js/viewer.js');
-      XPage::addScript('managers/adm_usergroups/js/manager.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
 
@@ -41,34 +29,31 @@ class Manager extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showContentList();
+            new UsergroupsController('UsergroupsModel', 'UsergroupsView', 'show');
             return;
 
          case 'show_item':
-            ContentViewer::showItem();
+            new UsergroupController('UsergroupModel', 'UsergroupView', 'show');
             return;
 
-         case 'show_details':
-            ContentViewer::showDetails();
-            return;
-
-            /*
-             * Modify methods
-             */
+         /*
+          * Modify methods
+          */
          case 'add_item':
-            ContentManager::AddItem();
+            new UsergroupController('UsergroupModel', null, 'add');
             return;
 
          case 'add_translation':
-            ContentManager::AddTranslation();
+            new UsergroupListController('UsergroupListModel', null, 'translate');
             return;
 
          case 'edit_item':
-            ContentManager::editItem();
+            new UsergroupController('UsergroupModel', null, 'edit');
+            new UsergroupListController('UsergroupListModel', null, 'edit');
             return;
 
          case 'remove_translation':
-            ContentManager::removeTranslation();
+            new UsergroupController('UsergroupModel', null, 'delete');
             return;
 
       }

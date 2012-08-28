@@ -1,11 +1,5 @@
 <?php
 
-require_once('includes/User.php');
-require_once('includes/UserList.php');
-
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
  * Manager for XirtCMS users
  *
@@ -20,13 +14,7 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_users/css/main.css');
-      XPage::addScript('managers/adm_users/js/viewer.js');
-      XPage::addScript('managers/adm_users/js/manager.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
 
@@ -41,30 +29,30 @@ class Manager extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showList();
+            new UsersController('UsersModel', 'UsersView', 'show');
             return;
 
          case 'show_item':
-            ContentViewer::showItem();
+            new UserController('UserModel', 'UserView', 'show');
             return;
 
-            /*
-             * Modify methods
-             */
+         /*
+          * Modify methods
+          */
          case 'add_item':
-            ContentManager::AddItem();
+            new UserController('UserModel', null, 'add');
             return;
 
          case 'edit_item':
-            ContentManager::editItem();
+            new UserController('UserModel', null, 'edit');
             return;
 
          case 'reset_password':
-            ContentManager::resetPassword();
+            new UserController('UserModel', null, 'reset');
             return;
 
          case 'remove_item':
-            ContentManager::removeItem();
+            new UserController('UserModel', null, 'delete');
             return;
 
       }

@@ -1,13 +1,7 @@
 <?php
 
-require_once('includes/Translation.php');
-require_once('includes/TranslationList.php');
-require_once('includes/ContentList.php');
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
- * Manager for XirtCMS menus
+ * Manager for XirtCMS Menus
  *
  * @author     A.G. Gideonse
  * @version    1.6
@@ -20,13 +14,7 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_menus/css/main.css');
-      XPage::addScript('managers/adm_menus/js/viewer.js');
-      XPage::addScript('managers/adm_menus/js/manager.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
    /**
@@ -40,51 +28,47 @@ class Manager extends XComponent {
           * View methods
           */
          case 'show_content_list':
-            ContentViewer::showContentList();
+            new MenusController('MenusModel', 'MenusView', 'show');
             return;
 
          case 'show_item':
-            ContentViewer::showItem();
+            new MenuController('MenuModel', 'MenuView', 'show');
             return;
 
 
-            /*
-             * Modify methods
-             */
+         /*
+          * Modify methods
+          */
          case 'add_item':
-            ContentManager::addItem();
+            new MenuController('MenuModel', null, 'add');
             return;
 
          case 'add_translation':
-            ContentManager::addTranslation();
+            new MenuListController('MenuListModel', null, 'translate');
             return;
 
          case 'edit_item':
-            ContentManager::editItem();
-            return;
-
-         case 'move_down':
-            ContentManager::moveDown();
+            new MenuController('MenuModel', null, 'edit');
             return;
 
          case 'move_up':
-            ContentManager::moveUp();
+            new MenusController('MenusModel', null, 'moveUp');
+            return;
+
+         case 'move_down':
+            new MenusController('MenusModel', null, 'moveDown');
             return;
 
          case 'toggle_sitemap':
-            ContentManager::toggleSitemap();
+            new MenuController('MenuModel', null, 'toggleSitemap');
             return;
 
          case 'toggle_mobile':
-            ContentManager::toggleMobile();
-            return;
-
-         case 'toggle_status':
-            ContentManager::toggleStatus();
+            new MenuController('MenuModel', null, 'toggleMobile');
             return;
 
          case 'remove_translation':
-            ContentManager::removeTranslation();
+            new MenuController('MenuModel', null, 'delete');
             return;
 
       }

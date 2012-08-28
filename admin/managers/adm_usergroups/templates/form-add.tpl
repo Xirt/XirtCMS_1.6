@@ -7,7 +7,7 @@
    <fieldset class='box-form'>
 
       <label for='nx_rank'>{$xLang->labels['rank']}</label>
-      {html_options options=$rankList name=nx_rank id=nx_rank}
+      {html_options options=$ranks name=nx_rank id=nx_rank}
 
       <br />
 
@@ -17,7 +17,7 @@
       <br />
 
       <label for='nx_language'>{$xLang->labels['language']}</label>
-      {html_options options=$languageList name=nx_language id=nx_language}
+      {html_options options=$languages name=nx_language id=nx_language}
 
    </fieldset>
 

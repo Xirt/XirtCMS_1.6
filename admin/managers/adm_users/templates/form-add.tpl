@@ -7,7 +7,7 @@
    <fieldset class='box-form'>
 
       <label for='nx_rank'>{$xLang->labels['rank']}</label>
-      {html_options name=nx_rank options=$rankList}
+      {html_options name=nx_rank options=$ranks}
 
       <br />
 

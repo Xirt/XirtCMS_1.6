@@ -1,14 +1,7 @@
 <?php
 
-require_once('includes/Category.php');
-require_once('includes/Translation.php');
-require_once('includes/TranslationList.php');
-require_once('includes/ContentList.php');
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
-
 /**
- * Manager for XirtCMS menu nodes
+ * Manager for XirtCMS menu items
  *
  * @author     A.G. Gideonse
  * @version    1.6
@@ -21,13 +14,7 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_menueditor/css/main.css');
-      XPage::addScript('managers/adm_menueditor/js/viewer.js');
-      XPage::addScript('managers/adm_menueditor/js/manager.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
 
    /**
@@ -37,61 +24,71 @@ class Manager extends XComponent {
 
       switch (XTools::getParam('task')) {
 
+         /*
+          * View methods
+          */
          case 'show_content_list':
-            ContentViewer::showContentList();
+            new MenuItemsController('MenuItemsModel', 'MenuItemsView', 'show');
             return;
 
          case 'show_item':
          case 'show_details':
-            ContentViewer::showItem();
+            new MenuItemController('MenuItemModel', 'MenuItemView', 'show');
             return;
 
+
+         /*
+          * Modify methods
+          */
          case 'add_item':
-            ContentManager::AddItem();
+            new MenuItemController('MenuItemModel', null, 'add');
             return;
 
          case 'add_translation':
-            ContentManager::AddTranslation();
+            new MenuItemListController('MenuItemListModel', null, 'translate');
             return;
 
          case 'edit_item':
-            ContentManager::editItem();
+            new MenuItemController('MenuItemModel', null, 'edit');
+            new MenuItemListController('MenuItemListModel', null, 'edit');
             return;
 
          case 'edit_config':
-            ContentManager::editConfiguration();
+            new MenuItemController('MenuItemModel', null, 'editConfiguration');
+            new MenuItemListController('MenuItemListModel', null, 'editConfiguration');
             return;
 
          case 'edit_access':
-            ContentManager::editAccess();
+            new MenuItemController('MenuItemModel', null, 'editAccess');
+            new MenuItemListController('MenuItemListModel', null, 'editAccess');
             return;
 
          case 'move_down':
-            ContentManager::moveDown();
+            new MenuItemsController('MenuItemsModel', null, 'moveDown');
             return;
 
          case 'move_up':
-            ContentManager::moveUp();
+            new MenuItemsController('MenuItemsModel', null, 'moveUp');
             return;
 
          case 'toggle_home':
-            ContentManager::toggleHome();
+            new MenuItemsController('MenuItemsModel', null, 'toggleHome');
             return;
 
          case 'toggle_sitemap':
-            ContentManager::toggleSitemap();
+            new MenuItemController('MenuItemModel', null, 'toggleSitemap');
             return;
 
          case 'toggle_mobile':
-            ContentManager::toggleMobile();
+            new MenuItemController('MenuItemModel', null, 'toggleMobile');
             return;
 
          case 'toggle_status':
-            ContentManager::toggleStatus();
+            new MenuItemController('MenuItemModel', null, 'toggleStatus');
             return;
 
          case 'remove_translation':
-            ContentManager::removeTranslation();
+            //new MenuItemController('MenuItemModel', null, 'remove');
             return;
 
       }

@@ -26,7 +26,7 @@
 
          <input type='hidden' name='content' value='adm_menueditor' />
          <input type='hidden' name='task' value='add_item' />
-         <input type='hidden' name='menu_id' value='{$menuId}' />
+         <input type='hidden' name='menu_id' value='{$xId}' />
 
          <button type='submit' class='create green left'>{$xLang->buttons['create']}</button>
          <button type='button' class='close red right'>{$xLang->buttons['cancel']}</button>

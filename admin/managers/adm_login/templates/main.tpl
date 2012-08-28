@@ -2,9 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-{XPage::addScript('managers/adm_login/js/main.js')}
-{XPage::addStylesheet('managers/adm_login/css/main.css', 1)}
-{XPage::addStylesheet('managers/adm_login/css/msie.css', 1, true)}
 {XInclude::header()}
 </head>
 
@@ -15,6 +12,10 @@
    <form action='index.php' method='post' id='form-login' class='xForm'>
 
       <div class='box-login'>
+
+			<a href='http://www.xirtcms.com' title="{$xMainLang->version}" rel='external'>
+			   <img src='../images/cms/logo.png' alt="{$xMainLang->version}" />
+			</a>
 
          <div class='box-content'>
 
@@ -27,7 +28,7 @@
 
                <label for='user_pass'>
                   {$xLang->labels['password']}
-                  <span class='password'>(<a href='javascript:;' title='{$xLang->messages['forgotPassword']}' id='a-password'>{$xLang->messages['forgotPassword']}</a>)</span>
+                  <span class='password'>(<a href='javascript:;' title="{$xLang->messages['forgotPassword']}" id='a-password'>{$xLang->messages['forgotPassword']}</a>)</span>
                </label>
                <input type='password' name='user_pass' id='user_pass' />
 
