@@ -11,9 +11,15 @@
 class XTranslationList {
 
    /**
-    * @var Integer The integer of the items in the list
+    * @var Integer The shared identifier of the items in the list
     */
    var $xId = 0;
+
+
+   /**
+    * @var String with the name of the column acting as identifier (xId)
+    */
+   protected $_identifier = 'xid';
 
 
    /**
@@ -25,7 +31,7 @@ class XTranslationList {
    /**
     * @var Array containing all items
     */
-   protected $_list = array();
+   protected $list = array();
 
 
    /**
@@ -50,8 +56,8 @@ class XTranslationList {
       global $xDb;
 
       // Database query
-      $stmt = "SELECT * FROM (%s) AS subset WHERE xid = :xid ORDER BY xid";
-      $subs = "SELECT t1.* FROM {$this->_table} AS t1 INNER JOIN #__languages AS t2 ON t1.language = t2.iso ORDER BY t2.preference, t1.xid";
+      $stmt = "SELECT * FROM (%s) AS subset WHERE {$this->_identifier} = :xid ORDER BY {$this->_identifier}";
+      $subs = "SELECT t1.* FROM {$this->_table} AS t1 INNER JOIN #__languages AS t2 ON t1.language = t2.iso ORDER BY t2.preference, t1.{$this->_identifier}";
 
       // Retrieve data
       $stmt = $xDb->prepare(sprintf($stmt, $subs));
@@ -60,7 +66,19 @@ class XTranslationList {
 
       // Populate instance
       while ($dbRow = $stmt->fetchObject()) {
-         $this->_add(new XItem($dbRow), false);
+         $this->_add(new XItemModel($dbRow), false);
+      }
+
+   }
+
+
+   /**
+    * Saves changes to the item to the database
+    */
+   public function save() {
+
+      foreach ($this->list as $item) {
+         $item->saveToDatabase($this->_table);
       }
 
    }
@@ -72,6 +90,22 @@ class XTranslationList {
    /***********/
 
    /**
+    * Get the value for the given attribute (uses the first item in the list!)
+    *
+    * @param $attrib The variable to retrieve
+    * @return mixed The value on success or null
+    */
+   public function get($attrib) {
+
+      if ($this->count() && isset(reset($this->list)->$attrib)) {
+         return reset($this->list)->$attrib;
+      }
+
+      return null;
+   }
+
+
+   /**
     * Sets an attribute for all translation in the list
     *
     * @param $attrib The variable to set
@@ -79,10 +113,10 @@ class XTranslationList {
     */
    public function set($attrib, $value) {
 
-      foreach ($this->_list as $translation) {
+      foreach ($this->list as $translation) {
 
          $translation->set($attrib, $value);
-         $translation->saveToDatabase($this->_table);
+         //$translation->saveToDatabase($this->_table);
 
       }
 
@@ -114,7 +148,7 @@ class XTranslationList {
          $xDb->insert($this->_table, $item);
       }
 
-      return ($this->_list[] = $item);
+      return ($this->list[] = $item);
    }
 
 
@@ -130,7 +164,7 @@ class XTranslationList {
     * @return Array All items in the list
     */
    public function toArray() {
-      return $this->_list;
+      return $this->list;
    }
 
 
@@ -140,7 +174,7 @@ class XTranslationList {
     * @return Int The amount of items in the list
     */
    public function count() {
-      return count($this->_list);
+      return count($this->list);
    }
 
 
@@ -148,7 +182,7 @@ class XTranslationList {
     * Returns list as a JSON Object
     */
    public function encode() {
-      return json_encode($this->_list);
+      return json_encode($this->list);
    }
 
 

@@ -13,7 +13,7 @@ class XUtils {
    /**
     * @var The path to the modules
     */
-   const PATH_MODULES = '%modules/';
+   const PATH_MODULES = '%smodules/';
 
 
    /**

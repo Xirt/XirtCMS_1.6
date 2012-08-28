@@ -14,6 +14,7 @@ define('nl', "\n");
 
 /**
  * Auto-Include required classes
+ * TODO: Rewrite (or rename classes)
  *
  * @param $class String containing the name of the class to load
  */
@@ -31,6 +32,12 @@ function xirt_autoload($class) {
    if (is_file(_XDIR . $file)) {
       return require_once(_XDIR . $file);
    }
+
+   $file = 'classes/' . $class . '.php';
+   if (is_file($file)) {
+      return require_once($file);
+   }
+
 
    trigger_error("Could not find class '{$class}'.", E_USER_ERROR);
 

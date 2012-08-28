@@ -21,10 +21,27 @@ class XAdminTemplate extends XTemplate {
 
       parent::__construct();
 
-      // Modify instance for administrative usage
-      $subdir = 'admin/managers/' . $component . '/templates/';
-      $this->template_dir = $xConf->baseDir . $subdir;
-      $this->compile_dir  = $xConf->baseDir . 'cache/';
+      switch (substr($component, 0, 3)) {
+
+         case "com":
+
+            // Modify instance for administrative component
+            $subdir = 'admin/components/' . $component . '/templates/';
+            $this->template_dir = $xConf->baseDir . $subdir;
+            $this->compile_dir  = $xConf->baseDir . 'cache/';
+
+            break;
+
+         case "adm":
+
+            // Modify instance for administrative manager
+            $subdir = 'admin/managers/' . $component . '/templates/';
+            $this->template_dir = $xConf->baseDir . $subdir;
+            $this->compile_dir  = $xConf->baseDir . 'cache/';
+
+            break;
+
+      }
 
    }
 

@@ -23,12 +23,6 @@ class XContentList {
 
 
    /**
-    * @var Integer The limit of the list (for database loading)
-    */
-   protected $_limit = 0;
-
-
-   /**
     * @var String The ordering column of the list (for database loading)
     */
    protected $_column = 'id';
@@ -41,6 +35,12 @@ class XContentList {
 
 
    /**
+    * @var Integer The limit of the list (for database loading)
+    */
+   protected $_limit = PHP_INT_MAX;
+
+
+   /**
     * @var Array The list of columns used for every item
     */
    protected $_columns = array();
@@ -49,7 +49,7 @@ class XContentList {
    /**
     * @var Array containing all items
     */
-   protected $_list = array();
+   public $_list = array();
 
 
    /**
@@ -71,8 +71,10 @@ class XContentList {
       global $xDb;
 
       // Database query
-      $query = "SELECT * FROM %s ORDER BY %s %s";
-      $query = sprintf($query, $this->_table, $this->_column, $this->_order);
+      $query = sprintf(
+         "SELECT * FROM %s ORDER BY %s %s LIMIT 0, %d",
+         $this->_table, $this->_column, $this->_order, $this->_limit
+      );
 
       // Retrieve data
       $stmt = $xDb->prepare($query);
@@ -80,7 +82,7 @@ class XContentList {
 
       // Populate instance
       while ($dbRow = $stmt->fetchObject()) {
-         $this->_add(new XItem($dbRow), false);
+         $this->_add(new XItemModel($dbRow), false);
       }
 
    }
@@ -90,6 +92,28 @@ class XContentList {
    /***********/
    /*  MODIFY */
    /***********/
+
+   /**
+    * Sets an attribute for all instances in list
+    *
+    * @param $attrib The attribute to set
+    * @param $value The value for the given variable
+    * @param $unset Used to unset variables (optional, default: false)
+    */
+   public function set($attrib, $value, $unset = false) {
+
+      foreach ($this->_list as $item) {
+
+         $item->$attrib = $value;
+
+         if (isset($unset) && $unset === true) {
+            unset($item->$attrib);
+         }
+
+      }
+
+   }
+
 
    /**
     * Sets a the start of the items in the database
@@ -241,6 +265,16 @@ class XContentList {
       header('Content-type: application/x-json');
       die($this->encode());
 
+   }
+
+
+   /**
+    * Returns all items in the list
+    *
+    * @return Array All items in the list
+    */
+   public function toArray() {
+      return $this->_list;
    }
 
 }

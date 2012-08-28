@@ -8,16 +8,10 @@
  * @copyright  XirtCMS 2010 - 2012
  * @package	   XirtCMS
  */
-class XItem {
+class XItemModel extends XModel {
 
    /**
-    * @var The ID of the item
-    */
-   var $id = 0;
-
-
-   /**
-    * Creates a new XItem with given attributes
+    * Creates a new XItemModel with given attributes
     *
     * @param $attribs Property/value combinations for initialization (optional)
     */
@@ -75,20 +69,24 @@ class XItem {
    /* MODIFY */
    /**********/
 
+
    /**
-    * Sets an attribute for this instance
-    *
-    * @param $attrib The attribute to set
-    * @param $value The value for the given variable
-    * @param $unset Used to unset variables (optional, default: false)
+    * Adds the item to the database (placeholder for extending)
     */
-   public function set($attrib, $value, $unset = false) {
+   public function add() {
+      trigger_error("[XItem] Method 'save()' not overwritten.", E_USER_ERROR);
+   }
 
-      $this->$attrib = $value;
 
-      if (isset($unset) && $unset === true) {
-         unset($this->$attrib);
-      }
+   /**
+    * Adds the item to the database
+    *
+    * @param $table The table containing the information
+    */
+   public function addToDatabase($table) {
+      global $xDb;
+
+      $xDb->insert($table, get_object_vars($this));
 
    }
 
@@ -131,7 +129,7 @@ class XItem {
     *
     * @param $table The table containing the information
     */
-   public function removeFromDatabase($table) {
+   public function deleteFromDatabase($table) {
       global $xDb;
 
       if (!isset($this->id) || !$this->id) {
@@ -139,30 +137,6 @@ class XItem {
       }
 
       $xDb->delete($table, 'id=' . $this->id);
-
-   }
-
-
-
-   /*****************/
-   /* MISCELLANEOUS */
-   /*****************/
-
-   /**
-    * Returns item as a JSON Object
-    */
-   public function encode() {
-      return json_encode($this);
-   }
-
-
-   /**
-    * Shows list as JSON Object
-    */
-   public function show() {
-
-      header('Content-type: application/x-json');
-      die($this->encode());
 
    }
 
