@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xinstall type='module'>
+	<name>Logout button</name>
+	<module>logout</module>
+	<version>1.0</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorEmail>cms@scanyours.com</authorEmail>
+	<authorUrl>http://www.scanyours.com</authorUrl>
+	<copyright>ScanYours</copyright>
+	<description><![CDATA[ This module shows a logout button. ]]></description>
+	<params>
+		<param name='css_name' type='text' default='' label='CSS postfix'
+			description='A value that will be added to all default class / id values for module identification.' />
+	</params>
+</xinstall>

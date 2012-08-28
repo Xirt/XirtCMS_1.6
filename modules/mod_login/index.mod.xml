@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xinstall type='module'>
+	<name>Small Login</name>
+	<module>login</module>
+	<version>1.0</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorEmail>info@xirtcms.com</authorEmail>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+	<description><![CDATA[ This module shows a small login panel (linked to the default login component). ]]></description>
+	<params>
+		<param name='css_name' type='text' default='' label='CSS postfix'
+			description='A value that will be added to all default class / id values for module identification.' />
+	</params>
+</xinstall>
