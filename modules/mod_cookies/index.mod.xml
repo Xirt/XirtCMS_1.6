@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xinstall type="module">
+   <name>Cookies Consent (EU compliance)</name>
+   <module>cookies</module>
+   <version>1.0</version>
+   <authorName>A.G. Gideonse</authorName>
+   <authorUrl>http://www.xirtcms.com</authorUrl>
+   <copyright>XirtCMS</copyright>
+   <license>GNU General Public License</license>
+   <description><![CDATA[ Includes the cookies consent on a website (not visible). ]]></description>
+   <params>
+      <param name="consent" type="select" default="implicit" label="Consent style" description="The type of consent used on the website.">
+         <option name="Implicit" value="implicit" />
+         <option name="Explicit" value="explicit" />
+      </param>
+      <param name="cookie_ads" type="select" default="0" label="Adverts Cookies" description="Toggles message on advertisement cookies.">
+         <option name="Yes" value="1" />
+         <option name="No" value="0" />
+      </param>
+      <param name="cookie_social" type="select" default="0" label="Social Media Cookies" description="Toggles message on social media cookies.">
+         <option name="Yes" value="1" />
+         <option name="No" value="0" />
+      </param>
+      <param name="cookie_analytics" type="select" default="0" label="Analytics Cookies" description="Toggles message on analytics cookies.">
+         <option name="Yes" value="1" />
+         <option name="No" value="0" />
+      </param>
+      <param name="ssl" type="select" default="false" label="Enable SSL" description="Toggles the usage of SSL.">
+         <option name="Yes" value="true" />
+         <option name="No" value="false" />
+      </param>
+      <param name="refresh" type="select" default="false" label="Consent refresh" description="Toggles refreshment of the page on consent.">
+         <option name="Yes" value="true" />
+         <option name="No" value="false" />
+      </param>
+      <param name="style" type="select" default="light" label="Module style" description="The color template used for the notifications.">
+         <option name="Light" value="light" />
+         <option name="Dark" value="dark" />
+      </param>
+      <param name="position_bar" type="select" default="bottom" label="Bar position" description="The position of the bar on the website.">
+         <option name="Top" value="top" />
+         <option name="Bottom" value="bottom" />
+      </param>
+      <param name="position_tab" type="select" default="bottom-left" label="Tab position" description="The position of the tab on the website.">
+         <option name="Bottom (left)" value="bottom-left" />
+         <option name="Bottom (right)" value="bottom-right" />
+         <option name="Side (left)" value="vertical-left" />
+         <option name="Side (right)" value="vertical-right" />
+      </param>
+      <param name="showonce" type="select" default="false" label="Show once" description="Toggle hiding of banner after first page.">
+         <option name="Yes" value="true" />
+         <option name="No" value="false" />
+      </param>
+      <param name="hidetab" type="select" default="false" label="Hide tab" description="Hide the 'privacy settings'-tab.">
+         <option name="Yes" value="true" />
+         <option name="No" value="false" />
+      </param>
+   </params>
+</xinstall>

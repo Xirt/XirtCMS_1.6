@@ -1,6 +1,12 @@
 <!-- xCallMeBack [Start] //-->
 <script src='modules/mod_callmeback/js/main.js' type='text/javascript'></script>
 
+{if $xConf->show_button}
+   <div class='x-mod-callmeback{$xConf->css_name}'>
+      <button type='button' action='new CallMeBack();'>{xLang->buttons['action']}</button>
+   </div>
+{/if}
+
 <div id='xCallMeBack' class='x-mod-callmeback{$xConf->css_name}' style='display: none;'>
 
    <form action='index.php' method='post' class='xForm'>

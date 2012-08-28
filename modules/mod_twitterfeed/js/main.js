@@ -1,4 +1,4 @@
-var TwitterFeed = new Class({
+var TwitterFeed = Twitterfeed ? Twitterfeed : new Class({
 
    current: null,
 

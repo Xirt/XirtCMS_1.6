@@ -45,10 +45,10 @@ class mod_tagcloud extends XModule {
       global $xConf, $xDb;
 
       // Database query
-      $query = "SELECT *                  " .
-               "FROM #__search            " .
-               "WHERE language = :iso     " .
-               "ORDER BY impressions DESC ";
+      $query = 'SELECT *                 ' .
+               'FROM #__search           ' .
+               'WHERE language = :iso    ' .
+               'ORDER BY impressions DESC';
 
       // Retrieve data
       $stmt = $xDb->prepare($query);

@@ -8,7 +8,7 @@
 		<fieldset class='box-contact'>
 
 			<label for='x_title'>{$xLang->labels['title']}</label>
-			{html_options options=$xLang->options['titles'] name='x_title'}</select>
+			{html_options options=$xLang->options['titles'] name='x_title'}
 
 			<br />
 

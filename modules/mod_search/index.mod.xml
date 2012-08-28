@@ -1,20 +1,20 @@
-<?xml version='1.0' encoding='utf-8'?>
-<xinstall type='module'>
-   <name>Small Search Form</name>
-   <module>search</module>
-   <version>1.0</version>
-   <authorName>A.G. Gideonse</authorName>
-   <authorUrl>http://www.xirtcms.com</authorUrl>
-   <copyright>XirtCMS</copyright>
-   <license>GNU General Public License</license>
-   <description><![CDATA[ Show a simple search screen. ]]></description>
-   <params>
-      <param name='css_name' type='text' default=''label='CSS postfix' description='A value that will be added to all default class / id values for module identification.' />
-      <param name='term' type='text' default='' label='Default value' description='The default value of the search field.' />
-      <param name='style' type='select' default='0' label='Display type' description='Defines on which side the button will show.'>
-         <option name='Button left' value='0' />
-         <option name='Button right' value='1' />
-      </param>
-      <param name='node_id' type='text' default='0' label='Node id (menu)' description='The ID of the menu node linking to the search component.' />
-   </params>
+<?xml version="1.0" encoding="utf-8" ?>
+<xinstall type="module">
+	<name>Small Search Form</name>
+	<module>search</module>
+	<version>1.0</version>
+	<authorName>A.G. Gideonse</authorName>
+	<authorUrl>http://www.xirtcms.com</authorUrl>
+	<copyright>XirtCMS</copyright>
+	<license>GNU General Public License</license>
+	<description><![CDATA[ Show a simple search screen. ]]></description>
+	<params>
+		<param name="css_name" type="text" default="" label="CSS postfix" description="A value that will be added to all default class / id values for module identification." />
+		<param name="term" type="text" default="" label="Default value" description="The default value of the search field." />
+		<param name="style" type="select" default="0" label="Display type" description="Defines on which side the button will show.">
+			<option name="Button left" value="0" />
+			<option name="Button right" value="1" />
+		</param>
+		<param name="node_id" type="text" default="0" label="Node id (menu)" description="The ID of the menu node linking to the search component." />
+	</params>
 </xinstall>

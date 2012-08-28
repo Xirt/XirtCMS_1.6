@@ -26,7 +26,7 @@ class mod_showcase extends XModule {
       // Create cache
       $cache = new XDir(self::PATH_CACHE);
       $cache->create();
-
+echo $bla;
       // Show template
       $tpl = new XTemplate($this->_location());
       $tpl->assign('id',     rand());

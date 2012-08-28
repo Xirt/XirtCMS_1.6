@@ -37,7 +37,7 @@ class mod_callmeback extends XModule {
 
       if (strlen($data->name) && XValidate::isPhone($data->phone)) {
 
-      	// Generate mail content
+         // Generate mail content
          $body = new XTemplate($this->_location());
          $body->assign('data', $data);
          $body->assign('xConf', $xConf);
