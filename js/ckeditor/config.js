@@ -11,7 +11,7 @@ CKEDITOR.editorConfig = function( config )
    config.toolbar = 'Full';
    config.toolbar_Full =
    [
-      ['Source','-','Save','NewPage','Preview','-','Templates'],
+      ['Source','-','NewPage','Preview','-','Templates'],
       ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
       ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
       '/',
