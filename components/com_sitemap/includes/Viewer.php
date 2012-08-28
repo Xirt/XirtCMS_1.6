@@ -96,9 +96,9 @@ class Viewer {
 
          // Update links
          $child->link = XTools::createLink(
-            $child->link,
-            $child->xid,
-            $child->name
+         $child->link,
+         $child->xid,
+         $child->name
          );
 
          self::_link($child);

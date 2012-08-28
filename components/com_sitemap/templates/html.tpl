@@ -1,19 +1,17 @@
 <!-- xSitemap [Start] //-->
 <div class='x-sitemap'>
 
-<h1>{$xLang->titles['component']}</h1>
+	<h1>{$xLang->titles['component']}</h1>
 
-{foreach from=$menuList item=menu}
+	{foreach from=$menuList item=menu}
 
-   <h2>{$menu->title}</h2>
+	<h2>{$menu->title}</h2>
 
-   <ul>
-   {foreach from=$menu->children item=node}
-      {include file='node.html.tpl'}
-   {/foreach}
-   </ul>
+	<ul>{foreach from=$menu->children item=node} {include
+		file='node.html.tpl'} {/foreach}
+	</ul>
 
-{/foreach}
+	{/foreach}
 
 </div>
 <!-- xSitemap [End] //-->

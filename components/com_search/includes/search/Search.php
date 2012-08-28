@@ -54,19 +54,19 @@ class Search {
          }
 
          $result->content = XTools::createSummary(
-            strip_tags($result->content),
-            $xCom->xConf->textlength
+         strip_tags($result->content),
+         $xCom->xConf->textlength
          );
 
          $result->link = XTools::createLink(
-            $result->link,
-            $cId,
-            $result->title
+         $result->link,
+         $cId,
+         $result->title
          );
 
          $result->title = XTools::createSummary(
-            $result->title,
-            $xCom->xConf->titlelength
+         $result->title,
+         $xCom->xConf->titlelength
          );
 
       }
@@ -84,14 +84,17 @@ class Search {
    private function _getNodes() {
       global $xDb, $xUser;
 
-      $query = "SELECT xid, link
-                FROM #__menunodes
-                WHERE published = '1'
-                  AND access_min <= '{$xUser->rank}'
-                  AND access_max >= '{$xUser->rank}'";
-      $xDb->setQuery($query);
+      $query = 'SELECT xid, link            ' .
+               'FROM #__menunodes           ' .
+               'WHERE published = 1         ' .
+               '  AND access_min <= :rank   ' .
+               '  AND access_max >= :rank   ';
 
-      return $xDb->loadObjectList();
+      $stmt = $xDb->prepare($query);
+      $stmt->bindValue(':rank', $xUser->rank, PDO::PARAM_INT);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
    }
 
 }

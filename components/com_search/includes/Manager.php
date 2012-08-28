@@ -20,14 +20,13 @@ class Manager {
       $data = (object) array();
       $data->page   = XTools::getParam('page', 0, _INT);
       $data->terms  = XTools::getParam('q', '', _STRING);
-      $data->limit  = XTools::getParam('limit', 10, _INT);
+      $data->limit  = XTools::getParam('limit', 10, _INT); $data->limit = 1;
       $data->method = XTools::getParam('method', 0, _INT);
       $data->start  = $data->page * $data->limit;
-      $data->count  = 0;
 
       // Validation data
       $data->page  = abs($data->page);
-      $data->limit = max(abs($data->limit), 100);
+      $data->limit = min(abs($data->limit), 100);
       $data->terms = XTools::addslashes($data->terms);
 
       return $data;
@@ -49,15 +48,15 @@ class Manager {
 
       switch ($xCom->xConf->search_type) {
 
-         case "fulltext":
+         case 1:
             $result = new FullTextSearch($data);
             self::_record($data, $result);
-         break;
+            break;
 
          default:
             $result = new NormalSearch($data);
             self::_record($data, $result);
-         break;
+            break;
 
       }
 
@@ -79,14 +78,15 @@ class Manager {
       }
 
       // Update existing record
-      $query = "UPDATE #__search
-      	       SET impressions = impressions + 1
-      	       WHERE term = '{$data->terms}'";
-      $xDb->setQuery($query);
-      $xDb->query();
+      $query = 'UPDATE #__search                  ' .
+      	      'SET impressions = impressions + 1 ' .
+      	      'WHERE term = :term                ';
+      $stmt = $xDb->prepare($query);
+      $stmt->bindValue(':term', $data->terms, PDO::PARAM_STR);
+      $stmt->execute();
 
       // New record (only on search results)
-      if (!$xDb->rowCount() && $result->count) {
+      if (!$stmt->rowCount() && $result->count) {
 
          $xDb->insert("#__search", array(
             'term'        => $data->terms,

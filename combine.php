@@ -110,7 +110,7 @@ class Combine {
 
       if (isset($_SERVER['HTTP_IF_NONE_MATCH']) &&
 
-         $_SERVER['HTTP_IF_NONE_MATCH'] == '"' . $hash . '"') {
+      $_SERVER['HTTP_IF_NONE_MATCH'] == '"' . $hash . '"') {
          header ("HTTP/1.0 304 Not Modified");
          header ('Content-Length: 0');
          exit;
@@ -125,7 +125,7 @@ class Combine {
     *
     * @access private
     * @param $cacheFile The cache file to use
-	 * @return boolean True on success, false on failure
+    * @return boolean True on success, false on failure
     */
    private function _getFromCache($cacheDir, $cacheFile) {
 
@@ -154,14 +154,14 @@ class Combine {
 
       // Check for buggy versions of Internet Explorer
       if (!strstr($_SERVER['HTTP_USER_AGENT'], 'Opera') &&
-         preg_match($regex, $_SERVER['HTTP_USER_AGENT'], $matches)) {
+      preg_match($regex, $_SERVER['HTTP_USER_AGENT'], $matches)) {
          $version = floatval($matches[1]);
 
          if ($version < 6)
-            $encoding =' none';
+         $encoding =' none';
 
          if ($version == 6 && !strstr($_SERVER['HTTP_USER_AGENT'], 'EV1'))
-            $encoding = 'none';
+         $encoding = 'none';
       }
 
       return $encoding;

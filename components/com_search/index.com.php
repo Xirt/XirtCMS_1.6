@@ -1,11 +1,11 @@
 <?php
 
-require_once('includes/Search.php');
 require_once('includes/Viewer.php');
 require_once('includes/Manager.php');
 require_once('includes/Template.php');
-require_once('includes/NormalSearch.php');
-require_once('includes/FullTextSearch.php');
+require_once('includes/search/Search.php');
+require_once('includes/search/NormalSearch.php');
+require_once('includes/search/FullTextSearch.php');
 
 /**
  * Default component to show search results / form

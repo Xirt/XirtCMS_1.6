@@ -264,7 +264,9 @@ a.reply {
 	padding: 2px 0px;
 }
 
-a.home,a.support,a.logout {
+a.home,
+a.logout,
+a.support {
 	padding: 5px 0px 5px 35px;
 }
 

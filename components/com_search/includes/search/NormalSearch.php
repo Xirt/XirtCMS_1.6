@@ -18,9 +18,10 @@ class NormalSearch extends Search {
    function __construct(&$data) {
 
       $this->results = $this->_getItems($data);
+      $this->count = count($this->result);
+
       $this->results = $this->_filter($this->results, $data);
       $this->results = $this->_format($this->results, $data);
-      $this->count = count($this->result);
 
    }
 
@@ -60,16 +61,21 @@ class NormalSearch extends Search {
       $terms[] = str_replace('%field%', 'meta_description', $restriction);
       $terms = implode(' OR ', $terms);
 
-      $query = "SELECT xid, title, content, 1 AS static
-                FROM #__staticcontent
-                WHERE published = 1
-                  AND language  = '{$xConf->language}'
-                  AND   access_min <= '{$xUser->rank}'
-                  AND   access_max >= '{$xUser->rank}'
-                  AND ({$terms})";
-      $xDb->setQuery($query);
+      $query = 'SELECT xid, title, content  ' .
+               'FROM #__content             ' .
+               'WHERE published = 1         ' .
+               '  AND access_min <= :rank   ' .
+               '  AND access_max >= :rank   ' .
+               '  AND language = :iso       ' .
+               '  AND %s                    ';
 
-      return $xDb->loadObjectList();
+      $stmt = $xDb->prepare(sprintf($query, $terms));
+      $stmt->bindValue(':terms', $terms, PDO::PARAM_STR);
+      $stmt->bindValue(':rank', $xUser->rank, PDO::PARAM_INT);
+      $stmt->bindValue(':iso', $xConf->language, PDO::PARAM_STR);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
    }
 
 

@@ -1,13 +1,13 @@
 <?php
 
 /**
-* Creates a thumbnail from an original image (using cache)
-*
-* @author     A.G. Gideonse
-* @version    1.6
-* @copyright  XirtCMS 2011 - 2012
-* @package	  XirtCMS
-*/
+ * Creates a thumbnail from an original image (using cache)
+ *
+ * @author     A.G. Gideonse
+ * @version    1.6
+ * @copyright  XirtCMS 2011 - 2012
+ * @package	  XirtCMS
+ */
 class Thumbnail {
 
    /**

@@ -18,9 +18,10 @@ class FullTextSearch extends Search {
    function __construct(&$data) {
 
       $this->results = $this->_getItems($data->terms, $data->method);
+      $this->count = count($this->results);
+
       $this->results = $this->_filter($this->results, $data);
       $this->results = $this->_format($this->results, $data);
-      $this->count = count($this->results);
 
    }
 
@@ -50,20 +51,25 @@ class FullTextSearch extends Search {
    private function _getItems($terms, $inclusive) {
       global $xConf, $xDb, $xUser;
 
-      $score = "MATCH(title, content) AGAINST ('%s' IN BOOLEAN MODE)";
-      $score = sprintf($score, $this->_parseTerms($terms, $inclusive));
+      $terms = $this->_parseTerms($terms, $inclusive);
+      $score = "MATCH(title, content) AGAINST (:terms IN BOOLEAN MODE)";
 
-      $query = "SELECT xid, title, content
-                FROM #__staticcontent
-                WHERE published = 1
-                  AND access_min <= '{$xUser->rank}'
-                  AND access_max >= '{$xUser->rank}'
-                  AND language = '{$xConf->language}'
-                  AND {$score}
-                ORDER BY {$score} DESC";
-      $xDb->setQuery($query);
+      $query = 'SELECT xid, title, content  ' .
+               'FROM #__content             ' .
+               'WHERE published = 1         ' .
+               '  AND access_min <= :rank   ' .
+               '  AND access_max >= :rank   ' .
+               '  AND language = :iso       ' .
+               '  AND %s                    ' .
+               'ORDER BY %s DESC            ';
 
-      return $xDb->loadObjectList();
+      $stmt = $xDb->prepare(sprintf($query, $score, $score));
+      $stmt->bindValue(':terms', $terms, PDO::PARAM_STR);
+      $stmt->bindValue(':rank', $xUser->rank, PDO::PARAM_INT);
+      $stmt->bindValue(':iso', $xConf->language, PDO::PARAM_STR);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
    }
 
 }
