@@ -2,7 +2,7 @@
 <xinstall type="module">
 	<name>Google Analytics (Tracking Code)</name>
 	<module>googleanalytics</module>
-	<version>1.1</version>
+	<version>1.2</version>
 	<authorName>A.G. Gideonse</authorName>
 	<authorUrl>http://www.xirtcms.com</authorUrl>
 	<copyright>XirtCMS</copyright>
@@ -10,11 +10,10 @@
 	<description><![CDATA[ Includes the GA tracking code on a website (not visible). ]]></description>
 	<params>
 		<param name="id" type="text" default="" label="Account ID" description="The unique identifier given by Google Analytics." />
-      <param name="domain" type="text" default="yourdomain.com" label="Domain name" description="The domain of your website (value for '_setDomainName')." />
-		<param name="code_type" type="select" default="3" label="Code type" description="Defines which Google Analytics tracking code should be used.">
-			<option name="New Tracking Code" value="1" />
-			<option name="Legacy Tracking Code" value="2" />
-			<option name="Asynchronous Tracking Code" value="3" />
+		<param name="domain" type="text" default="yourdomain.com" label="Domain name" description="The domain of your website (value for '_setDomainName')." />
+		<param name="compliance" type="select" default="0" label="Cookie Consent" description="Toggles the usage of the module 'cookie consent'.">
+			<option name="Yes" value="1" />
+			<option name="No" value="0" />
 		</param>
 	</params>
 </xinstall>

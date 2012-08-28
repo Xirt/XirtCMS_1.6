@@ -15,18 +15,14 @@ class mod_googleanalytics extends XModule {
     */
    function showNormal() {
 
-      switch($this->xConf->code_type) {
+      switch($this->xConf->compliance) {
 
          case 1:
-            $this->_showNewTrackingCode();
-            break;
-
-         case 2:
-            $this->_showLegacyTrackingCode();
+            $this->_showCompliantTrackingCode();
             break;
 
          default:
-            $this->_showAsyncTrackingCode();
+            $this->_showNormalTrackingCode();
             break;
 
       }
@@ -35,43 +31,29 @@ class mod_googleanalytics extends XModule {
 
 
    /**
-    * Shows the Asynchronous Tracking Code (recommended)
+    * Shows the normal Asynchronous Tracking Code
     *
     * @access private
     */
-   private function _showAsyncTrackingCode() {
+   private function _showNormalTrackingCode() {
 
       $tpl = new XTemplate($this->_location());
       $tpl->assign('xConf', $this->xConf);
-      $tpl->display('templates/asynchronousTrackingCode.tpl');
+      $tpl->display('templates/normalTrackingCode.tpl');
 
    }
 
 
    /**
-    * Shows the New Tracking Code
+    * Shows the Cookie Consent compliant Tracking Code
     *
     * @access private
     */
-   private function _showNewTrackingCode() {
+   private function _showCompliantTrackingCode() {
 
       $tpl = new XTemplate($this->_location());
       $tpl->assign('xConf', $this->xConf);
-      $tpl->display('templates/newTrackingCode.tpl');
-
-   }
-
-
-   /**
-    * Shows the Legacy Tracking Code
-    *
-    * @access private
-    */
-   private function _showLegacyTrackingCode() {
-
-      $tpl = new XTemplate($this->_location());
-      $tpl->assign('xConf', $this->xConf);
-      $tpl->display('templates/legacyTrackingCode.tpl');
+      $tpl->display('templates/compliantTrackingCode.tpl');
 
    }
 
