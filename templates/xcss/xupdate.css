@@ -1,65 +1,65 @@
 .xUpdate {
-   width: 550px;
-   padding: 10px 10px 40px 10px;
-   background: #fff;
-   border: 5px #c0c0c0 solid;
-   z-index: 1075;
+	width: 550px;
+	padding: 10px 10px 40px 10px;
+	background: #fff;
+	border: 5px #c0c0c0 solid;
+	z-index: 1075;
 }
 
 .xUpdate div {
-   text-align: center;
+	text-align: center;
 }
 
 .xUpdate h1 {
-   font-size: 15px;
-   margin: 0;
-   padding: 0 0 3px 0;
-   border-bottom: 1px #c0c0c0 dotted;
+	font-size: 15px;
+	margin: 0;
+	padding: 0 0 3px 0;
+	border-bottom: 1px #c0c0c0 dotted;
 }
 
 .xUpdate p {
-   margin: 5px 0 10px 0;
+	margin: 5px 0 10px 0;
 }
 
 .xUpdate a.continue {
-   position: absolute;
-   bottom: 7px;
-   right: 10px;
-   font-size: 10px;
+	position: absolute;
+	bottom: 7px;
+	right: 10px;
+	font-size: 10px;
 }
 
 .xUpdate .box-browser {
-   display: inline-block;
-   width: 90px;
-   height: 16px;
-   margin: 0 10px;
-   padding: 72px 0 3px 0;
-   text-align: center;
-   color: #000;
+	display: inline-block;
+	width: 90px;
+	height: 16px;
+	margin: 0 10px;
+	padding: 72px 0 3px 0;
+	text-align: center;
+	color: #000;
 }
 
 .xUpdate .box-browser:hover {
-   box-shadow: 0 0 5px #c0c0c0;
-   text-decoration: none;
-   font-weight: bold;
+	box-shadow: 0 0 5px #c0c0c0;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 .xUpdate .box-browser.firefox {
-   background: url(../ximages/browser-firefox.png);
+	background: url(../ximages/browser-firefox.png);
 }
 
 .xUpdate .box-browser.opera {
-   background: url(../ximages/browser-opera.png);
+	background: url(../ximages/browser-opera.png);
 }
 
 .xUpdate .box-browser.safari {
-   background: url(../ximages/browser-safari.png);
+	background: url(../ximages/browser-safari.png);
 }
 
 .xUpdate .box-browser.explorer {
-   background: url(../ximages/browser-explorer.png);
+	background: url(../ximages/browser-explorer.png);
 }
 
 .xUpdate .box-browser.chrome {
-   background: url(../ximages/browser-chrome.png);
+	background: url(../ximages/browser-chrome.png);
 }

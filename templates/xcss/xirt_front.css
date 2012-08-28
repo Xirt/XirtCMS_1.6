@@ -111,29 +111,44 @@
 	text-align: center;
 }
 
-/**********************
- XIRT TOOLTIP / NOTICE
-**********************/
-.xirt-tooltip {
+/***********************
+ XIRT TOOLTIP / POINTER
+***********************/
+.tip,
+.xirt-pointer p {
+   display: block;
+   padding: 8px;
+   background: url(../ximages/tooltip-bg.png);
+   color: #fff;
+   border-radius: 5px;
+   box-shadow: 2px 2px 7px #808080;
+
+   /* Compatibility */
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-box-shadow: 2px 2px 7px #808080;
+   -moz-box-shadow: 2px 2px 7px #808080;
+}
+
+.tip .tip-title {
+   font-weight: bold;
+   color: #B1D2E3;
+}
+
+.tip .tip-text {
+   padding: 8px 0 0;
+   color: #fff;  
+}
+
+.xirt-pointer {
 	background: url(../ximages/tooltip-pointer.png) left center no-repeat;
 	padding-left: 4px;
 	max-width: 296px;
 	z-index: 1040;
 }
 
-.xirt-tooltip p {
-	display: block;
+.xirt-pointer p {
 	padding: 3px 10px;
-	background: url(../ximages/tooltip-bg.png);
-	color: #ffffff;
-	border-radius: 5px;
-	box-shadow: 2px 2px 7px #808080;
-
-	/* Compatibility */
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-box-shadow: 2px 2px 7px #808080;
-	-moz-box-shadow: 2px 2px 7px #808080;
 }
 
 /************

@@ -252,7 +252,7 @@ form, body, div, table, td, tr, ul, li, p, legend, fieldset {
 }
 
 .xForm button.close {
-   background-image: url(../../images/cms/icons/remove.png);
+   background-image: url(../../images/cms/icons/back.png);
 }
 
 /*
@@ -308,21 +308,15 @@ img.url {
 
 
 
-/**********************
- XIRT TOOLTIP / NOTICE
-**********************/
-.xirt-tooltip {
-   background: url(../ximages/tooltip-pointer.png) left center no-repeat;
-   padding-left: 4px;
-   max-width: 296px;
-   z-index: 1040;
-}
-
-.xirt-tooltip p {
+/***********************
+ XIRT TOOLTIP / POINTER
+***********************/
+.tip,
+.xirt-pointer p {
    display: block;
-   padding: 6px 10px;
+   padding: 8px;
    background: url(../ximages/tooltip-bg.png);
-   color: #ffffff;
+   color: #fff;
    border-radius: 5px;
    box-shadow: 2px 2px 7px #808080;
 
@@ -331,7 +325,29 @@ img.url {
    -moz-border-radius: 5px;
    -webkit-box-shadow: 2px 2px 7px #808080;
    -moz-box-shadow: 2px 2px 7px #808080;
+}
 
+.tip .tip-title {
+   font-weight: bold;
+   max-width: 200px;
+   color: #B1D2E3;
+}
+
+.tip .tip-text {
+   padding: 8px 0 0;
+   max-width: 200px;
+   color: #fff;  
+}
+
+.xirt-pointer {
+   background: url(../ximages/tooltip-pointer.png) left center no-repeat;
+   padding-left: 4px;
+   max-width: 296px;
+   z-index: 1040;
+}
+
+.xirt-pointer p {
+   padding: 3px 10px;
 }
 
 
