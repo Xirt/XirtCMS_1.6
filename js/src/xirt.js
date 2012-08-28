@@ -3,7 +3,7 @@
  */
 var XTypes = {
 
-	Tooltip : 0,
+	Pointer : 0,
 	Window : 1,
 	Message : 2
 
@@ -32,6 +32,9 @@ var Xirt = new Class({
 
 	// Analyses elements
 	_analyse : function() {
+		
+		// Tooltips
+		new Tooltips('a.tooltip|img.tooltip');
 
 		// External links
 		$$('a[rel*=external]').each(function(el) {
@@ -101,24 +104,24 @@ var Xirt = new Class({
 	},
 
 	// METHOD :: Show a tooltip
-	showTooltip : function(el, txt) {
-		new Tooltip(el, txt);
+	showPointer : function(el, txt) {
+		new Pointer(el, txt);
 	},
 
-	// METHOD: Hides all tooltips
-	hideTooltips : function() {
+	// METHOD: Hides all pointers
+	hidePointers : function() {
 
-		Array.each(XRegister.toArray(XTypes.Tooltip), function(item) {
+		Array.each(XRegister.toArray(XTypes.Pointer), function(item) {
 			item.hide();
 		});
 
 	},
 
-	// METHOD: Hides all tooltips (deprecated)
-	hideAllTooltips : function() {
+	// METHOD: Hides all pointers (deprecated)
+	hideTooltips : function() {
 
-		Xirt.showNotify("Deprecated use of Xirt.hideAllTooltips();");
-		this.hideTooltips();
+		Xirt.showNotice("Deprecated use of Xirt.hideTooltips();");
+		this.hidePointers();
 
 	},
 
@@ -277,7 +280,7 @@ var Window = new Class({
 	show : function() {
 
 		this.fog.show();
-		Xirt.hideTooltips();
+		Xirt.hidePointers();
 		this.element.reveal();
 
 	},
@@ -286,7 +289,7 @@ var Window = new Class({
 	hide : function() {
 
 		this.element.dissolve();
-		Xirt.hideTooltips();
+		Xirt.hidePointers();
 		this.fog.hide();
 
 	},
@@ -294,7 +297,7 @@ var Window = new Class({
 	// Remove window (completely)
 	removeWindow : function(window) {
 
-		Xirt.showNotify("Deprecated use of Window.removeWindow()");
+		Xirt.showNotice("Deprecated use of Window.removeWindow()");
 
 		window = $(window);
 		if (!window || !window.isVisible()) {
@@ -337,15 +340,74 @@ var Window = new Class({
 });
 
 
+var Tooltips = new Class({
+	
+	Extends: Tips,
+	
+	initialize: function(el, options) {
+
+		var options = options ? options : {};
+		
+      // Override default show behavior
+		if (typeof(options.onShow) == 'undefined') {
+
+			options.onShow = function(tip, el){
+				tip.fade('hide');
+				tip.fade('in');
+			};
+
+		}
+
+		// Override default hide behavior
+		if (typeof(options.onHide) == 'undefined') {
+
+			options.onHide = function(tip, el){
+				tip.fade('out');
+	      };
+
+		}
+
+		// Add hide behavior (for dynamic pages)
+		if (typeof(options.onAttach) == 'undefined') {
+			
+			options.onAttach = function(el) {
+				el.addEvent('click', this.hide.bind(this));
+			}.bind(this);
+			
+		}
+
+
+		// Override default delays
+		if (typeof(options.showDelay) == 'undefined') {
+			options.showDelay = 500;
+		}
+
+		// Seperate title / content
+	   Array.each($$(el), function(element, index) {
+
+	   	var content = element.get('title');
+	   	var parts = content.split('::');
+	   	
+	   	element.store('tip:title', parts[1] ? parts[0] : XLang.misc['desc']);
+			element.store('tip:text', parts[1] ? parts[1] : content);
+			
+      });
+		
+		this.parent(el, options);
+	}
+
+	
+});
+
 
 /**
- * Creates a tooltip next to an element (right side)
+ * Creates a pointer next to an element (right side)
  */
-var Tooltip = new Class({
+var Pointer = new Class({
 
 	Implements : [ Options ],
 
-	type : XTypes.Tooltip,
+	type : XTypes.Pointer,
 
 	initialize : function(el, txt, options) {
 
@@ -358,11 +420,11 @@ var Tooltip = new Class({
 
 	},
 
-	// Creates the tooltip
+	// Creates the pointer
 	_create : function(txt) {
 
 		this.element = new Element('div', {
-			'class' : 'xirt-tooltip'
+			'class' : 'xirt-pointer'
 		}).fade('out');
 
 		this.set(txt);
@@ -370,7 +432,7 @@ var Tooltip = new Class({
 
 	},
 
-	// (Re-sets) text of the tooltip
+	// (Re-sets) text of the pointer
 	set : function(txt) {
 
 		new Element('p', {
@@ -379,10 +441,10 @@ var Tooltip = new Class({
 
 	},
 
-	// Attach tooltip to element
+	// Attach pointer to element
 	_attach : function(el) {
 
-		el.tooltip = this;
+		el.pointer = this;
 		this.container = el;
 
 		this.element.position({
@@ -397,12 +459,12 @@ var Tooltip = new Class({
 
 	},
 
-	// Registers the tooltip
+	// Registers the pointer
 	_register : function() {
 		XRegister.add(this);
 	},
 
-	// Shows the tooltip
+	// Shows the pointer
 	show : function(label) {
 
 		if (label && label.trim()) {
@@ -412,12 +474,12 @@ var Tooltip = new Class({
 		return this.element.fade('in');
 	},
 
-	// Hides the tooltip
+	// Hides the pointer
 	hide : function() {
 		return this.element.fade('out');
 	},
 
-	// Updates tooltip on event
+	// Updates pointer on event
 	update : function(label) {
 
 		this._attach(this.container);

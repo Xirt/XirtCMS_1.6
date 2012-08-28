@@ -54,7 +54,7 @@ var XList = new Class({
 		this.setColumn(this.options.column);
 		this.setOrder(this.options.order);
 		this.setLimit(this.options.limit);
-		
+
 		// Triggers
 		window.addEvent('resize', this._resize.bind(this));
 

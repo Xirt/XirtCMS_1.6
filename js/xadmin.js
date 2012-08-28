@@ -259,8 +259,10 @@ var ManagePanel = new Class({
 
 		this.setOptions(options);
 	   this._prepare();
-		this.id = id;
-	   this._load();
+	   
+		if ((this.id = id) && this.id) {
+	      this._load();
+      }
 
 	},
 

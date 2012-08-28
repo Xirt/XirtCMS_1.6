@@ -13,12 +13,12 @@ var XValidator = new Class({
 
 			check = (typeOf(check) == 'array') ? check.getLast() : check;
 			var txt = el.title ? el.title : XLang.validation[check.split(':')[0]];
-			el.tooltip ? el.tooltip.update(txt) : new Tooltip(el, txt);
+			el.pointer ? el.pointer.update(txt) : new Pointer(el, txt);
 
 		};
 
 		options.onElementPass = function(el) {
-			return (el.tooltip && el.tooltip.hide());
+			return (el.pointer && el.pointer.hide());
 		};
 
 		options.showError = function() {};

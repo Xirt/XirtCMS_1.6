@@ -1,0 +1,53 @@
+.xCalBox {
+	position: absolute;
+	background: #FFF;
+	border: 1px #000 solid;
+	padding: 0px;
+}
+
+.xCalBox .weekBar th {
+	padding: 5px;
+	text-align: center;
+	background: #000;
+	color: #FFF;
+}
+
+.xCalBox td {
+	padding: 5px;
+}
+
+.xCalBox .button {
+	font-weight: bold;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	color: #000;
+}
+
+.xCalBox .button:hover {
+	background: #000;
+	color: #FFF;
+}
+
+.xCalBox .yearBox {
+	font-weight: bold;
+	text-align: center;
+	font-size: 16px;
+}
+
+.xCalBox td.date {
+	background: #f0f0f0;
+	text-align: center;
+	cursor: pointer;
+}
+
+.xCalBox td.current,.xCalBox td.date:hover {
+	background: #c0c0c0;
+	color: #000;
+	text-align: center;
+	cursor: pointer;
+}
+
+.xCalBox .current {
+	font-weight: bold;
+}

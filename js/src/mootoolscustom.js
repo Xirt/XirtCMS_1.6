@@ -155,7 +155,7 @@ var Roar = new Class({
 		);
 
 		item.setStyle(this.align.x, 0).store('roar:offset', offset[1]).set('morph', Object.merge({
-			unit: 'px',
+			//unit: 'px', Fixes MooTools v1.4.4 bug
 			link: 'cancel',
 			onStart: Chain.prototype.clearChain,
 			transition: Fx.Transitions.Back.easeOut
