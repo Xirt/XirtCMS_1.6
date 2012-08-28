@@ -182,25 +182,61 @@ class XNode {
    /**
     * Returns first occurence of XNode by given field (uses depth-first search)
     *
+    * @deprecated
     * @param $field The field to search
     * @param $value The value to look for
     * @return found XNode or null on failure
     */
    public function getItemByField($field, $value) {
+      return $this->getItemByAttribute($field, $value);
+   }
 
-      if ($this->$field == $value) {
+
+   /**
+    * Returns first occurence of XNode by given field (uses depth-first search)
+    *
+    * @param $field The field to search
+    * @param $value The value to look for
+    * @return found XNode or null on failure
+    */
+   public function getItemByAttribute($attrib, $value) {
+
+      if ($this->$attrib == $value) {
          return $this;
       }
 
       foreach ($this->children as $child) {
 
-         if ($node = $child->getItemByField($field, $value)) {
+         if ($node = $child->getItemByAttribute($attrib, $value)) {
             return $node;
          }
 
       }
 
       return null;
+   }
+
+
+   /**
+    * Returns the maximum value for a certain field
+    *
+    * @return int Maximum value found or 0
+    */
+   public function getMaximum($attrib, $deepScan = true) {
+
+      if (!isset($this->children) || !count($this->children || !$deepScan)) {
+         return $this->$attrib;
+      }
+
+      $max = $this->$attrib;
+      foreach ($this->children as $child) {
+
+         $otherMax = $child->getMaximum($attrib, $deepScan);
+         $max = ($otherMax < $max) ? $max : $otherMax;
+
+      }
+
+      return $max;
    }
 
 

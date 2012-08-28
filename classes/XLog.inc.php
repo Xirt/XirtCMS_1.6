@@ -113,7 +113,7 @@ class XLog {
          'request_agent'  => $_SERVER['HTTP_USER_AGENT'],
          'request_uri'    => $uri,
          'request_method' => $_SERVER['REQUEST_METHOD'],
-         'time'           => date("Y-m-d H:i")
+         'time'           => date("Y-m-d H:i:s")
       );
 
    }

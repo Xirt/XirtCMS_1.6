@@ -34,7 +34,7 @@ class XDir {
       global $xConf;
 
       $mode = $mode ? octdec($mode) : $xConf->chmod;
-      if (!file_exists($this->path) && mkdir($this->path, $mode, $recursive)) {
+      if (!file_exists($this->path) && @mkdir($this->path, $mode, $recursive)) {
          return true;
       }
 

@@ -29,6 +29,12 @@ class XLanguage {
 
 
    /**
+    * @var String The location of the language files for extensions
+    */
+   const LOCATION_EXT_JS = 'languages/%s/%s.js';
+
+
+   /**
     * Constructor
     *
     * @param $iso The ISO value of the language to load
@@ -87,6 +93,11 @@ class XLanguage {
    function _loadForExtension($ext) {
 
       $file = sprintf(self::LOCATION_EXT, $this->language, $ext);
+      $jsFile = sprintf(self::LOCATION_EXT_JS, $this->language, $ext);
+
+      if (is_readable($jsFile)) {
+         XPage::addScript($jsFile);
+      }
 
       if (!$file || !is_readable($file)) {
          throw new Exception("Failed to read for {$ext}", E_USER_WARNING);

@@ -29,6 +29,16 @@ class XComponent {
 
 
    /**
+    * The directories to include for MVC structures
+    *
+    * @access private
+    */
+   private static $_MVC_FOLDERS = array(
+      'controllers', 'models', 'views', 'helpers'
+   );
+
+
+   /**
     * Initializes object with optional language file and settings
     *
     * @param $name String with the name of the component
@@ -55,6 +65,37 @@ class XComponent {
       $this->name  = $name;
       $this->xConf = json_decode($config);
       $this->xLang = $this->__language();
+      $this->__include(strtolower(get_class($this)));
+
+   }
+
+
+   /**
+    * Include all MVC classes for this type of XComponent
+    *
+    * @access private
+    * @param $type The type of the XComponent (manager / component)
+    */
+   private function __include($type) {
+
+      // Include all MVC classes (if available)
+      foreach (self::$_MVC_FOLDERS as $directory) {
+
+         $path = sprintf("%ss/%s/%s/", $type, $this->name, $directory);
+
+         if ($path = realpath($path)) {
+
+            foreach (scandir($path) as $file) {
+
+               if (is_file($path . '/' . $file)) {
+                  require_once($path . '/' . $file);
+               }
+
+            }
+
+         }
+
+      }
 
    }
 
