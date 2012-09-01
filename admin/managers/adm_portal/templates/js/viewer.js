@@ -58,12 +58,10 @@ var ContentList = new Class({
          }).store('id', item.id)
          .addEvent('click', XManager.showEntryPanel));
 
-         var opacity = Math.min(item.id - 0.75, 1);
          cell.grab(new Element('img', {
             'class': 'url',
             'src': '../images/cms/icons/remove.png'
          }).store('id', item.id)
-         .setStyle('opacity', opacity)
          .addEvent('click', XManager.remove));
 
       row.grab(cell);
