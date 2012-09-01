@@ -18,7 +18,8 @@ class MenuItemListController extends XController {
    protected function _init() {
 
       $actions = array(
-         'show', 'translate', 'edit', 'editConfiguration', 'editAccess'
+         'show', 'translate', 'edit', 'editConfiguration', 'editAccess',
+         'delete'
       );
 
       $this->_model = new $this->_model;
@@ -164,6 +165,28 @@ class MenuItemListController extends XController {
          $this->_model->save();
 
       }
+
+   }
+
+
+   /**
+    * Removes the Model from the database
+    *
+    * @access protected
+    */
+   protected function delete() {
+
+      // Remove a translation
+      if ($this->_model->count() > 1) {
+
+         $id = XTools::getParam('id', 0, _INT);
+         if ($current = $this->_model->getItemByAttribute('id', $id)) {
+            return $current->deleteFromDatabase('#__menunodes');
+         }
+
+      }
+
+      NodeUtils::remove($this->_model);
 
    }
 

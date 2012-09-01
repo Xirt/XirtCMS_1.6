@@ -88,7 +88,7 @@ class Manager extends XComponent {
             return;
 
          case 'remove_translation':
-            //new MenuItemController('MenuItemModel', null, 'remove');
+            new MenuItemListController('MenuItemListModel', null, 'delete');
             return;
 
       }
