@@ -1,17 +1,12 @@
 <?php
 
-require_once('includes/Translation.php');
-require_once('includes/TranslationList.php');
-require_once('includes/ContentList.php');
-require_once('includes/ContentViewer.php');
-require_once('includes/ContentManager.php');
 
 /**
  * Manager for XirtCMS content categories
  *
  * @author     A.G. Gideonse
  * @version    1.6
- * @copyright  XirtCMS 2010 - 2011
+ * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
 class Manager extends XComponent {
@@ -20,14 +15,9 @@ class Manager extends XComponent {
     * Handles any normal requests
     */
    function showNormal() {
-
-      XPage::addStylesheet('managers/adm_categories/css/main.css');
-      XPage::addScript('managers/adm_categories/js/viewer.js');
-      XPage::addScript('managers/adm_categories/js/manager.js');
-
-      ContentViewer::showTemplate();
-
+      new PanelController('PanelModel', 'PanelView', 'show');
    }
+
 
    /**
     * Handles any AJAX requests
@@ -37,12 +27,12 @@ class Manager extends XComponent {
       switch (XTools::getParam('task')) {
 
          case 'show_content_list':
-            ContentViewer::showContentList();
+            new CategoriesController('CategoriesModel', 'CategoriesView', 'show');
             return;
 
          case 'show_item':
          case 'show_details':
-            ContentViewer::showItem();
+            new CategoryController('CategoryModel', 'CategoryView', 'show');
             return;
 
          case 'add_item':
@@ -62,27 +52,28 @@ class Manager extends XComponent {
             return;
 
          case 'edit_access':
-            ContentManager::editAccess();
+            new CategoryController('CategoryModel', null, 'editAccess');
+            new CategoryListController('CategoryListModel', null, 'editAccess');
             return;
 
          case 'move_down':
-            ContentManager::moveDown();
+            new CategoriesController('CategoriesModel', null, 'moveDown');
             return;
 
          case 'move_up':
-            ContentManager::moveUp();
+            new CategoriesController('CategoriesModel', null, 'moveUp');
             return;
 
          case 'toggle_sitemap':
-            ContentManager::toggleSitemap();
+            new CategoryController('CategoryModel', null, 'toggleSitemap');
             return;
 
          case 'toggle_mobile':
-            ContentManager::toggleMobile();
+            new CategoryController('CategoryModel', null, 'toggleMobile');
             return;
 
          case 'toggle_status':
-            ContentManager::toggleStatus();
+            new CategoryController('CategoryModel', null, 'toggleStatus');
             return;
 
          case 'remove_translation':
