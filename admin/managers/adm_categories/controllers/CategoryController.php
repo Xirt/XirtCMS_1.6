@@ -67,7 +67,6 @@ class CategoryController extends XController {
          return false;
       }
 
-      $this->_model->set('menu_id',   $menu);
       $this->_model->set('xid',       $list->getMaximum('xid') + 1);
       $this->_model->set('ordering',  $parent->getMaxOrdering() + 1);
       $this->_model->set('parent_id', $parent->xid);
@@ -87,8 +86,8 @@ class CategoryController extends XController {
     */
    protected function edit() {
 
-      //$this->_model->set('name', XTools::getParam('x_name'));
-      //$this->_model->save();
+      $this->_model->set('name', XTools::getParam('x_name'));
+      $this->_model->save();
 
    }
 

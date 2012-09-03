@@ -51,7 +51,6 @@ class CategoryListController extends XController {
     * @access protected
     */
    protected function translate() {
-      global $xUser;
 
       // Create from best translation
       $iso = XTools::getParam('language');
@@ -59,7 +58,7 @@ class CategoryListController extends XController {
 
          if ($candidate->language != $iso) {
 
-            $item = new MenuItemModel();
+            $item = new CategoryModel();
             $item->load($candidate->id);
 
             $item->set('id', null,  true);

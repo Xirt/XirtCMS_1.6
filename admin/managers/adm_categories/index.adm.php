@@ -36,15 +36,16 @@ class Manager extends XComponent {
             return;
 
          case 'add_item':
-            ContentManager::AddItem();
+            new CategoryController('CategoryModel', null, 'add');
             return;
 
          case 'add_translation':
-            ContentManager::AddTranslation();
+            new CategoryListController('CategoryListModel', null, 'translate');
             return;
 
          case 'edit_item':
-            ContentManager::editItem();
+            new CategoryController('CategoryModel', null, 'edit');
+            new CategoryListController('CategoryListModel', null, 'edit');
             return;
 
          case 'edit_config':
@@ -77,7 +78,7 @@ class Manager extends XComponent {
             return;
 
          case 'remove_translation':
-            ContentManager::removeTranslation();
+            new CategoryListController('CategoryListModel', null, 'delete');
             return;
 
       }

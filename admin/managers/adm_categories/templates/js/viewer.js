@@ -157,8 +157,9 @@ var ContentList = new Class({
       cell.grab(new Element('img', {
          'class': 'url',
          'src': '../images/cms/icons/remove.png'
-      }).store('id', item.id)
-      .addEvent('click', XManager.removeTranslation));
+      }).addEvent('click', XManager.removeTranslation)
+      .store('id', item.id)
+      .store('xId', item.xid));
 
    },
 
