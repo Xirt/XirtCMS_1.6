@@ -33,9 +33,14 @@ class PanelView extends XComponentView {
     */
    protected function _init() {
 
+
       parent::_init();
       $this->_template->assign('ranks', $this->_model->ranks);
+      $this->_template->assign('archive', $this->_model->archive);
+      $this->_template->assign('columns', $this->_model->columns);
+      $this->_template->assign('ordering', $this->_model->ordering);
       $this->_template->assign('languages', $this->_model->languages);
+      $this->_template->assign('visibilities', $this->_model->visibilities);
 
    }
 

@@ -29,59 +29,59 @@
       <br />
 
       <label for='x_show_archive'>{$xLang->labels['archive']}</label>
-      {html_options name=x_show_archive options=$archiveList}
+      {html_options name=x_show_archive options=$archive}
 
       <br />
 
       <label for='x_order_col'>{$xLang->labels['column']}</label>
-      {html_options name=x_order_col options=$columnList}
+      {html_options name=x_order_col options=$columns}
 
       <br />
 
       <label for='x_order'>{$xLang->labels['ordering']}</label>
-      {html_options name=x_order options=$orderList}
+      {html_options name=x_order options=$ordering}
 
    </fieldset>
 
    <fieldset class='box-form'>
 
       <label for='x_show_title'>{$xLang->labels['showTitle']}</label>
-      {html_options name=x_show_title options=$visibilityList}
+      {html_options name=x_show_title options=$visibilities}
 
       <br />
 
       <label for='x_show_author'>{$xLang->labels['showAuthor']}</label>
-      {html_options name=x_show_author options=$visibilityList}
+      {html_options name=x_show_author options=$visibilities}
 
       <br />
 
       <label for='x_show_created'>{$xLang->labels['showCreated']}</label>
-      {html_options name=x_show_created options=$visibilityList}
+      {html_options name=x_show_created options=$visibilities}
 
       <br />
 
       <label for='x_show_modified'>{$xLang->labels['showModified']}</label>
-      {html_options name=x_show_modified options=$visibilityList}
+      {html_options name=x_show_modified options=$visibilities}
 
       <br />
 
       <label for='x_back_icon'>{$xLang->labels['backIcon']}</label>
-      {html_options name=x_back_icon options=$visibilityList}
+      {html_options name=x_back_icon options=$visibilities}
 
       <br />
 
       <label for='x_download_icon'>{$xLang->labels['downloadIcon']}</label>
-      {html_options name=x_download_icon options=$visibilityList}
+      {html_options name=x_download_icon options=$visibilities}
 
       <br />
 
       <label for='x_print_icon'>{$xLang->labels['printIcon']}</label>
-      {html_options name=x_print_icon options=$visibilityList}
+      {html_options name=x_print_icon options=$visibilities}
 
       <br />
 
       <label for='x_mail_icon'>{$xLang->labels['mailIcon']}</label>
-      {html_options name=x_mail_icon options=$visibilityList}
+      {html_options name=x_mail_icon options=$visibilities}
 
    </fieldset>
 

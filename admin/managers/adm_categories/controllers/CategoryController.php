@@ -101,8 +101,24 @@ class CategoryController extends XController {
 
       if (!XTools::getParam('affect_all')) {
 
-         //$this->_model->set('css_name',  XTools::getParam('x_css_name'));
-         //$this->_model->save();
+         $config                = (Object) array();
+         $config->css_name      = XTools::getParam('x_css_name');
+         $config->amount_full   = XTools::getParam('x_amount_full',    1, _INT);
+         $config->amount_title  = XTools::getParam('x_amount_title',  15, _INT);
+         $config->show_archive  = XTools::getParam('x_show_archive',   0, _INT);
+         $config->order_col     = XTools::getParam('x_order_col',     null);
+         $config->order         = XTools::getParam('x_order',         null);
+         $config->show_title    = XTools::getParam('x_show_title',    -1, _INT);
+         $config->show_author   = XTools::getParam('x_show_author',   -1, _INT);
+         $config->show_created  = XTools::getParam('x_show_created',  -1, _INT);
+         $config->show_modified = XTools::getParam('x_show_modified', -1, _INT);
+         $config->back_icon     = XTools::getParam('x_back_icon',     -1, _INT);
+         $config->download_icon = XTools::getParam('x_download_icon', -1, _INT);
+         $config->print_icon    = XTools::getParam('x_print_icon',    -1, _INT);
+         $config->mail_icon     = XTools::getParam('x_mail_icon',     -1, _INT);
+
+         $this->_model->set('config', $config);
+         $this->_model->save();
 
       }
 

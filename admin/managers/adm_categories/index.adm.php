@@ -49,7 +49,8 @@ class Manager extends XComponent {
             return;
 
          case 'edit_config':
-            ContentManager::editConfiguration();
+            new CategoryController('CategoryModel', null, 'editConfiguration');
+            new CategoryListController('CategoryListModel', null, 'editConfiguration');
             return;
 
          case 'edit_access':
