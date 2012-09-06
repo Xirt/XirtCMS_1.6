@@ -13,7 +13,7 @@ class XLog {
    /**
     * @var The (default) file to write fatal errors too
     */
-   var $file = 'events.log';
+   private $_file = 'events.log';
 
 
    /**
@@ -24,7 +24,7 @@ class XLog {
    function __construct($file = null) {
       global $xConf;
 
-      $this->file = $file ? $file : $xConf->logDir . $this->file;
+      $this->_file = $file ? $file : $xConf->logDir . $this->_file;
 
       set_error_handler(array($this, 'onError'));
       set_exception_handler(array($this, 'onException'));
@@ -43,12 +43,12 @@ class XLog {
       $stmt->execuse();
 
       // Empty event file
-      if (file_exists($this->file) && !@unlink($this->file)) {
+      if (file_exists($this->_file) && !@unlink($this->_file)) {
          trigger_error("Could not clear event log", E_USER_WARNING);
       }
 
       // Reset event notification
-      $notification = $this->file . '.notified';
+      $notification = $this->_file . '.notified';
       if (file_exists($notification) && !@unlink($notification)) {
          trigger_error("Could not reset notification", E_USER_WARNING);
       }
@@ -64,10 +64,10 @@ class XLog {
    public function onException(Exception $e) {
 
       $this->_log($this->_getData(
-      E_USER_ERROR,
-      $e->getMessage(),
-      $e->getFile(),
-      $e->getLine()
+         E_USER_ERROR,
+         $e->getMessage(),
+         $e->getFile(),
+         $e->getLine()
       ));
 
    }
@@ -184,7 +184,7 @@ class XLog {
     */
    private function _toFile($data) {
 
-      if (!$handle = @fopen($this->file, 'a')) {
+      if (!$handle = @fopen($this->_file, 'a')) {
          die("Log file could not be opened.");
       }
 
@@ -223,7 +223,7 @@ class XLog {
    private function _notify($data) {
       global $xConf;
 
-      $file = $this->file . '.notified';
+      $file = $this->_file . '.notified';
       if (!isset($xConf) || @file_exists($file)) {
          return;
       }
