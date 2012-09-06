@@ -159,6 +159,25 @@ class XTranslationList {
 
 
    /**
+    * Returns first occurence of an item by field
+    *
+    * @param $attrib String containing the field name to search in
+    * @param $value String containing the string to search for
+    * @return mixed The found item or null on failure
+    */
+   public function getItemByAttribute($attrib, $value) {
+
+      foreach ($this->list as $item) {
+         if ($item->$attrib == $value) {
+            return $item;
+         }
+      }
+
+      return null;
+   }
+
+
+   /**
     * Returns all items in the list
     *
     * @return Array All items in the list

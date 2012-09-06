@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default View for the components
+ * Default View for the components (frontend)
  *
  * @author     A.G. Gideonse
  * @version    1.6
@@ -16,9 +16,12 @@ class XComponentView extends XTemplateView {
     * @access protected
     */
    protected function _init() {
-      global $xCom, $xLang;
+      global $xCom, $xConf, $xLang;
 
-      $this->_template = new XAdminTemplate($xCom->name);
+      $tpl = sprintf(XTemplate::COMPONENTS, $xConf->baseDir, $xCom->name);
+
+      // Prepare template
+      $this->_template = new XTemplate($tpl);
       $this->_template->assign('xLang', $xCom->xLang);
       $this->_template->assign('xMainLang', $xLang);
 

@@ -72,6 +72,9 @@ class XController {
    }
 
 
+   /**
+    * Shows the given view on exit
+    */
    function __destruct() {
 
       if (!is_null($this->_view)) {
