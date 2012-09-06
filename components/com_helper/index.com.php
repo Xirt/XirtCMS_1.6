@@ -1,16 +1,12 @@
 <?php
 
-require_once("includes/Viewer.php");
-require_once("includes/Template.php");
-require_once("includes/Thumbnail.php");
-
 /**
  * Component to access utility methods
  *
  * @author     A.G. Gideonse
  * @version    1.6
  * @copyright  XirtCMS 2011 - 2012
- * @package	  XirtCMS
+ * @package    XirtCMS
  */
 class Component extends XComponent {
 
@@ -22,11 +18,11 @@ class Component extends XComponent {
       switch (XTools::getParam('task')) {
 
          case 'thumbnail':
-            new Thumbnail();
+            new ImageController(null, null, 'thumbnail');
             break;
 
          case 'no_javascript':
-            Viewer::showNoJavaScript();
+            new PanelController(null, 'NoJavascriptView', 'show');
             break;
 
       }
