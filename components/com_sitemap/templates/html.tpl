@@ -3,7 +3,7 @@
 
 	<h1>{$xLang->titles['component']}</h1>
 
-	{foreach from=$menuList item=menu}
+	{foreach from=$menus item=menu}
 
 	<h2>{$menu->title}</h2>
 

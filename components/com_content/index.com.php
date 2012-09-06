@@ -1,10 +1,5 @@
 <?php
 
-require_once('includes/Mail.php');
-require_once('includes/Viewer.php');
-require_once('includes/Content.php');
-require_once('includes/Template.php');
-
 /**
  * Default component to show content items
  *
@@ -21,22 +16,18 @@ class Component extends XComponent {
     */
    function showNormal() {
 
-      if (!$item = $this->_getContentItem()) {
-         return Xirt::pageNotFound();
-      }
-
       switch (XTools::getParam('task')) {
 
          case 'show_print':
-            Viewer::showPrintVersion($item);
+            new PanelController('ContentModel', 'PrintView', 'show');
             break;
 
          case 'show_pdf':
-            Viewer::showPDFVersion($item);
+            new PanelController('ContentModel', 'PDFView', 'show');
             break;
 
          default:
-            Viewer::showContent($item);
+            new PanelController('ContentModel', 'NormalView', 'show');
             break;
 
       }
@@ -48,39 +39,15 @@ class Component extends XComponent {
     * Shows the AJAX content
     */
    function showAJAX() {
-      global $xConf;
-
-      if (!$item = $this->_getContentItem()) {
-         return Xirt::pageNotFound();
-      }
 
       switch (XTools::getParam('task')) {
 
          case 'send_mail':
-            $mail = new Mail($item);
-            $mail->send();
+            new MailController('ContentModel', null, 'send');
             break;
 
       }
 
-   }
-
-
-   /**
-    * Returns the requested content item
-    *
-    * @access private
-    * @return mixed ContentItem on success,  null failure
-    */
-   private function _getContentItem() {
-
-      $item = new Content();
-
-      if (!$item->load(XTools::getParam('id', 0, _INT))) {
-         return null;
-      }
-
-      return $item;
    }
 
 }

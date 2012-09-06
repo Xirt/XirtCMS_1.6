@@ -35,28 +35,28 @@
 
       {if $item->config->back_icon}
       <a href='{$xConf->baseURL}' title="{$xLang->buttons['back']}" class='back' id='xBack'>
-         <img src='components/com_content/images/back.png' alt="{$xLang->buttons['back']}" />
+         <img src='components/com_content/templates/images/back.png' alt="{$xLang->buttons['back']}" />
          <span>{$xLang->buttons['back']}</span>
       </a>
       {/if}
 
       {if $item->config->download_icon}
       <a href='index.php?content=com_content&amp;task=show_pdf&amp;id={$item->xid}' title="{$xLang->buttons['download']}" class='download' rel='nofollow'>
-         <img src='components/com_content/images/pdf.png' alt="{$xLang->buttons['download']}" />
+         <img src='components/com_content/templates/images/pdf.png' alt="{$xLang->buttons['download']}" />
          <span>{$xLang->buttons['download']}</span>
       </a>
       {/if}
 
       {if $item->config->print_icon}
       <a href='index.php?content=com_content&amp;task=show_print&amp;id={$item->xid}' title="{$xLang->buttons['print']}" class='print' rel='nofollow'>
-         <img src='components/com_content/images/print.png' alt="{$xLang->buttons['print']}" />
+         <img src='components/com_content/templates/images/print.png' alt="{$xLang->buttons['print']}" />
          <span>{$xLang->buttons['print']}</span>
       </a>
       {/if}
 
       {if $item->config->mail_icon}
       <a href='index.php?content=com_helper&amp;task=no_javascript' title="{$xLang->buttons['mail']}" class='mail' rel='nofollow' id='xMail'>
-         <img src='components/com_content/images/mail.png' alt="{$xLang->buttons['mail']}" />
+         <img src='components/com_content/templates/images/mail.png' alt="{$xLang->buttons['mail']}" />
          <span>{$xLang->buttons['mail']}</span>
       </a>
       {/if}

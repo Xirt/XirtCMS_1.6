@@ -1,8 +1,5 @@
 <?php
 
-require_once('includes/Viewer.php');
-require_once('includes/Template.php');
-
 /**
  * Component to initalize SitemapViewer
  *
@@ -21,11 +18,11 @@ class Component extends XComponent {
       switch (XTools::getParam('task')) {
 
          case 'use_xml':
-            Viewer::showSitemapUseXML();
+            new PanelController('SitemapModel', 'XMLView', 'show');
             break;
 
          default:
-            Viewer::showSitemap();
+            new PanelController('SitemapModel', 'HTMLView', 'show');
             break;
 
       }
