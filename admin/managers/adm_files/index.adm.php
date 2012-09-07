@@ -2,8 +2,6 @@
 
 require_once('includes/Dir.php');
 require_once('includes/File.php');
-require_once('includes/DirectoryTree.php');
-require_once('includes/DirectoryList.php');
 require_once('includes/ContentViewer.php');
 require_once('includes/ContentManager.php');
 
@@ -22,13 +20,6 @@ class Manager extends XComponent {
     */
    function showNormal() {
 
-      XPage::addStylesheet('managers/adm_files/css/main.css?' . microtime());
-      XPage::addScript('managers/adm_files/js/fileviewer.js?' . microtime());
-      XPage::addScript('managers/adm_files/js/filetree.js?' . microtime());
-      XPage::addScript('managers/adm_files/js/manager.js?' . microtime());
-      XPage::addScript('../js/src/xupload.js?' . microtime());
-      XInclude::plugin('slimbox');
-
       switch (XTools::getParam('task')) {
 
          /**
@@ -42,7 +33,7 @@ class Manager extends XComponent {
           * Modify methods
           */
          default:
-            ContentViewer::showTemplate();
+            new PanelController('PanelModel', 'PanelView', 'show');
             break;
 
       }
@@ -63,11 +54,11 @@ class Manager extends XComponent {
           * Show methods
           */
          case 'show_tree':
-            ContentViewer::showDirectoryTree();
+            new TreeController('TreeModel', 'TreeView', 'show');
             return;
 
          case 'show_directory':
-            ContentViewer::showDirectory();
+            new DirectoryController('DirectoryModel', 'ListView', 'show');
             return;
 
          case 'show_item':

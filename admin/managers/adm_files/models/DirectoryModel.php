@@ -1,14 +1,14 @@
 <?php
 
 /**
- * A simple list to hold items of a directory (XFile / XDir)
+ * A simple list to hold a directory structure (contents)
  *
  * @author     A.G. Gideonse
  * @version    1.6
  * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
-class DirectoryList {
+class DirectoryModel extends XModel {
 
    /**
     * @var The list of items
@@ -17,29 +17,19 @@ class DirectoryList {
 
 
    /**
-    * Create a list of the given directory
-    *
-    * @param $path The path of the indexed directory
-    */
-   public function __construct($path) {
-
-      $this->path = $path;
-      $this->_init();
-
-   }
-
-
-   /**
-    * Loads the content of the directory into the instance
+    * Loads the complete directory structure into the list
     *
     * @access private
     */
-   private function _init() {
+   public function load($path) {
+      global $xCom;
+
+      $this->path = $path;
 
       if ($this->path != './') {
 
          $dir = new Dir(dirname($this->path));
-         $dir->name = 'Parent Directory';
+         $dir->name = $xCom->xLang->misc['parent'];
          $dir->type = 'parent';
          $this->add($dir);
 
@@ -67,32 +57,17 @@ class DirectoryList {
     * @param $item The item to add
     */
    public function add($item) {
-
       $this->_list[] = $item;
-
-   }
-
-
-   /*****************/
-   /* MISCELLANEOUS */
-   /*****************/
-
-   /**
-    * Returns list as a JSON Object
-    */
-   public function encode() {
-      return json_encode($this->_list);
    }
 
 
    /**
-    * Shows list as JSON Object
+    * Returns the model (including hash) as Array
+    *
+    * @return Array The model as Array
     */
-   public function show() {
-
-      header('Content-type: application/x-json');
-      die($this->encode());
-
+   public function toArray() {
+      return $this->_list;
    }
 
 }

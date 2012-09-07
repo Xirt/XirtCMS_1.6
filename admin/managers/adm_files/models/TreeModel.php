@@ -8,7 +8,7 @@
  * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
-class DirectoryTree {
+class TreeModel extends XModel {
 
    /**
     * @var The list of items
@@ -17,19 +17,11 @@ class DirectoryTree {
 
 
    /**
-    * Create a list of the current XirtCMS directory structure
-    */
-   function __construct() {
-      $this->_init();
-   }
-
-
-   /**
     * Loads the complete directory structure into the list
     *
     * @access private
     */
-   private function _init() {
+   public function load() {
 
       $dir = new XDir('.');
       $this->_list = $dir->summarize(false, true);
@@ -38,30 +30,17 @@ class DirectoryTree {
    }
 
 
-   /*****************/
-   /* MISCELLANEOUS */
-   /*****************/
-
    /**
-    * Returns list as a JSON Object
+    * Returns the model (including hash) as Array
+    *
+    * @return Array The model as Array
     */
-   public function encode() {
+   public function toArray() {
 
-      return json_encode(array(
+      return array(
          'hash' => md5(serialize($this->_list)),
          'tree' => $this->_list
-      ));
-
-   }
-
-
-   /**
-    * Shows list as JSON Object
-    */
-   public function show() {
-
-      header('Content-type: application/x-json');
-      die($this->encode());
+      );
 
    }
 
