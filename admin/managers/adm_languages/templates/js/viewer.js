@@ -46,14 +46,14 @@ var ContentList = new Class({
          cell.grab(new Element('button', {
             'type': 'button',
             'class': 'move-down tooltip',
-            'title' : XComLang.tips['moveDown'],
+            'title' : XComLang.tips['moveDown']
          }).store('id', item.id)
          .addEvent('click', XManager.moveDown));
 
          cell.grab(new Element('button', {
             'type': 'button',
             'class': 'move-up tooltip',
-            'title' : XComLang.tips['moveUp'],
+            'title' : XComLang.tips['moveUp']
          }).store('id', item.id)
          .addEvent('click', XManager.moveUp));
 
