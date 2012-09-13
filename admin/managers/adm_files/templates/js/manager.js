@@ -10,33 +10,6 @@ var XManager = new Class({
 	// METHOD :: Loads edit-form
 	showEditPanel: function() {
 		new EditPanel(this.retrieve('path'));
-	},
-
-	// METHOD :: Removes item
-	remove: function() {
-
-		if (confirm(XLang.confirmations['remove'])) {
-
-			new Request({
-				onFailure: Xirt.showError,
-				onSuccess: this.onRemoval,
-				url: 'index.php'
-			}).post({
-				content: 'adm_files',
-				task: 'remove_item',
-				path: this.retrieve('path')
-			});
-
-		}
-
-	},
-	
-	onRemoval: function() {
-
-		Xirt.showNotice(XLang.messages['removed']);
-		XTreeViewer.reload();
-		XFileViewer.reload();
-
 	}
 
 });
@@ -107,7 +80,7 @@ var UploadFilePanel = new Class({
 	
 	// Fired on upload
 	onStart: function() {
-		$('buttons-upload').reveal();		
+		$('buttons-upload').dissolve();	
 	},
 	
 	// Fired on upload completion
@@ -176,8 +149,9 @@ var EditPanel = new Class({
 			}
 		
 		});
-		
-		this.parent(0, { 'width' : 500 } );
+
+		this.parent(null, { 'width' : 500 } );
+		this._load();
 
 	},
 

@@ -25,8 +25,8 @@ class Manager extends XComponent {
          /**
           * Show methods
           */
-         case 'add_item':
-            ContentManager::addItem();
+         case 'add_file':
+            new DirectoryController('DirectoryModel', null, 'add');
             break;
 
          /**
@@ -58,7 +58,7 @@ class Manager extends XComponent {
             return;
 
          case 'show_directory':
-            new DirectoryController('DirectoryModel', 'ListView', 'show');
+            new DirectoryListController('DirectoryListModel', 'ListView', 'show');
             return;
 
          case 'show_item':
@@ -76,8 +76,12 @@ class Manager extends XComponent {
             ContentManager::editItem();
             return;
 
-         case 'remove_item':
-            ContentManager::removeItem();
+         case 'delete_file':
+            new FileController('FileModel', null, 'delete');
+            return;
+
+         case 'delete_folder':
+            new DirectoryController('DirectoryModel', null, 'delete');
             return;
 
       }

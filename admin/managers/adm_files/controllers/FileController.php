@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Controller for a directory
+ * Controller for a file
  *
  * @author     A.G. Gideonse
  * @version    1.6
  * @copyright  XirtCMS 2010 - 2012
  * @package    XirtCMS
  */
-class DirectoryController extends XController {
+class FileController extends XController {
 
    /**
     * Initializes the Controller
@@ -33,14 +33,17 @@ class DirectoryController extends XController {
     */
    protected function _init() {
 
+      $name = basename(XTools::getParam('path', null, _STRING));
+      $path = dirname(XTools::getParam('path', null, _STRING));
+
       $this->_model = new $this->_model;
-      if (in_array($this->_action, array('show', 'add', 'edit', 'delete'))) {
+      if (in_array($this->_action, array('show', 'delete'))) {
 
          // Load existing data
-         $this->_model->load(XTools::getParam('path', null, _STRING));
+         $this->_model->load($path, $name);
          if (!$this->_model->exists() && $this->_action != 'create') {
 
-            trigger_error("[Controller] Directory not found", E_USER_NOTICE);
+            trigger_error("[Controller] File not found", E_USER_NOTICE);
             exit;
 
          }
@@ -60,26 +63,6 @@ class DirectoryController extends XController {
 
 
    /**
-    * Add an item to the model (upload file)
-    *
-    * @access protected
-    */
-   protected function add() {
-      global $xConf;
-
-      $xConf->showTemplate(false);
-
-      if (array_key_exists('APC_UPLOAD_PROGRESS', $_POST)) {
-
-         $upload = new XUpload($_POST['APC_UPLOAD_PROGRESS']);
-         $upload->move('nitem_file', XTools::getParam('path', null, _STRING));
-
-      }
-
-   }
-
-
-   /**
     * Edits the model
     *
     * @access protected
@@ -95,7 +78,7 @@ class DirectoryController extends XController {
       $newPath = XTools::getParam('x_path');
 
       chdir($xConf->baseDir);
-      $file = new XFile($oldPath, $oldName);  // Dit werkt maar is niet logisch ?
+      $file = new XFile($oldPath, $oldName);
 
       if ($oldPath != $newPath || $oldName != $newName) {
 

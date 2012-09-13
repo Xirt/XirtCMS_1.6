@@ -79,6 +79,7 @@ var FileViewer = new Class({
 var XIcon = new Class({
 
 	_icon : '../images/cms/filetypes/{type}.png',
+	_type: 'file',
 	
 	// Creates a new file / folder icon
 	initialize: function(item) {
@@ -136,17 +137,48 @@ var XIcon = new Class({
 
 			oDv.grab(new Element('img', {
 				'src': '../images/cms/icons/remove.png'
-			}).store('path', item.path)
-			.addEvent('click', XManager.remove));
+			}).addEvent('click', this.remove.pass(item.path, this)));
 
 			oDv.grab(new Element('img', {
 				'src': '../images/cms/icons/edit.png'
 			}).store('path', item.path)
-			.addEvent('click', XManager.showEditPanel));
+			.addEvent('click', this._showEditPanel));
 
 		}
 
 		return oDv;
+
+	},
+
+	// METHOD :: Loads edit-form
+	_showEditPanel: function() {
+		new EditPanel(this.retrieve('path'));
+	},
+
+	// METHOD :: Removes item
+	remove: function(path) {
+
+		if (confirm(XLang.confirmations['remove'])) {
+
+			new Request({
+				onFailure: Xirt.showError,
+				onSuccess: this.onRemoval,
+				url: 'index.php'
+			}).post({
+				content: 'adm_files',
+				task: 'delete_' + this._type,
+				path: path
+			});
+
+		}
+
+	},
+	
+	onRemoval: function() {
+
+		Xirt.showNotice(XLang.messages['removed']);
+		XTreeViewer.reload();
+		XFileViewer.reload();
 
 	},
 
@@ -174,11 +206,12 @@ var XIcon = new Class({
 var Folder = new Class({
 
 	Extends: XIcon,
+	_type: 'folder',
 
 	_getIcon: function(item) {
 
 		var el = new Element('img', {
-			'src'	: this._icon.substitute({'type': item.type }),
+			'src'	: this._icon.substitute({ 'type': item.type }),
 			'title' : item.name,
 			'class' : 'icon clickable'
 		});

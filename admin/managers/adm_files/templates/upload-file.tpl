@@ -16,7 +16,7 @@
 		<div class='box-buttons' id='buttons-upload'>
 
 			<input type='hidden' name='content' value='adm_files' />
-			<input type='hidden' name='task' value='add_item' />
+			<input type='hidden' name='task' value='add_file' />
 			<input type='hidden' name='path' value='' />
 
 			<button type='submit' class='create green left'>{$xLang->buttons['upload']}</button>
