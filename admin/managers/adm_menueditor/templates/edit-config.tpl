@@ -30,7 +30,7 @@
       <fieldset class='box-form' id='linkBox'>
 
          <select name='x_links_0' id='x_links_0' size='15'>
-         {foreach from=$contents key=key item=category}
+         {foreach from=$contents->toArray() key=key item=category}
 
             <optgroup label='{$category->name}'>
                {foreach from=$category->toArray() key=url item=title}

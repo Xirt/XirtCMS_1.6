@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Models for XirtCMS Contents
+ * Model for XirtCMS Contents
  *
  * @author     A.G. Gideonse
  * @version    1.6

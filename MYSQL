@@ -1,25 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 3.4.8
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Jan 06, 2012 at 01:45 AM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `test_xirt`
---
-
 -- --------------------------------------------------------
 
 --
@@ -29,27 +10,61 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `xirt_components` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
-  `com_name` varchar(64) DEFAULT NULL,
+  `type` varchar(64) DEFAULT NULL,
   `config` text NOT NULL,
   `access_min` tinyint(3) NOT NULL DEFAULT '1',
   `access_max` tinyint(3) NOT NULL DEFAULT '100',
   `menu` tinyint(1) NOT NULL DEFAULT '0',
   `removable` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `xirt_components`
 --
 
-INSERT INTO `xirt_components` (`id`, `name`, `com_name`, `config`, `access_min`, `access_max`, `menu`, `removable`) VALUES
-(2, 'Content Viewer', 'com_content', '{"css_name":"","show_title":"1","show_author":"0","show_created":"0","show_modified":"0","back_icon":"0","download_icon":"0","print_icon":"0","mail_icon":"0"}', 1, 100, 1, 0),
+INSERT INTO `xirt_components` (`id`, `name`, `type`, `config`, `access_min`, `access_max`, `menu`, `removable`) VALUES
+(2, 'Content Viewer', 'com_content', '{"css_name":"","show_title":1,"show_author":1,"show_created":0,"show_modified":0,"download_icon":1,"print_icon":1,"mail_icon":1,"back_icon":1}', 1, 100, 1, 0),
 (1, 'Xirt Helper', 'com_helper', '', 1, 100, 0, 0),
-(12, 'Dynamics Viewer', 'com_dcontent', '', 1, 100, 0, 0),
-(14, 'Search Engine', 'com_search', '{"default_value":null,"default_limit":10,"default_method":0,"textlength":250,"titlelength":50,"node_id":43}', 1, 100, 1, 1),
-(15, 'Sitemap', 'com_sitemap', '', 1, 100, 0, 0),
-(18, 'Login Panel', 'com_login', '{"url_account":"index.php?content=com_savetrans&cid=4","url_logout":"index.php?content=com_login&cid=27"}', 1, 100, 0, 1),
-(28, 'Tweet Management', 'com_twitter', '{}', 1, 100, 1, 1);
+(3, 'Search Engine', 'com_search', '{"search_type":0,"recording":1,"default_value":"","default_limit":10,"default_method":0,"titlelength":50,"textlength":250,"node_id":1}', 1, 100, 1, 1),
+(4, 'Sitemap', 'com_sitemap', '', 1, 100, 0, 0),
+(5, 'Tweet Management', 'com_twitter', '{}', 1, 100, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_content`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_content` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `xid` bigint(20) unsigned NOT NULL,
+  `language` varchar(5) NOT NULL DEFAULT 'en-GB',
+  `title` text NOT NULL,
+  `category` bigint(20) DEFAULT NULL,
+  `content` longtext NOT NULL,
+  `meta_title` text,
+  `meta_keywords` text,
+  `meta_description` text,
+  `config` text,
+  `locked` bigint(20) NOT NULL DEFAULT '0',
+  `published` tinyint(1) NOT NULL DEFAULT '1',
+  `mobile` tinyint(1) NOT NULL DEFAULT '1',
+  `created` datetime NOT NULL,
+  `author_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `author_name` text NOT NULL,
+  `modified` datetime NOT NULL,
+  `modifier_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `modifier_name` text,
+  `access_min` tinyint(3) NOT NULL DEFAULT '1',
+  `access_max` tinyint(3) NOT NULL DEFAULT '100',
+  PRIMARY KEY (`id`),
+  FULLTEXT KEY `content` (`title`,`content`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `xirt_content`
+--
 
 -- --------------------------------------------------------
 
@@ -72,7 +87,11 @@ CREATE TABLE IF NOT EXISTS `xirt_content_categories` (
   `access_min` tinyint(3) NOT NULL DEFAULT '1',
   `access_max` tinyint(3) NOT NULL DEFAULT '100',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+--
+-- Dumping data for table `xirt_content_categories`
+--
 
 -- --------------------------------------------------------
 
@@ -106,14 +125,39 @@ INSERT INTO `xirt_languages` (`id`, `name`, `iso`, `published`, `preference`) VA
 CREATE TABLE IF NOT EXISTS `xirt_links` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `iso` varchar(5) NOT NULL DEFAULT 'en-GB',
-  `uri_ori` text,
-  `uri_sef` text,
+  `query` text,
+  `alternative` text,
   `cid` bigint(20) NOT NULL,
   `custom` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `xirt_links`
+--
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `xirt_log`
+--
+
+CREATE TABLE IF NOT EXISTS `xirt_log` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `error_no` int(4) unsigned DEFAULT NULL,
+  `error_msg` text,
+  `error_src` text,
+  `error_line` int(4) DEFAULT NULL,
+  `request_ip` varchar(128) DEFAULT NULL,
+  `request_agent` text,
+  `request_uri` text,
+  `request_method` varchar(4) DEFAULT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+--
+-- Dumping data for table `xirt_log`
+--
 
 --
 -- Table structure for table `xirt_menunodes`
@@ -134,24 +178,16 @@ CREATE TABLE IF NOT EXISTS `xirt_menunodes` (
   `css_name` varchar(100) NOT NULL DEFAULT '',
   `published` tinyint(1) NOT NULL DEFAULT '0',
   `sitemap` tinyint(1) NOT NULL DEFAULT '1',
-  `mobile` tinyint(1) NOT NULL DEFAULT '0',
+  `mobile` tinyint(1) NOT NULL DEFAULT '1',
   `home` tinyint(1) NOT NULL DEFAULT '0',
   `access_min` tinyint(3) NOT NULL DEFAULT '1',
   `access_max` tinyint(3) NOT NULL DEFAULT '100',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `xirt_menunodes`
 --
-
-INSERT INTO `xirt_menunodes` (`id`, `xid`, `level`, `language`, `menu_id`, `ordering`, `parent_id`, `name`, `link`, `image`, `link_type`, `css_name`, `published`, `sitemap`, `mobile`, `home`, `access_min`, `access_max`) VALUES
-(9, 1, 1, 'en-GB', 1, 1, 0, 'Home', 'index.php?content=com_content&id=1', '', 0, '', 1, 1, 1, 1, 1, 100),
-(3, 3, 1, 'en-GB', 1, 3, 0, 'About XirtCMS', 'index.php?content=com_content&id=2', '', 0, '', 1, 1, 1, 0, 1, 100),
-(5, 3, 1, 'nl-NL', 1, 3, 0, 'Over XirtCMS', 'index.php?content=com_content&id=2', '', 0, '', 1, 1, 1, 0, 1, 100),
-(6, 5, 1, 'en-GB', 2, 5, 0, 'XirtCMS Website', 'http://www.xirtcms.com', '', 3, '', 1, 1, 1, 0, 1, 100),
-(8, 2, 1, 'en-GB', 2, 2, 0, 'Sitemap', 'index.php?content=com_sitemap', '', 2, '', 1, 1, 1, 0, 1, 100),
-(10, 4, 1, 'en-GB', 1, 4, 0, 'Help', 'index.php?content=com_content&id=3', '', 0, '', 1, 1, 1, 0, 1, 100);
 
 -- --------------------------------------------------------
 
@@ -168,17 +204,17 @@ CREATE TABLE IF NOT EXISTS `xirt_menus` (
   `sitemap` tinyint(1) NOT NULL DEFAULT '1',
   `mobile` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 --
 -- Dumping data for table `xirt_menus`
 --
 
 INSERT INTO `xirt_menus` (`id`, `xid`, `language`, `title`, `ordering`, `sitemap`, `mobile`) VALUES
-(1, 1, 'nl-NL', 'Hoofdmenu', 1, 1, 1),
-(2, 1, 'en-GB', 'Mainmenu', 1, 1, 0),
-(3, 2, 'nl-NL', 'Menu (beneden)', 2, 1, 0),
-(4, 2, 'en-GB', 'Menu (footer)', 2, 1, 0);
+(1, 1, 'en-GB', 'Main menu', 1, 1, 1),
+(2, 1, 'nl-NL', 'Hoofdmenu', 1, 1, 1),
+(3, 2, 'en-GB', 'Footer menu', 2, 1, 1),
+(4, 2, 'nl-NL', 'Menu (beneden)', 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -201,20 +237,14 @@ CREATE TABLE IF NOT EXISTS `xirt_modules` (
   `access_min` tinyint(3) NOT NULL DEFAULT '1',
   `access_max` tinyint(3) NOT NULL DEFAULT '100',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 --
 -- Dumping data for table `xirt_modules`
 --
 
 INSERT INTO `xirt_modules` (`id`, `xid`, `language`, `name`, `ordering`, `position`, `published`, `mobile`, `type`, `pages`, `config`, `access_min`, `access_max`) VALUES
-(1, 1, 'en-GB', '[Tools] Google Analytics', 2, 'head', 0, 1, 'mod_googleanalytics', '|all|', '{"id":"","domain":"yourdomain.com","code_type":"3"}', 1, 100),
-(2, 2, 'en-GB', '[Menu] Footer', 1, 'footer', 1, 1, 'mod_menu', '|all|', '{"css_name":"-footer","title":"","menu_id":"2","show_type":"0","parent_id":"0","level_start":"0","level_end":"10","separator_style":"1","separator":"|"}', 1, 100),
-(3, 3, 'en-GB', '[Menu] Main', 1, 'menu', 1, 1, 'mod_menu', '|all|', '{"css_name":"","title":"","menu_id":"1","show_type":"0","parent_id":"","level_start":"0","level_end":"10","separator_style":"0","separator":"|","id":"","domain":"yourdomain.com","code_type":"3"}', 1, 100),
-(4, 4, 'en-GB', '[Other] Twitter', 0, 'content', 1, 0, 'mod_twitterfeed', '|1|', '{"css_name":"","accounts":"xirtcms,scanyours","limit":"25"}', 1, 100),
-(5, 5, 'en-GB', '[Tools] Language Selection', 0, 'tools', 1, 1, 'mod_languageselector', '|all|', '{"css_name":"","show_type":"2","show_all":"1","alpha_sort":"0"}', 1, 100),
-(6, 6, 'en-GB', '[Tools] Pathway', 2, 'tools', 1, 1, 'mod_pathway', '|all|', '{"css_name":"","seperator_img":"","id":"","domain":"yourdomain.com","code_type":"3"}', 1, 100);
-
+(1, 1, 'en-GB', '[Menu] Main', 2, 'menu', 1, 1, 'mod_menu', '|all|', '{"css_name":"","title":"","menu_id":"1","show_type":"0","parent_id":"","level_start":"0","level_end":"0","separator_style":"0","separator":"|"}', 1, 100);
 -- --------------------------------------------------------
 
 --
@@ -229,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `xirt_search` (
   `impressions` bigint(20) NOT NULL DEFAULT '0',
   `published` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -247,402 +277,6 @@ CREATE TABLE IF NOT EXISTS `xirt_sessions` (
 --
 -- Dumping data for table `xirt_sessions`
 --
-
-INSERT INTO `xirt_sessions` (`id`, `modified`, `data`) VALUES
-('5afec831b51083026c6680e6ec54b17d', 1294078804, ''),
-('d008f4b177fc50a4bcaf9ddb995d8d8d', 1294078803, ''),
-('b3dcd751ddb23332b1dbfdac751bf50a', 1294078782, ''),
-('198baa933728b888fe311413c9f16dc9', 1294078771, ''),
-('29cdb6e5742df3dbea9f640a56376867', 1294078765, ''),
-('08c521a4c06d49c775106b94c2a3b2c6', 1294078755, ''),
-('b1c71ed3fa832f79b73a5c7d749a4492', 1294078743, ''),
-('f171aad1fff860a52a156772350bedc3', 1294078743, ''),
-('399ae228efd187eba5673928de6fa5ac', 1294078719, ''),
-('a4d760007173240355e4f332392d28ae', 1294078701, ''),
-('e65f93e3879d469b212efdee310b8fa6', 1294078683, ''),
-('f38e1c5498f1eb3e79c4d86e469e4bbf', 1294078683, ''),
-('4177f9e4d9ec2d2adf1694ab36ae3109', 1294078678, ''),
-('fdc2612bb9618c919eaccd1cf02c9f01', 1294078666, ''),
-('97d4d76d1eca99467e2ab656261fd70d', 1294078655, ''),
-('16bdd8440f29f29c11f00cde5870bfa4', 1294078642, ''),
-('e878cf31ecaf0e45b49b587d743f0d52', 1294078640, ''),
-('9c8179b3bed044d0146a1e38effff7ae', 1294078640, ''),
-('f954de0488d9a0572099b575c6c8d2c9', 1294078637, ''),
-('c6bc0552a5ad58a7cb2a9e6951ff46a3', 1294078635, ''),
-('e00ad7dc70e11fbb10468904a4d46d32', 1294078623, ''),
-('344137fd2b208e326a6bad4e7c94f9af', 1294078623, ''),
-('5543a557a021a2ef65a46d2894147d82', 1294078610, ''),
-('6102e5a732d574824ec6cd664d960725', 1294078608, ''),
-('ef5cd185bb550cd951f6b5b3265db337', 1294078563, ''),
-('f7876561cd35d1149cd95010eb4cc43d', 1294078563, ''),
-('d39640fd9bd118ef8b9937aa828272b7', 1294078551, ''),
-('d41ccbdc28200049bd76eebed119364c', 1294078534, ''),
-('cff71bbcb74f2d96be8f2271a57a0a11', 1294078534, ''),
-('6baa852b790f81ccb77f991be6658e3f', 1294078503, ''),
-('d4a1943b3afb9fd8e695046ca6b718ec', 1294078503, ''),
-('57743749773d06d448f3e50ca9183b1b', 1294078491, ''),
-('4ddda2a4a97724526c781ed249e8bc67', 1294078478, ''),
-('9288e6f1c3a66edfd7c40a7fa674106d', 1294078457, ''),
-('82c7e08d6a113cbc03b17e6aa1696cc0', 1294078449, ''),
-('4df80c11e70c1e691d3223a4c15bfddf', 1294078447, ''),
-('34553ee3c220bd0b5b5c0d717830ca59', 1294078446, ''),
-('ba815c2a7322c0ad3d4bc62719730306', 1294078443, ''),
-('014ab045bc8c4d9b03db9f9987ec0b7b', 1294078443, ''),
-('feced956d3447b5e0fa9df8096f71fef', 1294078436, ''),
-('a5224ebda1fc8cf7edb1cabdd39a1eb8', 1294078433, ''),
-('3cc0e72fd4414ffa25b64e2f871c1e93', 1294078428, ''),
-('30d4c42e0c1fa93f2d1c5bc8aa4552b0', 1294078425, ''),
-('7082b497fae2975201847683b1ab3b6c', 1294078382, ''),
-('eaf825d7d09fe01974bc98d0094e7d04', 1294078382, ''),
-('ec4ee29e8592147871c146ba183ac59d', 1294078368, ''),
-('0b1ceca552e5d7f2e16002a189097b04', 1294078361, ''),
-('2f42078d8cf66e3ee785f790b004b32b', 1294078360, ''),
-('c70daff169ee0efea8803b72dded19cf', 1294078341, ''),
-('7013fa7b9ea99d8a5e7c59942f20848d', 1294078341, ''),
-('5c6e9c0209bfbbffd3b39c385f2bc01d', 1294078322, ''),
-('e98e3998a4ffb4886555e6e0af50cfb2', 1294078322, ''),
-('d20bafed46fa6377bbea53cf2a7e5af9', 1294078784, ''),
-('0de60317834ed5d1b5099d98635f6fe0', 1294078262, ''),
-('abc501962434bf26dba51dfda9c25cd8', 1294078262, ''),
-('d1ba354e3facc20f4fc4c6cb2d2370ec', 1294078745, 'id|s:1:"1";pass|s:128:"32bcc0b4696cc3f552e61b21b761ae76bb29dbcd0f45eb309a3f296a751b9c9973580e4c9539e8f4c66077db61be37e7f90fe112688da1c210b51b74636cf5dd";hash|s:128:"1d50c286143c384c3cf6b54e7c0ea456421d937e41e1c544958dcff27d58cc0b8cc2f7be5f8a9fa156d0e24e4ebcdf7fde4e8d2af7c804b42f5f05e1cdfbb4bd";'),
-('bc6deee5d79bf67586e0fbefc0d34e34', 1294078513, ''),
-('d6364574399a748ca7344c10c5ba9a17', 1294078202, ''),
-('dcf273b126dad6f9585d01acacab4212', 1294078202, ''),
-('2b4647b744f3d22879237434cb9147ae', 1294078232, ''),
-('c87caf7db050b043c3cc67cbdd1d8ca4', 1294078187, ''),
-('3ce7da10584011bd84e92e3f92485311', 1294078261, ''),
-('1ca2f360ee22af1aca4530582f182bfd', 1294078154, ''),
-('7d78936a671ed92e73bd3644459c3763', 1294078153, ''),
-('f8c63e9ea09b64aa1b96888585604e54', 1294078151, ''),
-('fda11d2b913c4903bdb9966ea8bb5756', 1294078147, ''),
-('f4ca45f88805caf63f308d1bf148fff7', 1294078145, ''),
-('36dca27ebdfee3f59dd732874342ab72', 1294078142, ''),
-('c0e2ec33e108a6e8a72987735dea56ea', 1294078142, ''),
-('0c0d13a42a07a82d2f6cdfd8f37918ee', 1294078082, ''),
-('6735de343db4de206cf9df62cd1211d5', 1294078082, ''),
-('8b4ee47dfc6918a890ce29fdf627b001', 1294078048, ''),
-('fbe8498deb4d042f95092667a05ce295', 1294078022, ''),
-('a508c1fe99754ee5c0092d055806ad8d', 1294078022, ''),
-('62de454f4cc6f25e339bd7a7c200123e', 1294077961, ''),
-('2f0c7ee44f4e5cadc25b44af521addae', 1294077961, ''),
-('fb6c49dca83eea0440bb43e898d6f278', 1294077901, ''),
-('1e1b406782bc54865751c3efd7d965cc', 1294077901, ''),
-('f7ea6801009d1f3bfdf38065400ecfd0', 1294078003, ''),
-('48c57bf8713842208730a46e061f4563', 1294077845, ''),
-('9e06f73d718bda0937dad7599426208a', 1294077841, ''),
-('0f5f82b44c94a2ea5981b0aff1ad102d', 1294077841, ''),
-('3ae72dfe0a27dafc3010c3f8ea37764b', 1294077612, ''),
-('67e19168a8ce56870c53a6a2f4530cd3', 1294077626, ''),
-('2f482bbdde44d70e312069862020a6f1', 1294077661, ''),
-('f5cddb1ed1d37b67bc959929a184d628', 1294077661, ''),
-('92c6e24f255119e06bd1dddd8211d4e5', 1294077721, ''),
-('f935a0818c7947de992679c76c5bc7c6', 1294077721, ''),
-('8b4e3906ef57b83a3f255179a3fc498d', 1294077736, ''),
-('a44563c37d092ea0c609c94dd4aed17a', 1294077754, ''),
-('ed41f6eedc5e6412a784962912a55ffe', 1294077781, ''),
-('c88acf78f6246112e0e31eb26b7aaf8b', 1294077781, ''),
-('76d138eb50c7eb52815491ab5b554d9a', 1294077793, ''),
-('dc11c7a03038abefc8b923f96a49ec55', 1294077809, ''),
-('c71d91f5bbe26d29dbab802c9601a5dd', 1294077526, ''),
-('442497e73bcafa63c6f9cea6eac0d65c', 1294077540, ''),
-('e33fd830a906d8d28e6bd6a24554cc14', 1294077540, ''),
-('e8702e14e0f015e0c0a13967adbb5c57', 1294077601, ''),
-('23264f66cb41cadb1eadb9708b709949', 1294077601, ''),
-('c16343980fcaf681c96178e0de95fc0e', 1294077480, ''),
-('60b3b12acd2f58403e11303d9d20b157', 1294077480, ''),
-('d0c18c7547688ed53254e06846752c7f', 1294078222, ''),
-('79ba603097e2859138685efac0ea3c23', 1294077462, ''),
-('9c16f84efa726d2fa044b837bd58a1f7', 1294077452, ''),
-('2f3e1461fd608042efa6c6bfb663f097', 1294077434, ''),
-('5ebfd6189a547f671c8b38fbd1c5ffb6', 1294077420, ''),
-('2361cd3d62d104290d9d50eb6bdbc432', 1294077420, ''),
-('c0f48b098b72d1b34aed42d346375a84', 1294077360, ''),
-('7e62516b1bb463ffe9aab45dfbba6e66', 1294077119, ''),
-('9ce0e89bd074b4adb10ebc6cc105659f', 1294077171, ''),
-('c8e55ad5a5042e28165456ee5f3bd69a', 1294077160, ''),
-('5bd5b24dc9810654f1885a918bfd81fe', 1294077119, ''),
-('58c97638aa8c6cef3f8e193a4b5e8f92', 1294077111, ''),
-('7295ca280fc0f84d5857acaaee1bcf8a', 1294077059, ''),
-('fd058162cead0dcf127243d2ee66e6c6', 1294077059, ''),
-('9aabd16a899fc831de8f8dab6acdbbca', 1294076999, ''),
-('4b5565b3b35a1e54fd9f057f87ff9986', 1294076999, ''),
-('17b28951f95c1b5b0f62b8222aaeca36', 1294076962, ''),
-('02136b56a14d87e136a570e37076af86', 1294076939, ''),
-('223015afcfd4d38b6df463da04e01e80', 1294076939, ''),
-('cbf514153806be8e3ee8691bfa19a9b7', 1294076881, ''),
-('9663db52ba0d152ca32951b09b3906fb', 1294076879, ''),
-('df2ce2f8c9fa0c6e39a2a01bb89d6663', 1294076879, ''),
-('9727857d76726baec9755410e1d52a0b', 1294076866, ''),
-('a3579ae43cbf6776d15e6ec33d126cad', 1294076819, ''),
-('cf8d80a6a9d3cfbc404bd0ec99ce8733', 1294076819, ''),
-('6132120ffb6f222eacfa834da7bf79f2', 1294076759, ''),
-('168c62e3a82c2622e79b43ae64c6b1dc', 1294076759, ''),
-('aa5b1503a174a490ad82a747e4649f3f', 1294076708, ''),
-('056e1dd72e8ae2ad30bb48b592e1c753', 1294076699, ''),
-('8163d582c67e4ec91deb9b89fe49b9a7', 1294076698, ''),
-('1c237f88d53cf630280e7937b5ff648c', 1294076638, ''),
-('ac817853c3cdb7e9597bc7b90fc4a878', 1294072990, ''),
-('361f01c1d5ab1a8016d7385d7cc32adf', 1294076638, ''),
-('be359257605e5428e8ded487a5926a98', 1294076617, ''),
-('c3b92e6e1e49f8190c7cc805560a3cf7', 1294076578, ''),
-('aa4f7c8202800c38b6253cecbef61e71', 1294076578, ''),
-('8d61d20446ac78d2b372863cc9808f60', 1294076570, ''),
-('447f171bde4511838b0bfc1b95896830', 1294076546, ''),
-('c8633f63d4307c454207deec198f6b39', 1294076541, ''),
-('f379795ad30ec75ac54d55464e6ff4bc', 1294076536, ''),
-('fd3a19141b5843d2b82c9ca86029803b', 1294076531, ''),
-('b154f690a4118a551c3076e4d1e6e83f', 1294076526, ''),
-('3703b3579128a8e56c7b82435be7ca38', 1294074515, ''),
-('29dbcfe3aa69cb38d3d00798029cc466', 1294076521, ''),
-('8b0d8c2b8a51190f5a3de12ce093644b', 1294076518, ''),
-('c657fc3ca6024c2a455f277c493bb114', 1294076518, ''),
-('400629e77e923ecf57ef6b3df7d32a99', 1294076516, ''),
-('1bb96c38ade73ac378ce04049a45176e', 1294076511, ''),
-('99d046aaf2845ca2b387050ea849c0e6', 1294076507, ''),
-('d6eada7f9fff856059f44e3244263cd2', 1294076503, ''),
-('fc6503d2ea70d9d4fd966602f33370ca', 1294076458, ''),
-('e05739b14b3ef9f2b4ce4c2c24d1ac53', 1294076458, ''),
-('edfcea1e1d14405edb332a63ebbfa022', 1294076398, ''),
-('1b43c6aa6723ff4bfa69dc18479782af', 1294076398, ''),
-('fecc5f4653202d76aa5b79e84dacd698', 1294076338, ''),
-('1d0784a8176fa1a8c5810b17ceb7a219', 1294072888, ''),
-('02d6189da65376222a767307fcaa902d', 1294072890, ''),
-('458ada45554052f1fdd4ffaaa6f3f783', 1294072908, ''),
-('5fa4caa899448cc6b8fd9fca25d84d90', 1294072908, ''),
-('47fc25f9a2be2a4a64982cd662cc6dfe', 1294072968, ''),
-('aebba993ed8917ab7d80c344fd43bc2a', 1294072968, ''),
-('7281114b4306f127c83e86bafbc67df3', 1294073028, ''),
-('fd7a579fe5e11f76d8af74b75c04443e', 1294073029, ''),
-('7186e2ec61f278f3acffd9ff6ca11f7f', 1294073030, ''),
-('0b7f788b23e898129be87a86f9d38f91', 1294073032, ''),
-('b14b39f55384ea530e7cc9b564839fe1', 1294073039, ''),
-('9784de4bd1e226682ec29d34e4eb3610', 1294073061, ''),
-('545135641873d2ef429814261332b830', 1294073245, ''),
-('51540c97d78894955533ebc170862461', 1294073089, ''),
-('c4edb0b4053081d8a9cc556d898cd7d7', 1294073089, ''),
-('78787196ed8283964bb6ccc5430527a6', 1294073149, ''),
-('73e818ee1de6d4f4a4a310cd5e31ed5a', 1294073149, ''),
-('c843e26e7b59751446f406e8bdbc5054', 1294073156, ''),
-('10f60021fc0f40d0d196ea221bb82fb5', 1294073209, ''),
-('c083a688c1bab9c5e535b534ebfb8309', 1294073209, ''),
-('747785fedef8a6f787d9778e6c298fa9', 1294073212, ''),
-('8dcf6604198c0d0891322039d4930c97', 1294073219, ''),
-('80e0d271e1441009d0af0a639f8e33a7', 1294073234, ''),
-('7040cbc0aa855b9d7b6aabf6675cc35c', 1294073269, ''),
-('885c0e37b65487df475d3fff87491c55', 1294073269, ''),
-('7ba2de7b3357054633df601f9b392d80', 1294073324, ''),
-('910e1a0950c94bfe219d879a5c4a0bac', 1294073329, ''),
-('547ce6ed6030769148d0e953f1a4bd0d', 1294073329, ''),
-('9995d9e22e0fb3e538d3e513d6dd81fb', 1294073332, ''),
-('2f07172c0fb98d6dd88e7a1d7850d3a9', 1294073341, ''),
-('cc3207c3e223a3b1b43fb4a3da83fe12', 1294073389, ''),
-('cb323eb3766a3920aca474b534340f29', 1294073389, ''),
-('d2a58778718f0a03a439e2c4bfde20ee', 1294073390, ''),
-('0e6288dd70713738571614de13442ef5', 1294073450, ''),
-('7861e1fdc551c1cd862a6d05306fbb10', 1294073450, ''),
-('efa65538c68b6e0e445246a5f6c3dd17', 1294073510, ''),
-('5ee49fa50ccf49df6611932e6673b718', 1294073510, ''),
-('2cc4c865973708f2f56a96803ce4d09d', 1294073570, ''),
-('9cb244c2ee87aade5a7b2af16e5c51d3', 1294073570, ''),
-('e1efd5e8f011a3d4c984fcb847522dbc', 1294073625, ''),
-('9bb02fe4f4a94a42a11ad788ea3c65e6', 1294073630, ''),
-('9562ea1922e389f151dadb946cb7cb39', 1294073630, ''),
-('8dd7b1af374ee5eb1070eb9ea7b8af4f', 1294073678, ''),
-('6922c975723f6f493cd2920359a90f6a', 1294073690, ''),
-('3b6651eee6a941e92ef07508a27b98ba', 1294073690, ''),
-('222882ddd7b397a9f7193ddb5625ac62', 1294073750, ''),
-('104bce94321e33411f4431d3181ed298', 1294073750, ''),
-('2bc5d5f2b3bd47979b73b26bfadb7666', 1294073811, ''),
-('aeff5dc9448ff8d4018faa146ee913a9', 1294073811, ''),
-('4315637bcdbba967f7647959ea188f06', 1294073827, ''),
-('f8f2b728e45dee4c2ea82c6c63bcab07', 1294073871, ''),
-('1d6775db02fad528a72eda5ad88533c5', 1294073871, ''),
-('e6055ad93d8bdf4f48e005c3ecf6c9f4', 1294073920, ''),
-('687b7ba657e95a362d777e4819bef187', 1294073931, ''),
-('78a3088e9a8157595dc1f796fae67a9f', 1294073931, ''),
-('9e32b19b55260b9aaf33a7b9e3ffff99', 1294073952, ''),
-('bd87ab83891800dcc53b4f7b27252b94', 1294073980, ''),
-('f500e4c9091b4eacaad05efd305e355f', 1294073991, ''),
-('4c6ae172105fae60e04d294e0c9a064f', 1294073991, ''),
-('166e0cf1b6d444344551ef1551431212', 1294074020, ''),
-('fd9447c2de0b787bdb91c0d9a55fd9f0', 1294074036, ''),
-('575c325234deb2eadd317c7c675492a8', 1294074041, ''),
-('1c3d45d2fd1c77d833118140064d4d51', 1294074049, ''),
-('e243f2610f5a16a89f0e018b00eeaca8', 1294074051, ''),
-('6d3e69ba07a91a1935a56c260a99327f', 1294074051, ''),
-('a7586088bebe198e05c32c1329039fed', 1294074112, ''),
-('484404c9a40cfba44732c97093bf13c1', 1294074112, ''),
-('aaaad2e79372f2accca78f1bed792642', 1294074143, ''),
-('521f8073946f21bc4bb38c46bfed8f05', 1294074172, ''),
-('ee9fe1de80fbb84c8980ff0b2ad63a95', 1294074172, ''),
-('2a3a1694127d221cd9e9e09e4cbe24c0', 1294074212, ''),
-('c933c9f0c171720f076469c151861972', 1294074232, ''),
-('f625389f4e0da35f7b442505f38370c4', 1294074232, ''),
-('17c7c6baf59bc70e4592631e47be8cfa', 1294074292, ''),
-('a2fd0f189daafbd2bf727e725e7bbe62', 1294077180, ''),
-('0f49434f9cc10ee86f482f44071420cb', 1294077180, ''),
-('58756237fe2d9004a6348b9046fe1cd1', 1294077240, ''),
-('84fc5c5b820e82aa27102362c6495c63', 1294077240, ''),
-('ed564d203fa86a2dcc1c9a8a4296eba9', 1294077300, ''),
-('fa83a7176e568838fc76785f6d61aff0', 1294077300, ''),
-('c5263c292593077d6af12ae6e6b1210e', 1294077743, ''),
-('7082eb4873ecd9ef955f8708bb0a8f25', 1294078195, ''),
-('c9aa0211e14ae97ee99a23fb6c5e39b0', 1294077360, ''),
-('ab53391e12edc3f376e37c4801366ec8', 1294076338, ''),
-('c80e9c05ba920e1f3a4b9977b1d7dc37', 1294076301, ''),
-('63ab051ea5694e0b8573026fead59fda', 1294076278, ''),
-('9660332fb4106febd07d1dc2dd98b3a6', 1294076278, ''),
-('701eb4424f04e9fa90d0a2b0eaef9450', 1294076276, ''),
-('9d44b67d0e71e624d1d13b35b6bc648e', 1294076244, ''),
-('3b902eebdf027da2a3c6b0aaf0617ff7', 1294076241, ''),
-('cd028b2339542b0c55ad755353f557c5', 1294076540, ''),
-('dbfae38d4d445af6c29d2dbd92138227', 1294076217, ''),
-('7aad184b5dd84ff1566cd6c8b6c13f7a', 1294076217, ''),
-('15fb9dfd01ea496e3d3c6ba2322da61d', 1294076204, ''),
-('2915ebf8d41a5a84c951bce8d4f5aab3', 1294076157, ''),
-('ab77483118ed93c73ca33a6571cb487e', 1294076157, ''),
-('2b7bb85f0c648cc45a9e73209827ca6b', 1294076135, ''),
-('8be66b5f3ceac7f2bafdf21228614bf4', 1294076097, ''),
-('4ab79329b6f5c2d14753b03662a3bd77', 1294076097, ''),
-('420e816c7f606935b4770702774ce4d7', 1294076037, ''),
-('f85160ec17f013d2329c33a6b291acd9', 1294076037, ''),
-('d8caf1ca347fcf377509b3d74b59851d', 1294075992, ''),
-('65d28686289755d87f2bc878dc27d112', 1294075982, ''),
-('531822ea355757e6d66b9d0d3f157f9c', 1294075977, ''),
-('b8f97ab2f079607bae5d8ac4bc4252ea', 1294075977, ''),
-('8f4b98bd84d6bf2fb08f8a27fa0054af', 1294075934, ''),
-('06e8884a03181d221ae5037ebed89d6e', 1294075917, ''),
-('3674fe07dee384fc599bf3bb3ff66242', 1294075917, ''),
-('8f3ba31427fb4d7c56d04138cda2922e', 1294075907, ''),
-('37d0abf347756816a5e60f5f2ecb7d15', 1294075938, ''),
-('a4396335fee69aa6a39711c2a9b8350d', 1294075857, ''),
-('7e1fe61247ea15b1b4c4b04cfc437855', 1294075857, ''),
-('fc6c68d4733b22678a161b33b4b0818f', 1294075796, ''),
-('348600429347bdc3aebf6b770f0093cd', 1294075796, ''),
-('60e4c0bc742670b4bab5e7f482897f4a', 1294075736, ''),
-('94755189c126ff1f6ded66ab5a433fa0', 1294075736, ''),
-('241f496ab1ee57ff286fd3efdf6ba5fa', 1294075736, ''),
-('4f7026273cd147e2a6641e6950de3bcf', 1294075710, ''),
-('6569b92dc168edebd2970d284a886a51', 1294075687, ''),
-('df870de5c4f3b991183ab352720f0417', 1294075676, ''),
-('f4c14bff16f454906bfbb6b1993b8164', 1294075676, ''),
-('77ecb376125cb25b3fb320ce532a3ab5', 1294075616, ''),
-('884ba5ee301576ce9df665e0fb020363', 1294075616, ''),
-('3aed4b61e3ae5a52cfc249f7ff75bec8', 1294075556, ''),
-('2b76fad4497c6d3b8cb16d71054f874c', 1294075556, ''),
-('e05ae5296f7c9e939032d6d69ff00ae2', 1294075527, ''),
-('b87099f1e75615e8b8ed7b182b494be9', 1294075522, ''),
-('ce6bf3d81c5a4a50542449dc4bdce995', 1294075496, ''),
-('a18c9771a54b5e7d684eebbf7ac72a98', 1294075496, ''),
-('2f12539aa0cf8c1a1db04d2eadf17018', 1294075490, ''),
-('3b04403390ac6ff443b02bdc30d87769', 1294075436, ''),
-('5c48e2ce30e48d6c21d3dfb6ff00798c', 1294075436, ''),
-('98d613faaac0059d3b7b156338aa84cb', 1294075392, ''),
-('727a3323b687d8a08bff61089a4541cf', 1294075376, ''),
-('08cf6ddb89d39bef9b8650a4326e4993', 1294075375, ''),
-('0509da28f0a3f8f0020a68918a499de9', 1294075315, ''),
-('e4231e7c9de2dfcacb001473769893e9', 1294075315, ''),
-('90bf5d59e5bb5e17f2a5da8be2b440dd', 1294075255, ''),
-('39f3cb0ea5c634fbaf881c774e5835f9', 1294075255, ''),
-('e6ee9f384479029594d5e4ef75b5e98c', 1294075322, ''),
-('cc480e6cd4d24d522a91c452a78978ac', 1294075195, ''),
-('182ba82dd5bbaed869f53bbab73203f9', 1294075195, ''),
-('0ea72eedd5904b61e16f62581c3f79c0', 1294075135, ''),
-('fd55ff04be9a441b94424b286c938613', 1294075135, ''),
-('ccaa7170d81f031d98a0b4bd7ef15f10', 1294075098, ''),
-('97e0746b5fc05a5e276a6411dad24950', 1294075075, ''),
-('8bd60c34d7f2b9637b17e558a931f62d', 1294075075, ''),
-('6c735418de815483a7755c212a7dfbf0', 1294075068, ''),
-('e7d2ecad2bd6b28d1b7fdf8a49cd3fbc', 1294075015, ''),
-('aa38e6b9ca087ca41f7b6b93b0d7b5aa', 1294075015, ''),
-('b476ab54730f4b5a6856b9c5128d1e6c', 1294074955, ''),
-('3bea57bf710fdae7cd6b9edd0640418e', 1294074954, ''),
-('998f1170bd408eb62871f43c8abb9035', 1294074894, ''),
-('4bf83be92a19ac198b0afdca5f0b94a7', 1294074894, ''),
-('6359820fa26d38156e25d64a0c10cfbd', 1294074883, ''),
-('dea8ed7b73f1b941746cbfcc17411911', 1294074834, ''),
-('d6d91d177cd832b8bb28f1bea753ac45', 1294074834, ''),
-('cb76fa1372056fc3db77dd0f5a890876', 1294074802, ''),
-('50febd70ec7642904a8e72ba4e6350c5', 1294074792, ''),
-('6fe6f4694747432b40e2b95a1503eef7', 1294074774, ''),
-('3881887a429ac4b41155714d32951c03', 1294074774, ''),
-('5071e854a3c050b20a127b1bae07cb75', 1294075193, ''),
-('4b7520eeba51a6a18483529b9c02f762', 1294074714, ''),
-('b1c67fe60853f81e67eefc0a2226d93d', 1294074714, ''),
-('244c6db6a0989b160c348427930e0cd9', 1294074695, ''),
-('2860282ac954f26ee60a5146030ac32c', 1294074654, ''),
-('1649cf421c115cf3f0486c713cabd2cb', 1294074654, ''),
-('b9e7bf135d207b3a548fa952843cd931', 1294074593, ''),
-('5caa15c67a28bda46fca03c184a56c13', 1294074593, ''),
-('8a2e1acb5d44f60df0ed6e33214b66ef', 1294074533, ''),
-('a7340074380adceff97569dbcfc8f2bf', 1294074533, ''),
-('281315f082477dcfd278bec21d133038', 1294074507, ''),
-('96fbf0a96fd372ac16e84ca1a5d053f5', 1294074494, ''),
-('d65c8a0fa18f1d1a0726d52aa0405f26', 1294074473, ''),
-('b1a36822c1fe4380aa511b9703df7e1e', 1294074473, ''),
-('f7bb92afb967a09247bf5063b038387c', 1294074555, ''),
-('f805a6bbf0047483ae56a6d16687b249', 1294074444, ''),
-('238654be11a34e333144c65ed8294be7', 1294074440, ''),
-('ba4a0ac255f5dfe9152db24da9883bfc', 1294074523, ''),
-('38d7bd4722cbcc2cf1fc4d5f38c69f14', 1294074417, ''),
-('4db0375c2c479dd396076b5d43999eb3', 1294074413, ''),
-('967f36695f80e43a8148d635eccb68e0', 1294074413, ''),
-('993a0b063446df5ce5726fc2c72954ff', 1294074410, ''),
-('0d9239a9fba5b7330df931b941ebd8c1', 1294074410, ''),
-('2edddaf8ee83ad12c1b3f78e54e8aabf', 1294074585, ''),
-('f666d02768aaadfb27a7f69a2d4efc7e', 1294074523, ''),
-('96cc2f0020bc96c48d727ad3db4795ca', 1294074395, ''),
-('1a6acf16e8598ca0d42bbbbc386094d9', 1294074369, ''),
-('0b3a316177750c297dd0e643431c9863', 1294074352, ''),
-('27c0dcaf4b43dc514e0afd3371068ed5', 1294074352, ''),
-('f8a30c5b6cbc6f7b9000493fda503de5', 1294074340, ''),
-('4f56b4284714843f7c3a5c2dfdf3dec6', 1294074336, ''),
-('85cd8c00baaf19a7d02969f75fa1138c', 1294074308, ''),
-('a4efac59bad64bddff0b118f87bf1045', 1294074292, '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `xirt_staticcontent`
---
-
-CREATE TABLE IF NOT EXISTS `xirt_staticcontent` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `xid` bigint(20) unsigned NOT NULL,
-  `language` varchar(5) NOT NULL DEFAULT 'en-GB',
-  `title` text NOT NULL,
-  `category` bigint(20) DEFAULT NULL,
-  `content` longtext NOT NULL,
-  `meta_title` text,
-  `meta_keywords` text,
-  `meta_description` text,
-  `config` text,
-  `locked` bigint(20) NOT NULL DEFAULT '0',
-  `published` tinyint(1) NOT NULL DEFAULT '1',
-  `mobile` tinyint(1) NOT NULL DEFAULT '1',
-  `created` datetime NOT NULL,
-  `author_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `author_name` text NOT NULL,
-  `modified` datetime NOT NULL,
-  `modifier_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `modifier_name` text,
-  `access_min` tinyint(3) NOT NULL DEFAULT '1',
-  `access_max` tinyint(3) NOT NULL DEFAULT '100',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `xirt_staticcontent`
---
-
-INSERT INTO `xirt_staticcontent` (`id`, `xid`, `language`, `title`, `category`, `content`, `meta_title`, `meta_keywords`, `meta_description`, `config`, `locked`, `published`, `mobile`, `created`, `author_id`, `author_name`, `modified`, `modifier_id`, `modifier_name`, `access_min`, `access_max`) VALUES
-(1, 1, 'nl-NL', 'Home', 0, '	<p>\n		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut nisi at magna tempus pulvinar. Nulla in neque libero, eleifend feugiat dolor. In ac tellus neque. Proin dapibus, sapien sed blandit scelerisque, lacus diam ultricies diam, in vulputate nunc ligula sit amet nisl. Fusce pretium sapien augue, nec convallis tellus. In augue lorem, viverra a congue ac, faucibus at augue. Sed eget nunc leo, eu faucibus libero. Nam libero ante, tincidunt quis mattis adipiscing, viverra quis enim. Pellentesque enim sem, sagittis nec convallis vitae, ullamcorper quis eros.</p>\n	<p>\n		Etiam interdum ligula ac dolor congue blandit. Nam neque nibh, iaculis ac dignissim vel, blandit pharetra diam. Integer vitae elit quam, id accumsan neque. Mauris malesuada risus in velit auctor iaculis tincidunt neque fermentum. Etiam sed eros nibh. Suspendisse potenti. Curabitur nibh mauris, ornare ut vestibulum ac, blandit at mi. Morbi adipiscing, velit quis feugiat pellentesque, massa tortor mattis turpis, tincidunt ultricies tortor arcu in quam. Nulla facilisi. Morbi interdum lectus vitae dolor convallis ornare. Ut luctus, eros eu ultrices molestie, arcu quam tempus enim, sed dapibus dui urna at magna. Suspendisse id pellentesque quam. Vestibulum congue lacus eu velit aliquet ut malesuada arcu volutpat. Etiam massa elit, lobortis et mollis eget, imperdiet nec nisl. Phasellus dapibus ultrices euismod. Quisque vehicula diam ut erat egestas vehicula.</p>\n	<p>\n		Donec fringilla interdum tortor id ornare. Phasellus felis dolor, lobortis ac suscipit eget, hendrerit porttitor elit. Nulla arcu felis, egestas quis condimentum ut, blandit ac urna. Integer mattis ultricies porttitor. Vestibulum sollicitudin imperdiet velit id pharetra. Proin bibendum mi et ligula cursus ultrices. Pellentesque volutpat nisi in massa scelerisque fringilla. Donec eu velit mi. Nam id neque at augue congue facilisis. Donec dui urna, interdum in consectetur molestie, pellentesque sed mi. Phasellus tortor arcu, luctus lacinia mollis at, fermentum ut dolor.</p>\n	<p>\n		Sed eget lorem ipsum. Curabitur felis nibh, blandit ac convallis at, auctor nec dui. Maecenas orci nibh, placerat non commodo lobortis, tempus a mi. Donec pulvinar rhoncus suscipit. Donec sed ligula vitae risus hendrerit pulvinar. Proin a urna quis velit feugiat sagittis sit amet sed eros. Pellentesque vehicula arcu eu neque dictum accumsan.</p>\n	<p>\n		Phasellus eget elit libero. Vestibulum sit amet tempus ipsum. Phasellus eu mauris nec ante rhoncus elementum. Phasellus vestibulum tristique metus. Donec pretium ultricies orci, nec posuere velit suscipit at. Nam lobortis felis ut nisl elementum eget sagittis turpis facilisis. Mauris euismod, enim quis ultrices mollis, nulla justo dapibus eros, in euismod ligula augue ac eros.</p>', 'Home (voorbeeld) | XirtCMS 1.6: Simple Content Management for Online Applications', '', '', '{"css_name":"","show_title":-1,"show_author":-1,"show_created":-1,"show_modified":-1,"back_icon":-1,"download_icon":-1,"print_icon":-1,"mail_icon":-1}', 0, 1, 1, '2012-01-04 17:02:37', 1, 'Admin', '0000-00-00 00:00:00', 1, 'Admin', 1, 100),
-(2, 2, 'nl-NL', 'Over XirtCMS', 0, '	<p>\n		Lorem ipsum dolor sit amet, consectetur adipiscing elit. In adipiscing fringilla nunc, ut lobortis nulla congue in. Praesent ut sapien vel magna congue vulputate. Duis dui elit, feugiat vitae ultrices in, rhoncus non lacus. In eu nunc eget risus imperdiet adipiscing sit amet ut turpis. Vivamus dictum purus sed ipsum congue laoreet. Donec rhoncus euismod quam, blandit varius nulla pretium et. Nullam pharetra bibendum risus, in ultrices urna feugiat quis. Nam ac sodales felis. Quisque in leo in libero dictum dictum. Donec ac eros non lectus euismod congue. Morbi eu leo sit amet ipsum tempor porta nec eu purus. Etiam adipiscing tellus at elit pellentesque congue. Aenean mattis metus sed ante mollis faucibus. Mauris ac dolor et risus ornare consequat. Duis nibh tortor, mattis a gravida vel, vulputate ut tellus.</p>\n	<p>\n		Donec urna metus, sodales non venenatis eu, sodales ornare erat. Ut lobortis, elit nec convallis pellentesque, lectus augue faucibus velit, ut sagittis nunc velit non purus. Nullam adipiscing dignissim accumsan. Maecenas lorem lectus, tristique nec pulvinar dapibus, sagittis non dolor. Donec lobortis, libero ut faucibus pretium, urna quam mattis lorem, nec vehicula magna nulla ut tortor. Sed ultrices gravida nisl sit amet facilisis. Suspendisse at justo a velit iaculis hendrerit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus non justo ut nunc fringilla feugiat.</p>\n	<p>\n		Nullam sagittis posuere diam eget porta. Suspendisse erat nulla, placerat non blandit in, bibendum nec leo. Proin tempus dictum velit adipiscing sagittis. Phasellus enim dui, dapibus sed porta eget, tempus et ipsum. Aenean ac sodales est. Integer gravida metus sit amet urna auctor pretium. Donec pulvinar congue odio, et pharetra tortor semper id. Nunc leo nulla, vulputate id egestas sit amet, consectetur ac sapien. Pellentesque sollicitudin commodo metus, et rhoncus lorem blandit vitae. Maecenas ullamcorper arcu sit amet elit ultrices quis iaculis justo hendrerit. Sed ut nisl at nisl scelerisque rutrum. Morbi auctor, augue a posuere dictum, erat felis lacinia libero, auctor interdum arcu lectus ut mauris. Cras dapibus est vel sem pellentesque vulputate. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed vel nisi lectus.</p>\n	<p>\n		Integer id arcu quam, et commodo nulla. In sodales facilisis metus in iaculis. Phasellus aliquet, augue vitae pulvinar ultrices, eros turpis mattis mauris, eu dapibus neque nibh in felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc id ullamcorper tellus. Vivamus in sem id nisi fringilla sagittis. Sed pretium magna a dui accumsan vel rutrum ipsum imperdiet. Nam a arcu in leo interdum interdum nec et orci. Duis consequat nulla et magna venenatis euismod. Etiam porta aliquet turpis non vehicula.</p>\n	<p>\n		Phasellus sodales justo vel metus congue nec vestibulum turpis ullamcorper. Nunc eget urna lacus. Proin fringilla lacus at enim egestas eget bibendum ante rutrum. Praesent gravida, elit ut adipiscing mollis, eros quam ullamcorper ante, et fermentum arcu enim ut ligula. Ut sed velit ligula, quis bibendum augue. Duis commodo quam non ligula lobortis porttitor. Duis fringilla dui vitae diam fringilla lacinia. Aenean bibendum, orci vitae porta tempus, neque leo iaculis tortor, et vulputate erat justo ut libero. Cras non ligula magna. Suspendisse potenti.</p>', '', '', '', '{"css_name":"","show_title":-1,"show_author":-1,"show_created":-1,"show_modified":-1,"back_icon":-1,"download_icon":-1,"print_icon":-1,"mail_icon":-1}', 0, 1, 1, '2012-01-04 17:08:53', 1, 'Admin', '0000-00-00 00:00:00', 1, 'Admin', 1, 100),
-(3, 2, 'en-GB', 'About XirtCMS', 0, '<p>\n	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In adipiscing fringilla nunc, ut lobortis nulla congue in. Praesent ut sapien vel magna congue vulputate. Duis dui elit, feugiat vitae ultrices in, rhoncus non lacus. In eu nunc eget risus imperdiet adipiscing sit amet ut turpis. Vivamus dictum purus sed ipsum congue laoreet. Donec rhoncus euismod quam, blandit varius nulla pretium et. Nullam pharetra bibendum risus, in ultrices urna feugiat quis. Nam ac sodales felis. Quisque in leo in libero dictum dictum. Donec ac eros non lectus euismod congue. Morbi eu leo sit amet ipsum tempor porta nec eu purus. Etiam adipiscing tellus at elit pellentesque congue. Aenean mattis metus sed ante mollis faucibus. Mauris ac dolor et risus ornare consequat. Duis nibh tortor, mattis a gravida vel, vulputate ut tellus.</p>\n<p>\n	Donec urna metus, sodales non venenatis eu, sodales ornare erat. Ut lobortis, elit nec convallis pellentesque, lectus augue faucibus velit, ut sagittis nunc velit non purus. Nullam adipiscing dignissim accumsan. Maecenas lorem lectus, tristique nec pulvinar dapibus, sagittis non dolor. Donec lobortis, libero ut faucibus pretium, urna quam mattis lorem, nec vehicula magna nulla ut tortor. Sed ultrices gravida nisl sit amet facilisis. Suspendisse at justo a velit iaculis hendrerit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus non justo ut nunc fringilla feugiat.</p>\n<p>\n	Nullam sagittis posuere diam eget porta. Suspendisse erat nulla, placerat non blandit in, bibendum nec leo. Proin tempus dictum velit adipiscing sagittis. Phasellus enim dui, dapibus sed porta eget, tempus et ipsum. Aenean ac sodales est. Integer gravida metus sit amet urna auctor pretium. Donec pulvinar congue odio, et pharetra tortor semper id. Nunc leo nulla, vulputate id egestas sit amet, consectetur ac sapien. Pellentesque sollicitudin commodo metus, et rhoncus lorem blandit vitae. Maecenas ullamcorper arcu sit amet elit ultrices quis iaculis justo hendrerit. Sed ut nisl at nisl scelerisque rutrum. Morbi auctor, augue a posuere dictum, erat felis lacinia libero, auctor interdum arcu lectus ut mauris. Cras dapibus est vel sem pellentesque vulputate. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed vel nisi lectus.</p>\n<p>\n	Integer id arcu quam, et commodo nulla. In sodales facilisis metus in iaculis. Phasellus aliquet, augue vitae pulvinar ultrices, eros turpis mattis mauris, eu dapibus neque nibh in felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc id ullamcorper tellus. Vivamus in sem id nisi fringilla sagittis. Sed pretium magna a dui accumsan vel rutrum ipsum imperdiet. Nam a arcu in leo interdum interdum nec et orci. Duis consequat nulla et magna venenatis euismod. Etiam porta aliquet turpis non vehicula.</p>\n<p>\n	Phasellus sodales justo vel metus congue nec vestibulum turpis ullamcorper. Nunc eget urna lacus. Proin fringilla lacus at enim egestas eget bibendum ante rutrum. Praesent gravida, elit ut adipiscing mollis, eros quam ullamcorper ante, et fermentum arcu enim ut ligula. Ut sed velit ligula, quis bibendum augue. Duis commodo quam non ligula lobortis porttitor. Duis fringilla dui vitae diam fringilla lacinia. Aenean bibendum, orci vitae porta tempus, neque leo iaculis tortor, et vulputate erat justo ut libero. Cras non ligula magna. Suspendisse potenti.</p>\n', '', '', '', '{"css_name":"","show_title":-1,"show_author":-1,"show_created":-1,"show_modified":-1,"back_icon":-1,"download_icon":-1,"print_icon":-1,"mail_icon":-1}', 0, 1, 1, '0000-00-00 00:00:00', 1, 'Admin', '0000-00-00 00:00:00', 1, 'Admin', 1, 100),
-(4, 3, 'nl-NL', 'Help', 0, '<p>\n	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet nisi risus. Cras viverra libero ac ligula consectetur et laoreet ante laoreet. Sed ultrices dui at felis molestie eleifend. Duis id massa ante, id ultricies odio. Pellentesque turpis nunc, sagittis id sodales at, imperdiet et arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec imperdiet arcu eget nisi imperdiet bibendum. Morbi pretium sem nec urna eleifend eleifend nec ut lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non ipsum orci, ut malesuada elit. Proin non tortor et felis semper bibendum. Donec vitae urna a odio facilisis pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas fermentum odio id nulla blandit in ornare orci accumsan. Quisque eget nibh eu nisl lacinia mattis.</p>\n<p>\n	Duis quis elit vitae risus imperdiet suscipit non sit amet ligula. Nunc ac lectus turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam convallis venenatis lectus sed iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque tincidunt placerat arcu, et varius lorem porttitor id. Cras et tempor nisi. Mauris eleifend nibh vel nisi feugiat in varius erat pretium. Integer eu nunc nulla, at consequat risus. Phasellus a lacinia nunc. Integer porta ante a dui aliquet rutrum. Nam sit amet enim sed nisl faucibus commodo. Suspendisse ac nulla eget metus porttitor pellentesque. In dui risus, interdum ut semper vel, fermentum eget felis. Nam lacinia libero a ante sollicitudin eleifend. Integer in tellus leo, quis convallis est.</p>\n<p>\n	Integer dictum cursus metus, eget pretium orci eleifend sit amet. Vivamus odio sapien, lobortis eu gravida eu, mattis eleifend velit. Mauris aliquet tortor sed velit ultricies tincidunt. Donec nunc tellus, porttitor sit amet blandit vel, dapibus sed libero. Mauris eleifend lacinia libero, non auctor nibh feugiat at. Pellentesque laoreet accumsan velit eu tincidunt. Aliquam eu justo interdum tellus pellentesque euismod sed sit amet velit. Aenean placerat arcu et neque gravida accumsan. Pellentesque consequat hendrerit auctor. Nam gravida adipiscing eros, eu tempus neque pulvinar vel. Sed id tellus sed eros sagittis auctor. Nullam vel leo quis dui mattis dictum. Fusce vel lorem dolor. Vivamus quis risus ut dolor tristique blandit vel sed augue. Phasellus non augue erat, sed tempor lacus.</p>\n<p>\n	Etiam tincidunt velit quis sapien ultricies a interdum turpis commodo. Maecenas sit amet turpis lectus, vitae lacinia nibh. Mauris aliquam arcu id risus volutpat vel ultrices odio rutrum. Suspendisse tincidunt mi in felis egestas ultricies. Pellentesque felis augue, tristique sit amet semper ac, accumsan id lacus. Sed metus augue, tristique a malesuada sit amet, aliquet ac erat. Proin varius lacinia nulla, at hendrerit purus sodales sit amet. Donec purus neque, tristique vitae tempus sit amet, consequat eu sapien. Duis eu ante non sapien fringilla tristique vel quis quam. Vestibulum accumsan ornare metus nec auctor. In porttitor tellus vitae diam lacinia varius. Aliquam nisi augue, condimentum sit amet facilisis eu, hendrerit in tortor. Nulla metus ligula, euismod id dictum vel, tincidunt vitae tellus.</p>\n<p>\n	Nam in erat risus, at feugiat nisi. Sed rutrum suscipit neque, et facilisis nisl pharetra nec. Pellentesque vestibulum gravida ligula, in tempor felis malesuada non. Pellentesque elementum viverra enim. Ut tempor tincidunt nisl, a luctus mi rhoncus vel. Donec ligula nunc, egestas quis adipiscing vitae, sodales a dolor. Pellentesque quam augue, vestibulum sed scelerisque non, vestibulum eget dolor. Sed suscipit dignissim sapien, vitae fermentum nisi sollicitudin in. Phasellus hendrerit purus eget neque sagittis sed lobortis lorem porttitor.</p>', '', '', '', '{"css_name":"","show_title":-1,"show_author":-1,"show_created":-1,"show_modified":-1,"back_icon":-1,"download_icon":-1,"print_icon":-1,"mail_icon":-1}', 0, 1, 1, '2012-01-04 17:09:33', 1, 'Admin', '0000-00-00 00:00:00', 1, 'Admin', 1, 100),
-(5, 3, 'en-GB', 'Help', 0, '<p>\n	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet nisi risus. Cras viverra libero ac ligula consectetur et laoreet ante laoreet. Sed ultrices dui at felis molestie eleifend. Duis id massa ante, id ultricies odio. Pellentesque turpis nunc, sagittis id sodales at, imperdiet et arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec imperdiet arcu eget nisi imperdiet bibendum. Morbi pretium sem nec urna eleifend eleifend nec ut lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non ipsum orci, ut malesuada elit. Proin non tortor et felis semper bibendum. Donec vitae urna a odio facilisis pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas fermentum odio id nulla blandit in ornare orci accumsan. Quisque eget nibh eu nisl lacinia mattis.</p>\n<p>\n	Duis quis elit vitae risus imperdiet suscipit non sit amet ligula. Nunc ac lectus turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam convallis venenatis lectus sed iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque tincidunt placerat arcu, et varius lorem porttitor id. Cras et tempor nisi. Mauris eleifend nibh vel nisi feugiat in varius erat pretium. Integer eu nunc nulla, at consequat risus. Phasellus a lacinia nunc. Integer porta ante a dui aliquet rutrum. Nam sit amet enim sed nisl faucibus commodo. Suspendisse ac nulla eget metus porttitor pellentesque. In dui risus, interdum ut semper vel, fermentum eget felis. Nam lacinia libero a ante sollicitudin eleifend. Integer in tellus leo, quis convallis est.</p>\n<p>\n	Integer dictum cursus metus, eget pretium orci eleifend sit amet. Vivamus odio sapien, lobortis eu gravida eu, mattis eleifend velit. Mauris aliquet tortor sed velit ultricies tincidunt. Donec nunc tellus, porttitor sit amet blandit vel, dapibus sed libero. Mauris eleifend lacinia libero, non auctor nibh feugiat at. Pellentesque laoreet accumsan velit eu tincidunt. Aliquam eu justo interdum tellus pellentesque euismod sed sit amet velit. Aenean placerat arcu et neque gravida accumsan. Pellentesque consequat hendrerit auctor. Nam gravida adipiscing eros, eu tempus neque pulvinar vel. Sed id tellus sed eros sagittis auctor. Nullam vel leo quis dui mattis dictum. Fusce vel lorem dolor. Vivamus quis risus ut dolor tristique blandit vel sed augue. Phasellus non augue erat, sed tempor lacus.</p>\n<p>\n	Etiam tincidunt velit quis sapien ultricies a interdum turpis commodo. Maecenas sit amet turpis lectus, vitae lacinia nibh. Mauris aliquam arcu id risus volutpat vel ultrices odio rutrum. Suspendisse tincidunt mi in felis egestas ultricies. Pellentesque felis augue, tristique sit amet semper ac, accumsan id lacus. Sed metus augue, tristique a malesuada sit amet, aliquet ac erat. Proin varius lacinia nulla, at hendrerit purus sodales sit amet. Donec purus neque, tristique vitae tempus sit amet, consequat eu sapien. Duis eu ante non sapien fringilla tristique vel quis quam. Vestibulum accumsan ornare metus nec auctor. In porttitor tellus vitae diam lacinia varius. Aliquam nisi augue, condimentum sit amet facilisis eu, hendrerit in tortor. Nulla metus ligula, euismod id dictum vel, tincidunt vitae tellus.</p>\n<p>\n	Nam in erat risus, at feugiat nisi. Sed rutrum suscipit neque, et facilisis nisl pharetra nec. Pellentesque vestibulum gravida ligula, in tempor felis malesuada non. Pellentesque elementum viverra enim. Ut tempor tincidunt nisl, a luctus mi rhoncus vel. Donec ligula nunc, egestas quis adipiscing vitae, sodales a dolor. Pellentesque quam augue, vestibulum sed scelerisque non, vestibulum eget dolor. Sed suscipit dignissim sapien, vitae fermentum nisi sollicitudin in. Phasellus hendrerit purus eget neque sagittis sed lobortis lorem porttitor.</p>', '', '', '', '{"css_name":"","show_title":-1,"show_author":-1,"show_created":-1,"show_modified":-1,"back_icon":-1,"download_icon":-1,"print_icon":-1,"mail_icon":-1}', 0, 1, 1, '0000-00-00 00:00:00', 1, 'Admin', '0000-00-00 00:00:00', 1, 'Admin', 1, 100),
-(6, 1, 'en-GB', 'Home', 0, '	<p>\n		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut nisi at magna tempus pulvinar. Nulla in neque libero, eleifend feugiat dolor. In ac tellus neque. Proin dapibus, sapien sed blandit scelerisque, lacus diam ultricies diam, in vulputate nunc ligula sit amet nisl. Fusce pretium sapien augue, nec convallis tellus. In augue lorem, viverra a congue ac, faucibus at augue. Sed eget nunc leo, eu faucibus libero. Nam libero ante, tincidunt quis mattis adipiscing, viverra quis enim. Pellentesque enim sem, sagittis nec convallis vitae, ullamcorper quis eros.</p>\n	<p>\n		Etiam interdum ligula ac dolor congue blandit. Nam neque nibh, iaculis ac dignissim vel, blandit pharetra diam. Integer vitae elit quam, id accumsan neque. Mauris malesuada risus in velit auctor iaculis tincidunt neque fermentum. Etiam sed eros nibh. Suspendisse potenti. Curabitur nibh mauris, ornare ut vestibulum ac, blandit at mi. Morbi adipiscing, velit quis feugiat pellentesque, massa tortor mattis turpis, tincidunt ultricies tortor arcu in quam. Nulla facilisi. Morbi interdum lectus vitae dolor convallis ornare. Ut luctus, eros eu ultrices molestie, arcu quam tempus enim, sed dapibus dui urna at magna. Suspendisse id pellentesque quam. Vestibulum congue lacus eu velit aliquet ut malesuada arcu volutpat. Etiam massa elit, lobortis et mollis eget, imperdiet nec nisl. Phasellus dapibus ultrices euismod. Quisque vehicula diam ut erat egestas vehicula.</p>\n	<p>\n		Donec fringilla interdum tortor id ornare. Phasellus felis dolor, lobortis ac suscipit eget, hendrerit porttitor elit. Nulla arcu felis, egestas quis condimentum ut, blandit ac urna. Integer mattis ultricies porttitor. Vestibulum sollicitudin imperdiet velit id pharetra. Proin bibendum mi et ligula cursus ultrices. Pellentesque volutpat nisi in massa scelerisque fringilla. Donec eu velit mi. Nam id neque at augue congue facilisis. Donec dui urna, interdum in consectetur molestie, pellentesque sed mi. Phasellus tortor arcu, luctus lacinia mollis at, fermentum ut dolor.</p>\n	<p>\n		Sed eget lorem ipsum. Curabitur felis nibh, blandit ac convallis at, auctor nec dui. Maecenas orci nibh, placerat non commodo lobortis, tempus a mi. Donec pulvinar rhoncus suscipit. Donec sed ligula vitae risus hendrerit pulvinar. Proin a urna quis velit feugiat sagittis sit amet sed eros. Pellentesque vehicula arcu eu neque dictum accumsan.</p>\n	<p>\n		Phasellus eget elit libero. Vestibulum sit amet tempus ipsum. Phasellus eu mauris nec ante rhoncus elementum. Phasellus vestibulum tristique metus. Donec pretium ultricies orci, nec posuere velit suscipit at. Nam lobortis felis ut nisl elementum eget sagittis turpis facilisis. Mauris euismod, enim quis ultrices mollis, nulla justo dapibus eros, in euismod ligula augue ac eros.</p>', 'Home (example) | XirtCMS 1.6: Simple Content Management for Online Applications', '', '', '{"css_name":"","show_title":-1,"show_author":-1,"show_created":-1,"show_modified":-1,"back_icon":-1,"download_icon":-1,"print_icon":-1,"mail_icon":-1}', 0, 1, 1, '0000-00-00 00:00:00', 1, 'Admin', '0000-00-00 00:00:00', 1, 'Admin', 1, 100);
-
 -- --------------------------------------------------------
 
 --
@@ -658,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `xirt_templates` (
   `published` tinyint(1) NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `xirt_templates`
@@ -684,28 +318,6 @@ CREATE TABLE IF NOT EXISTS `xirt_twitter` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `xirt_twitter`
---
-
-INSERT INTO `xirt_twitter` (`id`, `content`, `account`, `author`, `avatar`, `created`, `published`) VALUES
-(152778822524207106, 'Two new snapshots of XirtCMS features have been posted on <a href="http://search.twitter.com/search?q=%23Facebook" title="#Facebook" class=" ">#Facebook</a> . Visit <a href="https://t.co/HdQLc7iB">https://t.co/HdQLc7iB</a> to view them =)!', 'XirtCMS', 'XirtCMS', 'http://a2.twimg.com/profile_images/1723868840/logo-square_normal.png', '2011-12-30 15:51:24', 1),
-(153785284855734272, 'Hoe verleidt u de mobiele (be)zoeker? <a href="http://t.co/AFyzfkOU">http://t.co/AFyzfkOU</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-02 10:30:43', 1),
-(152778653896417280, 'XirtCMS is now updating on <a href="http://search.twitter.com/search?q=%23Facebook" title="#Facebook" class=" ">#Facebook</a>: <a href="https://t.co/HdQLc7iB">https://t.co/HdQLc7iB</a>', 'XirtCMS', 'XirtCMS', 'http://a2.twimg.com/profile_images/1723868840/logo-square_normal.png', '2011-12-30 15:50:44', 1),
-(154582890150236160, 'How to virally grow your Facebook fan page. <a href="http://t.co/39mHPV8i">http://t.co/39mHPV8i</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-04 15:20:07', 1),
-(154557782819995649, '5 ways to use Google+ to improve your search engine optimization. <a href="http://t.co/Cz3QJbzP">http://t.co/Cz3QJbzP</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-04 13:40:21', 1),
-(154142468286332928, '2011: van netneutraliteit tot downloadverbod. <a href="http://t.co/1H9S8QZG">http://t.co/1H9S8QZG</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-03 10:10:02', 1),
-(154119852620136448, '8 Predictions for SEO in 2012. <a href="http://t.co/HEXAJM8q">http://t.co/HEXAJM8q</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-03 08:40:10', 1),
-(153841477301178368, 'Criminelen misbruiken QR-codes. <a href="http://t.co/wWZ6W4AN">http://t.co/wWZ6W4AN</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-02 14:14:01', 1),
-(153834548034158592, 'RT @<a class=" " href="http://twitter.com/jerryscanyours">jerryscanyours</a>: Which social media do we use in our work and why? <a href="http://t.co/Ti1k0ixR">http://t.co/Ti1k0ixR</a>…', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-02 13:46:29', 1),
-(153830153183698945, 'Transforming Business with Mobile Payments <a href="http://t.co/f0qVqyAc">http://t.co/f0qVqyAc</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-02 13:29:01', 1),
-(153819108490752000, '2012: social media marketing trends. <a href="http://t.co/7pUapTld">http://t.co/7pUapTld</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-02 12:45:07', 1),
-(154614132832862208, 'Two new snapshots showing <a href="http://search.twitter.com/search?q=%23Twitter" title="#Twitter" class=" ">#Twitter</a> support have been posted on <a href="http://search.twitter.com/search?q=%23Facebook" title="#Facebook" class=" ">#Facebook</a> . Visit <a href="https://t.co/HdQLc7iB">https://t.co/HdQLc7iB</a> now to view them!', 'XirtCMS', 'XirtCMS', 'http://a2.twimg.com/profile_images/1723868840/logo-square_normal.png', '2012-01-04 17:24:16', 1),
-(153797435855077376, 'Groningse algoritmen zoeken sneller in klachtenformulieren. <a href="http://t.co/l2cPzi2g">http://t.co/l2cPzi2g</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-02 11:19:00', 1),
-(152101707415945217, 'Leuke benadering!!!: "@<a class=" " href="http://twitter.com/Joohann">Joohann</a>: 25 manieren om ontvolgd te worden op Twitter <a href="http://t.co/xcCQIKkt">http://t.co/xcCQIKkt</a>"', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2011-12-28 19:00:47', 1),
-(154634422883332096, 'Consumenten kopen online steeds vaker impulsief <a href="http://t.co/hghvesSO">http://t.co/hghvesSO</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-04 18:44:54', 1),
-(154630744843616256, 'RT @<a class=" " href="http://twitter.com/jerryscanyours">jerryscanyours</a>: Are You Transforming Your Business or Creating Creative Noise on Social Media? [Model] <a href="http://t.co/c43crcZA">http://t.co/c43crcZA</a>', 'Scanyours', 'ScanYours', 'http://a1.twimg.com/profile_images/1529558488/vierkant-1_normal.png', '2012-01-04 18:30:17', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -719,14 +331,14 @@ CREATE TABLE IF NOT EXISTS `xirt_usergroups` (
   `name` varchar(40) NOT NULL,
   `removable` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `xirt_usergroups`
 --
 
 INSERT INTO `xirt_usergroups` (`id`, `rank`, `language`, `name`, `removable`) VALUES
-(1, 1, 'en-GB', 'Gast', 1),
+(1, 1, 'en-GB', 'Guest', 1),
 (2, 10, 'en-GB', 'Member', 1),
 (3, 50, 'en-GB', 'Moderator', 1),
 (4, 75, 'en-GB', 'Administrator', 1),
@@ -734,10 +346,7 @@ INSERT INTO `xirt_usergroups` (`id`, `rank`, `language`, `name`, `removable`) VA
 (10, 100, 'nl-NL', 'Super Beheerder', 0),
 (13, 1, 'nl-NL', 'Gast', 1),
 (14, 10, 'nl-NL', 'Geregistreerd lid', 1),
-(16, 75, 'nl-NL', 'Beheerder', 1),
-(20, 2, '', 'aa (vertaling)', 1),
-(21, 2, '', 'aa (vertaling)', 1),
-(22, 2, '', 'aa (vertaling)', 1);
+(16, 75, 'nl-NL', 'Beheerder', 1);
 
 -- --------------------------------------------------------
 
@@ -749,6 +358,7 @@ CREATE TABLE IF NOT EXISTS `xirt_users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL,
   `password` varchar(128) NOT NULL,
+  `salt` varchar(21) NOT NULL,
   `yubikey` varchar(12) DEFAULT NULL,
   `name` varchar(128) NOT NULL,
   `rank` tinyint(3) NOT NULL DEFAULT '10',
@@ -756,15 +366,11 @@ CREATE TABLE IF NOT EXISTS `xirt_users` (
   `joined` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `editor` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `xirt_users`
 --
 
-INSERT INTO `xirt_users` (`id`, `username`, `password`, `yubikey`, `name`, `rank`, `mail`, `joined`, `editor`) VALUES
-(1, 'Admin', '6664f52454248e9bae86539480f752ec4c63ab28cc88f932deeeb1f8c4d0e6b9dcf409685bca1fc03aa91922c26ad9c39d91c921bc2df8096f6f52d6dc75afc9', 'cccccccbltug', 'Administrator', 100, 'administrator@xirtcms.com', '2009-12-31 23:00:00', 1);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO `xirt_users` (`id`, `username`, `password`, `salt`, `yubikey`, `name`, `rank`, `mail`, `joined`, `editor`) VALUES
+(1, 'Admin', '', 'ProuXLe1rIeq5uCr2ubr1', '', 'Administrator', 100, 'yourname@domain.com', '2009-12-31 23:00:00', 1);

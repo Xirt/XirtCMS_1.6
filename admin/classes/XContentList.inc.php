@@ -53,6 +53,13 @@ class XContentList {
 
 
    /**
+    * Initialize empty ContentsModel
+    */
+   public function __construct() {
+   }
+
+
+   /**
     * Loads list information from the database
     *
     * @return boolean True on succes, false on failure

@@ -179,8 +179,6 @@ var AddPanel = new Class({
 			this.window = new Window(this.element.show(), this.options.width);
 			//this.window.id = this.panel;
 		}
-		
-		this.fireEvent('onPopulate', [this.form]);
 
 	},
 

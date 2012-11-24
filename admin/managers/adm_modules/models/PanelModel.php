@@ -17,27 +17,9 @@ class PanelModel extends XComponentModel {
 
       $this->_includeRanks();
       $this->_includeModules();
-      //$this->_includeOptions();
       $this->_includePositions();
       $this->_includeLanguages();
       $this->_includePages(true, true);
-
-   }
-
-
-   /**
-    * Includes option list for content (default, yes & no)
-    *
-    * @access private
-    */
-   private function _includeOptions() {
-      global $xCom;
-
-      $this->options = array(
-         -1 => $xCom->xLang->options['useDefault'],
-          0 => $xCom->xLang->options['hideItem'],
-          1 => $xCom->xLang->options['showItem']
-      );
 
    }
 

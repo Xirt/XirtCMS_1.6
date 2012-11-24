@@ -55,8 +55,8 @@ class PanelModel extends XComponentModel {
     */
    private function _includeContents() {
 
-      // TODO :: Create model and load it
-      $this->contents = array();
+      $this->contents = new ContentsModel($this->xId);
+      $this->contents->load();
 
    }
 
